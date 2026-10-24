@@ -1,0 +1,45 @@
+{
+  "playerMaxHp": 40,
+  "ritual": {
+    "ogien": [
+      {
+        "kind": "damage",
+        "amount": 14,
+        "pierce": true
+      }
+    ],
+    "grom": [
+      {
+        "kind": "damage",
+        "amount": 16,
+        "pierce": true
+      }
+    ],
+    "woda": [
+      {
+        "kind": "heal",
+        "amount": 10
+      },
+      {
+        "kind": "block",
+        "amount": 8
+      }
+    ],
+    "ziemia": [
+      {
+        "kind": "block",
+        "amount": 15
+      }
+    ],
+    "wiatr": [
+      {
+        "kind": "draw",
+        "count": 3
+      },
+      {
+        "kind": "ember",
+        "amount": 2
+      }
+    ]
+  }
+}

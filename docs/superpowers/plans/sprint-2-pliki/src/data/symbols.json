@@ -1,0 +1,110 @@
+{
+  "elements": [
+    {
+      "id": "ogien",
+      "cost": 3,
+      "attackBonus": 1,
+      "healthBonus": 0
+    },
+    {
+      "id": "woda",
+      "cost": 2,
+      "attackBonus": 0,
+      "healthBonus": 0
+    },
+    {
+      "id": "ziemia",
+      "cost": 2,
+      "attackBonus": 0,
+      "healthBonus": 1
+    },
+    {
+      "id": "wiatr",
+      "cost": 2,
+      "attackBonus": 0,
+      "healthBonus": 0
+    },
+    {
+      "id": "grom",
+      "cost": 3,
+      "attackBonus": 1,
+      "healthBonus": 0
+    }
+  ],
+  "forms": [
+    {
+      "id": "wilk",
+      "cost": 4,
+      "baseAttack": 3,
+      "baseHealth": 4,
+      "gender": "m"
+    },
+    {
+      "id": "kruk",
+      "cost": 3,
+      "baseAttack": 2,
+      "baseHealth": 3,
+      "gender": "m"
+    },
+    {
+      "id": "sowa",
+      "cost": 3,
+      "baseAttack": 1,
+      "baseHealth": 4,
+      "gender": "f"
+    },
+    {
+      "id": "waz",
+      "cost": 4,
+      "baseAttack": 3,
+      "baseHealth": 3,
+      "gender": "m"
+    },
+    {
+      "id": "niedzwiedz",
+      "cost": 4,
+      "baseAttack": 4,
+      "baseHealth": 7,
+      "gender": "m"
+    },
+    {
+      "id": "jelen",
+      "cost": 4,
+      "baseAttack": 2,
+      "baseHealth": 6,
+      "gender": "m"
+    }
+  ],
+  "traits": [
+    {
+      "id": "gniew",
+      "cost": 3,
+      "attackMod": 2,
+      "healthMod": 0
+    },
+    {
+      "id": "smutek",
+      "cost": 1,
+      "attackMod": 0,
+      "healthMod": 1
+    },
+    {
+      "id": "spryt",
+      "cost": 2,
+      "attackMod": 1,
+      "healthMod": 0
+    },
+    {
+      "id": "odwaga",
+      "cost": 2,
+      "attackMod": 0,
+      "healthMod": 2
+    },
+    {
+      "id": "glod",
+      "cost": 3,
+      "attackMod": 1,
+      "healthMod": 1
+    }
+  ]
+}

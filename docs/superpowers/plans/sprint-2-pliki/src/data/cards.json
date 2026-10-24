@@ -1,0 +1,104 @@
+[
+  {
+    "id": "woda-sowa-odwaga",
+    "kind": "creature",
+    "cost": 1,
+    "creature": {
+      "element": "woda",
+      "form": "sowa",
+      "trait": "odwaga"
+    }
+  },
+  {
+    "id": "ziemia-jelen-spryt",
+    "kind": "creature",
+    "cost": 2,
+    "creature": {
+      "element": "ziemia",
+      "form": "jelen",
+      "trait": "spryt"
+    }
+  },
+  {
+    "id": "ogien-wilk-smutek",
+    "kind": "creature",
+    "cost": 2,
+    "creature": {
+      "element": "ogien",
+      "form": "wilk",
+      "trait": "smutek"
+    }
+  },
+  {
+    "id": "ogien-kruk-odwaga",
+    "kind": "creature",
+    "cost": 1,
+    "creature": {
+      "element": "ogien",
+      "form": "kruk",
+      "trait": "odwaga"
+    }
+  },
+  {
+    "id": "wiatr-kruk-gniew",
+    "kind": "creature",
+    "cost": 1,
+    "creature": {
+      "element": "wiatr",
+      "form": "kruk",
+      "trait": "gniew"
+    }
+  },
+  {
+    "id": "uderzenie",
+    "kind": "spell",
+    "cost": 1,
+    "element": null,
+    "effects": [
+      {
+        "kind": "damage",
+        "amount": 6
+      }
+    ]
+  },
+  {
+    "id": "plomien",
+    "kind": "spell",
+    "cost": 2,
+    "element": "ogien",
+    "effects": [
+      {
+        "kind": "damage",
+        "amount": 9
+      }
+    ]
+  },
+  {
+    "id": "oklad",
+    "kind": "spell",
+    "cost": 1,
+    "element": null,
+    "effects": [
+      {
+        "kind": "block",
+        "amount": 6
+      }
+    ]
+  },
+  {
+    "id": "mgla",
+    "kind": "spell",
+    "cost": 2,
+    "element": null,
+    "effects": [
+      {
+        "kind": "block",
+        "amount": 10
+      }
+    ]
+  },
+  {
+    "id": "klatwa",
+    "kind": "curse"
+  }
+]
