@@ -16,4 +16,5 @@ Każda nowa zależność dostaje wiersz, zanim trafi do `package.json`.
 | 2026-10-24 | `zod` 4 | walidacja danych symboli (błędy ze ścieżką pola), później zapisu gry i ładunków serwera — jedna biblioteka schematów w całej aplikacji | ręczny walidator (więcej kodu, błędy bez ścieżki pola za darmo) |
 | 2026-10-24 | `@playwright/test` | testy e2e w Chromium i WebKit (zgodność RNG między silnikami, ekrany); `public/blank.html` = pusta strona, na której test RNG importuje moduł przez serwer Vite | Cypress (bez WebKit) |
 | 2026-10-24 | `i18next`, `i18next-icu` | lokalizacja PL/EN z formatem ICU (polskie liczby mnogie one/few/many/other) | własny słownik (brak reguł liczby mnogiej), FormatJS (cięższy, bez gotowej integracji ze zmianą języka) |
+| 2026-10-24 | `pixi.js` 8 | renderowanie 2D (WebGL, decyzja D8) dla ekranów gry; nakładka HTML obok płótna | Phaser (cały silnik gry z własną sceną i UI, większa paczka), czysty Canvas 2D (wolniejszy na telefonie) |
 | 2026-10-24 | `@types/node` | typy Node dla narzędzi, testów i konfiguracji | brak (konfiguracje i testy narzędzi bez typów) |

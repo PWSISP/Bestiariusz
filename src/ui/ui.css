@@ -1,0 +1,45 @@
+html,
+body,
+#app {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  touch-action: manipulation;
+  overscroll-behavior: none;
+}
+
+#app {
+  position: relative;
+}
+
+#app > canvas {
+  display: block;
+}
+
+.ui-root,
+.ui-screen {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom)
+    env(safe-area-inset-left);
+}
+
+.ui-screen {
+  box-sizing: border-box;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.ui-screen > * {
+  pointer-events: auto;
+}
+
+.ui-button {
+  min-width: 48px;
+  min-height: 48px;
+  margin: 16px;
+  padding: 0 16px;
+  font-size: 1rem;
+}
