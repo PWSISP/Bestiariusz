@@ -1,7 +1,7 @@
 // Types of the combat model. Pure data: no behaviour, no imports from outside src/core.
 
 import type { Rng } from '../rng.ts';
-import type { CreatureSpec, ElementId, SymbolData } from '../types.ts';
+import type { CreatureSpec, EffectOp, EffectTrigger, ElementId, SymbolData } from '../types.ts';
 import type { DeckState } from './deck.ts';
 import type { EnemyAction } from './enemy-turn.ts';
 import type { BossAction } from './intent.ts';
@@ -43,10 +43,24 @@ export interface EnemyDef {
   readonly actions: readonly EnemyActionDef[];
 }
 
+/** Workshop prices (S03-07). */
+export interface WorkshopBalance {
+  /** Ember cost of every creature card made from three symbols (a fixed power budget means equal power). */
+  readonly emberCost: number;
+  /** Ink price of a creature = total symbol cost x this. */
+  readonly inkPerPower: number;
+}
+
 export interface Balance {
   readonly playerMaxHp: number;
   /** Ritual effect per element; applies element damage with the ritual's element. */
   readonly ritual: Readonly<Record<ElementId, readonly Effect[]>>;
+  /** Every creature has this total symbol cost at most (game design document: 10). */
+  readonly powerBudget?: number;
+  /** Health a creature gets for every unspent budget point; absent or 0 = no bonus (decision D22). */
+  readonly leftoverHealth?: number;
+  /** Prices of the Workshop (S03-07); absent when the Workshop is not available. */
+  readonly workshop?: WorkshopBalance;
 }
 
 export interface CombatData {
@@ -127,6 +141,14 @@ export type CombatEvent =
     }
   | { readonly type: 'ritual'; readonly element: ElementId }
   | { readonly type: 'enemy_acted'; readonly actionId: string; readonly log: readonly string[] }
+  | {
+      readonly type: 'effect';
+      readonly circle: number;
+      readonly trigger: EffectTrigger;
+      readonly op: EffectOp;
+      /** Amount after scaling by the scope (always >= 1; effects that scale to 0 do not fire). */
+      readonly amount: number;
+    }
   | { readonly type: 'creature_died'; readonly circle: number }
   | { readonly type: 'player_damaged'; readonly amount: number }
   | { readonly type: 'combat_won' }

@@ -1,5 +1,11 @@
 import { z } from 'zod';
-import type { ElementDef, FormDef, SymbolData, TraitDef } from '../core/types.ts';
+import type {
+  CreatureEffectDef,
+  ElementDef,
+  FormDef,
+  SymbolData,
+  TraitDef,
+} from '../core/types.ts';
 
 const ROOT_PATH = '(root)';
 
@@ -28,8 +34,28 @@ const id = z.string().regex(/^[a-z][a-z0-9_]*$/, 'must match ^[a-z][a-z0-9_]*$')
 const cost = z.number().int().min(1);
 const modifier = z.number().int();
 
+const effectSchema = z
+  .object({
+    trigger: z.enum(['summon', 'attack', 'damaged', 'turnEnd']),
+    op: z.enum(['strike', 'guard', 'mend', 'draw', 'kindle', 'growAttack', 'growHealth', 'regen']),
+    amount: z.number().int().min(1),
+    scope: z.enum(['self', 'sameElementOthers', 'sameElementAll', 'othersAny']),
+    pierce: z.boolean().optional(),
+  })
+  .strict()
+  .superRefine((fx, ctx) => {
+    if (fx.pierce !== undefined && fx.op !== 'strike') {
+      ctx.addIssue({
+        code: 'custom',
+        message: '"pierce" is only valid for op "strike"',
+        path: ['pierce'],
+      });
+    }
+  }) satisfies z.ZodType<CreatureEffectDef>;
+const effects = z.array(effectSchema).optional();
+
 const elementSchema = z
-  .object({ id, cost, attackBonus: modifier, healthBonus: modifier })
+  .object({ id, cost, attackBonus: modifier, healthBonus: modifier, effects })
   .strict() satisfies z.ZodType<ElementDef>;
 
 const formSchema = z
@@ -39,11 +65,12 @@ const formSchema = z
     baseAttack: z.number().int().min(0),
     baseHealth: z.number().int().min(1),
     gender: z.enum(['m', 'f']),
+    effects,
   })
   .strict() satisfies z.ZodType<FormDef>;
 
 const traitSchema = z
-  .object({ id, cost, attackMod: modifier, healthMod: modifier })
+  .object({ id, cost, attackMod: modifier, healthMod: modifier, effects })
   .strict() satisfies z.ZodType<TraitDef>;
 
 function uniqueIds<T extends z.ZodType<{ id: string }>>(item: T) {

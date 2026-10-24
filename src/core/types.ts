@@ -15,11 +15,32 @@ export interface CreatureSpec {
 
 export type Gender = 'm' | 'f';
 
+/** When a creature effect fires (docs/efekty-symboli.md, "Kiedy działają efekty"). */
+export type EffectTrigger = 'summon' | 'attack' | 'damaged' | 'turnEnd';
+
+/** What a creature effect does. A new operation is one new case in `applyOp` (effects.ts). */
+export type EffectOp =
+  'strike' | 'guard' | 'mend' | 'draw' | 'kindle' | 'growAttack' | 'growHealth' | 'regen';
+
+/** What the effect amount is multiplied by: how many creatures of the given kind stand in the circles. */
+export type EffectScope = 'self' | 'sameElementOthers' | 'sameElementAll' | 'othersAny';
+
+/** One effect of a symbol. Resolved amount = amount x number of creatures counted by `scope`. */
+export interface CreatureEffectDef {
+  trigger: EffectTrigger;
+  op: EffectOp;
+  amount: number;
+  scope: EffectScope;
+  /** Only for `strike`: ignores the enemy block. */
+  pierce?: boolean;
+}
+
 export interface ElementDef {
   id: string;
   cost: number;
   attackBonus: number;
   healthBonus: number;
+  effects?: readonly CreatureEffectDef[];
 }
 
 export interface FormDef {
@@ -28,6 +49,7 @@ export interface FormDef {
   baseAttack: number;
   baseHealth: number;
   gender: Gender;
+  effects?: readonly CreatureEffectDef[];
 }
 
 export interface TraitDef {
@@ -35,6 +57,7 @@ export interface TraitDef {
   cost: number;
   attackMod: number;
   healthMod: number;
+  effects?: readonly CreatureEffectDef[];
 }
 
 export interface SymbolData {
