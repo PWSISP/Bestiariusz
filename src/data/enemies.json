@@ -1,0 +1,79 @@
+[
+  {
+    "id": "leszy",
+    "maxHp": 160,
+    "resist": ["ziemia"],
+    "weak": ["ogien"],
+    "actions": [
+      {
+        "id": "cios",
+        "baseWeight": 5,
+        "effects": [
+          {
+            "type": "atak",
+            "amount": 12,
+            "direct": true
+          }
+        ]
+      },
+      {
+        "id": "gaszcz",
+        "baseWeight": 3,
+        "cooldown": 2,
+        "conditions": [
+          {
+            "when": "bossHpBelowPct",
+            "value": 50,
+            "bonus": 3
+          }
+        ],
+        "effects": [
+          {
+            "type": "tarcza",
+            "amount": 10
+          }
+        ]
+      },
+      {
+        "id": "szpony",
+        "baseWeight": 3,
+        "conditions": [
+          {
+            "when": "playerCirclesAtLeast",
+            "value": 2,
+            "bonus": 3
+          }
+        ],
+        "effects": [
+          {
+            "type": "wielokrotny",
+            "amount": 4,
+            "times": 3
+          }
+        ]
+      },
+      {
+        "id": "zwod",
+        "baseWeight": 2,
+        "cooldown": 3,
+        "conditions": [
+          {
+            "when": "playerCirclesAtLeast",
+            "value": 3,
+            "bonus": 4
+          }
+        ],
+        "effects": [
+          {
+            "type": "klatwa",
+            "circle": 0
+          },
+          {
+            "type": "atak",
+            "amount": 4
+          }
+        ]
+      }
+    ]
+  }
+]
