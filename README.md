@@ -22,6 +22,10 @@ Gra mobilna (PixiJS + Capacitor), w której każda istota składa się z trzech 
 | `npm run typecheck` | TypeScript: projekt główny i projekt `src/core` + `src/data` bez DOM |
 | `npm run format` | formatuje pliki Prettierem |
 
+## Android
+
+`npm run android:sync` buduje wersję web i kopiuje ją do projektu `android/` (Capacitor). Debugowy APK buduje CI (zadanie `android`, artefakt `bestiariusz-debug-apk`); lokalnie: `cd android` i `./gradlew assembleDebug` (wymaga JDK 21 i Android SDK).
+
 ## CI
 
 GitHub Actions (`.github/workflows/ci.yml`) przy każdym pushu na `main` i każdym pull requeście uruchamia lint, typecheck, testy jednostkowe, build oraz testy e2e w Chromium i WebKit.

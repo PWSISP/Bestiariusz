@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Bestiariusz</string>
+    <string name="title_activity_main">Bestiariusz</string>
+    <string name="package_name">app.bestiariusz.game</string>
+    <string name="custom_url_scheme">app.bestiariusz.game</string>
+</resources>
