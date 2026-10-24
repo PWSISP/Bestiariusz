@@ -22,6 +22,10 @@ Gra mobilna (PixiJS + Capacitor), w której każda istota składa się z trzech 
 | `npm run typecheck` | TypeScript: projekt główny i projekt `src/core` + `src/data` bez DOM |
 | `npm run format` | formatuje pliki Prettierem |
 
+## CI
+
+GitHub Actions (`.github/workflows/ci.yml`) przy każdym pushu na `main` i każdym pull requeście uruchamia lint, typecheck, testy jednostkowe, build oraz testy e2e w Chromium i WebKit.
+
 ## Plan prac
 
 Sprinty, zadania i definicja ukończenia: [`docs/plan-sprintow.md`](docs/plan-sprintow.md). Rejestr zależności: [`docs/decyzje.md`](docs/decyzje.md).
