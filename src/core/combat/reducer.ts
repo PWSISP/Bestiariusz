@@ -1,12 +1,14 @@
 import type { Rng } from '../rng.ts';
 import { buildCreature } from './creature.ts';
-import { applyDamage } from './damage.ts';
+import type { StatRules } from './creature.ts';
 import { createDeck, drawCards, endTurn as endTurnDeck, HAND_LIMIT } from './deck.ts';
 import { EMBER_PER_TURN, gainEmber, playableIndexes, spendEmber } from './ember.ts';
+import { damageEnemy, hitCircles, resolveCreatureEffects } from './effects.ts';
 import { resolveEnemyTurn } from './enemy-turn.ts';
 import type { EnemyAction } from './enemy-turn.ts';
 import { chooseIntent } from './intent.ts';
 import type {
+  Balance,
   CardDef,
   CombatAction,
   CombatData,
@@ -27,6 +29,13 @@ const cardOf = (data: CombatData, id: string): CardDef => {
   if (!card) throw new Error(`Unknown card: ${id}`);
   return card;
 };
+
+/** Stats rules from the balance data (decision D22); undefined = no unspent-budget bonus. */
+function statRules(balance: Balance): StatRules | undefined {
+  return balance.leftoverHealth && balance.powerBudget !== undefined
+    ? { powerBudget: balance.powerBudget, leftoverHealth: balance.leftoverHealth }
+    : undefined;
+}
 
 function pickIntent(state: CombatState, data: CombatData): Intent {
   const def = Object.hasOwn(data.enemies, state.enemy.id)
@@ -98,41 +107,6 @@ export function createCombat(data: CombatData, setup: CombatSetup, rng: Rng): Co
   };
   const events: CombatEvent[] = [];
   return { state: startPlayerTurn(base, { data, rng }, events), events };
-}
-
-function damageEnemy(
-  state: CombatState,
-  hit: { amount: number; element: string | null; pierce?: boolean },
-  source: 'spell' | 'creature' | 'ritual',
-  circle: number | undefined,
-  events: CombatEvent[],
-): CombatState {
-  const result = applyDamage(
-    {
-      hp: state.enemy.hp,
-      maxHp: state.enemy.maxHp,
-      block: state.enemy.block,
-      resist: state.enemy.resist,
-      weak: state.enemy.weak,
-    },
-    hit,
-  );
-  events.push({
-    type: 'enemy_damaged',
-    source,
-    ...(circle === undefined ? {} : { circle }),
-    dealt: result.dealt,
-    blocked: result.blocked,
-  });
-  let next: CombatState = {
-    ...state,
-    enemy: { ...state.enemy, hp: result.target.hp, block: result.target.block },
-  };
-  if (result.killed) {
-    next = { ...next, phase: 'won' };
-    events.push({ type: 'combat_won' });
-  }
-  return next;
 }
 
 function applyEffects(
@@ -215,11 +189,16 @@ function playCard(
   }
 
   const slot = circle as number;
-  const creature = buildCreature(env.data.symbols, id, card.creature);
-  const circles = s.player.circles.slice();
+  const creature = buildCreature(env.data.symbols, id, card.creature, statRules(env.data.balance));
+  let circles = s.player.circles.slice();
   circles[slot] = creature;
   s = { ...s, player: { ...s.player, circles } };
   events.push({ type: 'creature_summoned', circle: slot, cardId: id });
+
+  // Summon effects come before the ritual check; they can end the combat.
+  s = resolveCreatureEffects(s, 'summon', slot, env, events);
+  if (s.phase !== 'player') return { state: s, events };
+  circles = s.player.circles.slice();
 
   const allElements = env.data.symbols.elements.map((e) => e.id);
   const ritual = detectRitual(
@@ -249,7 +228,14 @@ function endTurn(state: CombatState, env: CombatEnv): CombatResult {
         i,
         events,
       );
+      s = resolveCreatureEffects(s, 'attack', i, env, events);
     }
+  }
+  if (s.phase !== 'player') return { state: s, events };
+
+  // 1b. End-of-turn effects, circle 0 to 2.
+  for (let i = 0; i < 3 && s.phase === 'player'; i++) {
+    s = resolveCreatureEffects(s, 'turnEnd', i, env, events);
   }
   if (s.phase !== 'player') return { state: s, events };
 
@@ -303,6 +289,12 @@ function endTurn(state: CombatState, env: CombatEnv): CombatResult {
   if (s.player.hp <= 0) {
     events.push({ type: 'combat_lost' });
     return { state: { ...s, phase: 'lost' }, events };
+  }
+
+  // 2b. Effects of creatures that were hit and survived, in the order of the hits.
+  for (const circle of hitCircles(resolved.log)) {
+    s = resolveCreatureEffects(s, 'damaged', circle, env, events);
+    if (s.phase !== 'player') return { state: s, events };
   }
 
   // 3. Hand to the discard pile, next player turn.
