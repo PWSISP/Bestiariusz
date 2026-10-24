@@ -12,4 +12,5 @@ Każda nowa zależność dostaje wiersz, zanim trafi do `package.json`.
 | 2026-10-24 | `typescript-eslint` | reguły ESLint dla TypeScriptu (`consistent-type-imports`, `no-explicit-any`) | sam `tsc` (nie pilnuje stylu importów) |
 | 2026-10-24 | `globals` | zestawy zmiennych globalnych Node dla plików narzędzi | ręczna lista globali |
 | 2026-10-24 | `prettier`, `eslint-config-prettier` | jednolite formatowanie, bez konfliktu z regułami ESLint | same reguły stylistyczne ESLint (wolniejsze, przestarzałe) |
+| 2026-10-24 | — (bez nowej zależności) | potok Qwena (`tools/qwen-run.mjs`) ocenia zadania przez Vitest, nie `node --test` jak w benchmarku: definicja ukończenia wymaga testów Vitest | `node --test` (osobny dialekt testów tylko dla Qwena) |
 | 2026-10-24 | `@types/node` | typy Node dla narzędzi, testów i konfiguracji | brak (konfiguracje i testy narzędzi bez typów) |

@@ -21,7 +21,12 @@
 
 ## Praca z Qwenem
 
-Zasady potoku i polecenia dla Qwena: patrz `tools/qwen/CLAUDE.md`.
+Zasady potoku i polecenia dla Qwena: patrz `tools/qwen/CLAUDE.md` (Qwen dostaje ten plik jako swój `CLAUDE.md`).
+
+- Najpierw szkielet i test, potem Qwen: `tasks/<ID>.md` (szablon: `tools/qwen/spec-template.md`, linia `File to edit:`), `tests/<ID>.test.ts` i szkielet pliku docelowego z `throw new Error('Not implemented')`. Test musi nie przechodzić przed uruchomieniem Qwena.
+- Uruchomienie: `node tools/qwen-run.mjs --tasks <ID> --apply` (po zaliczeniu plik docelowy trafia do repozytorium). Raport: `results/<data>.md`, logi: `runs/<data>/<ID>/`. Bez Ollamy: `powershell -ExecutionPolicy Bypass -File tools\setup-ollama.ps1`.
+- Po zaliczeniu zrecenzuj diff pliku docelowego, potem `npm run format`, `lint`, `typecheck`, `npm test`.
+- Zasada pięciu podejść: podejścia liczysz po raportach zadania w `results/`. Po pięciu nieudanych zadanie przejmujesz ty i zapisujesz powód (specyfikacja czy model) w `docs/retro/Sxx.md`.
 
 ## Instrukcja dla Claude Code
 
