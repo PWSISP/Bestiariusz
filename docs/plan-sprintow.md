@@ -184,17 +184,17 @@ Księgowy nie ma osobnej pozycji w biznesplanie. Dwie konsultacje (S20 i S24, ra
 | ID | Pr. | Zadanie | Kto | Kryterium akceptacji | Zależy od | h |
 |---|---|---|---|---|---|---|
 | ☐ S02-00 | M | Planowanie sprintu, demo na koniec i retrospektywa | Ty | Claude rozbił zadania na specyfikacje; build sprintu zagrany przez ciebie na telefonie; `docs/retro/S02.md` (5 linii) i log godzin uzupełnione | — | 2 |
-| ☑ S02-01 | M | Model stanu walki: niemutowalny stan, jeden reducer akcji, zdarzenia | Claude | Wszystkie zmiany stanu przechodzą przez reducer; testy snapshotowe | S01-03 | 4 |
+| ☑ S02-01 | M | Model stanu walki: niemutowalny stan, jeden reducer akcji, zdarzenia | Claude | Wszystkie zmiany stanu przechodzą przez reducer; testy z jawnymi wartościami (D20) | S01-03 | 4 |
 | ☑ S02-02 | M | Obrażenia z żywiołami: blok, odporności i słabości, przebicie (rozwiązanie sprawdzone w benchmarku 05) | Qwen | Testy z benchmarku zielone; fuzzing względem rozwiązania wzorcowego: 0 rozbieżności | S02-01 | 2,5 |
-| ☑ S02-03 | M | Talia: dobieranie, tasowanie z ziarnem, odrzucone, koniec tury (benchmark 06) | Qwen | Testy zielone; ta sama talia dla tego samego ziarna | S01-04 | 2,5 |
-| ☑ S02-04 | M | Żar (3 na turę), koszty kart, limit 5 kart w ręce | Qwen | Testy: nie można zagrać karty ponad Żar; ręka nie przekracza 5 | S02-01 | 2 |
+| ☑ S02-03 | M | Talia: dobieranie, tasowanie z ziarnem, odrzucone, koniec tury (benchmark 06) | Qwen | Testy zielone; ta sama talia dla tego samego ziarna; ręka nie przekracza 5 (`HAND_LIMIT`) | S01-04 | 2,5 |
+| ☑ S02-04 | M | Żar (3 na turę), koszty kart, limit 5 kart w ręce | Qwen | Testy: nie można zagrać karty ponad Żar; koszty kart | S02-01 | 2 |
 | ☑ S02-05 | M | Zamiar wroga: wybór działania z wag i warunków, cooldowny (benchmark 07) | Qwen | Testy zielone; fuzzing 0 rozbieżności; zamiar zawsze widoczny w stanie | S02-01 | 2,5 |
-| ☑ S02-06 | M | Tura wroga: rozstrzygnięcie zamiarów i kolejność działań (benchmark 10) | Qwen | Testy zielone; wynik tury niezależny od kolejności kluczy w obiektach | S02-05 | 2,5 |
-| ☑ S02-07 | M | Kręgi (3 miejsca): przyzywanie istot, ataki istot, kolejność akcji | Claude | Test 10 scenariuszy z GDD (np. istota ginie, Krąg zwalnia się) | S02-01 | 4 |
+| ☑ S02-06 | M | Tura wroga: rozstrzygnięcie zamiarów i kolejność działań (benchmark 10) | Qwen | Testy zielone; wynik tury niezależny od kolejności kluczy w obiektach; akcje `direct` omijają Kręgi (D13) | S02-05 | 2,5 |
+| ☑ S02-07 | M | Kręgi (3 miejsca): przyzywanie istot, ataki istot, kolejność akcji | Claude | Scenariusze K1–K10 i R1–R7 z `docs/zasady-walki.md` (np. istota ginie, Krąg zwalnia się); Obrzęd raz na walkę (D14) | S02-01 | 4 |
 | ☑ S02-08 | M | Obrzęd: trzy istoty tego samego żywiołu w Kręgach, raz na walkę (benchmark 03) | Qwen | Testy zielone; Obrzęd nie odpala drugi raz w tej samej walce | S02-07 | 2 |
 | ☑ S02-09 | M | Bot testowy (heurystyczny gracz) i CLI do symulacji tysięcy walk z raportem | Claude | `npm run sim -- --games 1000` kończy się w mniej niż 60 s i zapisuje CSV | S02-07 | 4 |
-| ☐ S02-10 | M | Gra na papierze: 3 walki wg zasad GDD na kartkach, lista rzeczy, które nie działają | Ty | `docs/papier-S02.md` z minimum 10 uwagami | — | 3 |
-| ☐ S02-11 | M | Wartości bazowe: zdrowie gracza i Leszego, obrażenia kart startowych (`data/balance.json`) | Ty | Plik zatwierdzony; symulacja daje 30–70% wygranych | S02-09 | 2 |
+| ☑ S02-10 | M | Gra na papierze: 3 walki wg zasad GDD na kartkach, lista rzeczy, które nie działają | Ty | `docs/papier-S02.md` z minimum 10 uwagami | — | 3 |
+| ☑ S02-11 | M | Wartości bazowe: zdrowie gracza i Leszego, obrażenia kart startowych (`src/data/balance.json`, D15) | Ty | Plik zatwierdzony; symulacja daje 30–70% wygranych | S02-09 | 2 |
 
 ### S03 · 30 XI – 13 XII 2026 · Rdzeń II: dane 150 istot i Warsztat
 
@@ -207,7 +207,7 @@ Księgowy nie ma osobnej pozycji w biznesplanie. Dwie konsultacje (S20 i S24, ra
 | ID | Pr. | Zadanie | Kto | Kryterium akceptacji | Zależy od | h |
 |---|---|---|---|---|---|---|
 | ☐ S03-00 | M | Planowanie sprintu, demo na koniec i retrospektywa | Ty | Claude rozbił zadania na specyfikacje; build sprintu zagrany przez ciebie na telefonie; `docs/retro/S03.md` (5 linii) i log godzin uzupełnione | — | 2 |
-| ☐ S03-01 | M | Dane MVP: 5 żywiołów, 6 form, 5 przymiotów z kosztami i efektami (JSON) wg `docs/gdd-mvp.md` | Claude | Wczytuje się bez błędów; nocny test sprawdza budżet mocy 10 dla każdej z 150 kombinacji | S01-03, S01-11 | 3 |
+| ☐ S03-01 | M | Dane MVP: 5 żywiołów, 6 form, 5 przymiotów z kosztami i efektami (JSON) wg `docs/gdd-mvp.md` | Claude | Wczytuje się bez błędów; nocny test sprawdza budżet mocy 10 dla każdej z 150 kombinacji; zastępuje przejściowy `src/data/symbols.json` (D16) | S01-03, S01-11 | 3 |
 | ☐ S03-02 | M | Ocena istoty i lista dostępnych istot (benchmark 02) | Qwen | Testy zielone; lista zgodna ze spisem z danych MVP | S03-01 | 2,5 |
 | ☐ S03-03 | M | Kod istoty: 7 znaków, kodowanie, dekodowanie i suma kontrolna (benchmark 08) | Qwen | Round-trip na 20 000 losowych istot; literówka w jednym znaku wykryta; znaki mylące (0/O, 1/I) obsłużone | S03-01 | 2,5 |
 | ☐ S03-04 | M | Legenda z szablonów zdań PL i EN z rodzajem gramatycznym formy (benchmark 04) | Qwen | Dla 150 istot legenda bez pustych miejsc i błędów zgody rodzaju | S03-01 | 3 |
@@ -935,3 +935,5 @@ Przy rozpisywaniu zadań musiałem doprecyzować kilka miejsc, w których biznes
 |---|---|
 | 24 X 2026 | Wersja 1.0: 32 sprinty, 4 bramki, tabela kontrolna elementów aplikacji. |
 | 24 X 2026 | Sprint 2: ukończone S02-01 … S02-09 (kod walki, moduły Qwena, test różnicowy, reducer, bot i `npm run sim`). Synchronizacja planu z decyzjami D11–D21 przy zamknięciu sprintu (S02-00). |
+| 24 X 2026 | Synchronizacja po Sprincie 2 (decyzje D11–D21 z `docs/superpowers/plans/2026-10-24-sprint-2-walka.md`): S02-01 jawne wartości zamiast snapshotów; kryterium „ręka ≤ 5” z S02-04 do S02-03; S02-06 akcje `direct`; S02-07 scenariusze K1–K10 i R1–R7 oraz Obrzęd raz na walkę; S02-11 ścieżka `src/data/balance.json`; S03-01 zastępuje przejściowe `symbols.json`. |
+| 24 X 2026 | Sprint 2: S02-10 zamknięte bez uwag (decyzja właściciela; kryterium „minimum 10 uwag” świadomie pominięte, zapis w `docs/papier-S02.md`), zasady walki v0.1 zatwierdzone. S02-11: wartości bazowe zatwierdzone bez zmian (gracz 40 zdrowia, Leszy 160; bot 55,3% wygranych). |

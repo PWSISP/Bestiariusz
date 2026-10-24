@@ -31,6 +31,14 @@ Gra mobilna (PixiJS + Capacitor), w której każda istota składa się z trzech 
 
 GitHub Actions (`.github/workflows/ci.yml`) przy każdym pushu na `main` i każdym pull requeście uruchamia lint, typecheck, testy jednostkowe, build oraz testy e2e w Chromium i WebKit.
 
+## Wkład AI
+
+Bestiariusz powstaje w jednoosobowym zespole z pomocą modeli AI i nie ukrywamy tego.
+
+- **Kod.** Claude (Anthropic) projektuje architekturę, pisze trudniejsze moduły i recenzuje zmiany. Qwen3 Coder 30B, uruchamiany lokalnie przez Ollamę, pisze moduły o jasnej specyfikacji. Kod Qwena trafia do repozytorium dopiero po zielonych testach, czystym `typecheck` i lincie oraz po recenzji diffu (`tools/qwen-run.mjs`). Decyzje projektowe i akceptacja każdej zmiany należą do człowieka.
+- **Grafika i muzyka** (planowane). FLUX.2 klein 4B i ACE-Step 1.5, czyli modele na licencjach dopuszczających użycie komercyjne. Treści wygenerowane przez AI są oznaczone na ekranie Autorów w grze i w formularzach sklepów.
+- **Rejestr.** Każdy plik w `art/`, `audio/`, `marketing/` i `docs/` ma wpis w [`docs/ai-provenance.md`](docs/ai-provenance.md): co zrobił człowiek, co AI, którym modelem (z wersją) i na jakiej licencji. Wpis powstaje razem z plikiem.
+
 ## Plan prac
 
 Sprinty, zadania i definicja ukończenia: [`docs/plan-sprintow.md`](docs/plan-sprintow.md). Rejestr zależności: [`docs/decyzje.md`](docs/decyzje.md).
