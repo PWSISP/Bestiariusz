@@ -45,3 +45,29 @@ describe('architecture guards', () => {
     );
   });
 });
+
+describe('UI text guard', () => {
+  const bad: [string, string][] = [
+    ['text assignment', "el.textContent = 'Zagraj';"],
+    ['template literal text', 'el.innerText = `Tura ${n}`;'],
+    ['aria label attribute', "el.setAttribute('aria-label', 'Zamknij');"],
+    ['pixi Text options', "new Text({ text: 'Walka' });"],
+    ['pixi Text string argument', "new Text('Walka');"],
+  ];
+  it.each(bad)('rejects %s in src/ui', async (_n, code) => {
+    expect(await ruleIds(code, 'src/ui/a.ts')).toContain('no-restricted-syntax');
+  });
+  it.each([
+    "el.textContent = t('screen.test.switch');",
+    "el.textContent = '';",
+    "el.className = 'ui-button';",
+    "el.setAttribute('role', 'button');",
+  ])('allows %s', async (code) => {
+    expect(await ruleIds(code, 'src/ui/a.ts')).not.toContain('no-restricted-syntax');
+  });
+  it('does not apply to tests', async () => {
+    expect(await ruleIds("el.textContent = 'x';", 'tests/a.test.ts')).not.toContain(
+      'no-restricted-syntax',
+    );
+  });
+});

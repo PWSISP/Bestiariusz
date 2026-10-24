@@ -1,0 +1,7 @@
+{
+  "app.title": "Bestiariusz",
+  "cards.count": "{count, plural, one {# karta} few {# karty} many {# kart} other {# karty}}",
+  "screen.test.a.title": "Ekran próbny A",
+  "screen.test.b.title": "Ekran próbny B",
+  "screen.test.switch": "Przełącz ekran"
+}

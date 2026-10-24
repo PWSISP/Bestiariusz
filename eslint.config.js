@@ -16,6 +16,17 @@ const dateNow = {
   property: 'now',
   message: 'Game logic must not read the clock; use the injected clock instead of Date.now.',
 };
+const UI_TEXT_MESSAGE = 'UI text must come from t(); add a key to pl.json and en.json.';
+const TEXT_PROPS = 'textContent|innerText|innerHTML|outerHTML|title|alt|placeholder|ariaLabel';
+const TEXT_ATTRS = 'aria-label|aria-description|title|alt|placeholder';
+const uiTextSelectors = [
+  `AssignmentExpression[left.property.name=/^(${TEXT_PROPS})$/][right.type='Literal'][right.value!='']`,
+  `AssignmentExpression[left.property.name=/^(${TEXT_PROPS})$/][right.type='TemplateLiteral']`,
+  `CallExpression[callee.property.name='setAttribute'][arguments.0.value=/^(${TEXT_ATTRS})$/][arguments.1.type=/^(Literal|TemplateLiteral)$/]`,
+  "NewExpression[callee.name='Text'] > ObjectExpression > Property[key.name='text'][value.type=/^(Literal|TemplateLiteral)$/]",
+  "NewExpression[callee.name='Text'][arguments.0.type=/^(Literal|TemplateLiteral)$/]",
+];
+
 const nodeBuiltins = {
   group: ['node:*'],
   message: 'Node APIs are not available in the app; move this code to tools/ or tests/.',
@@ -63,6 +74,15 @@ export default defineConfig(
         { name: '__dirname', message: 'Use import.meta.url instead of __dirname.' },
       ],
       'no-restricted-imports': ['error', { patterns: [nodeBuiltins] }],
+    },
+  },
+  {
+    files: ['src/ui/**', 'src/game/**', 'src/app/**'],
+    rules: {
+      'no-restricted-syntax': [
+        'error',
+        ...uiTextSelectors.map((selector) => ({ selector, message: UI_TEXT_MESSAGE })),
+      ],
     },
   },
   {
