@@ -13,4 +13,5 @@ Każda nowa zależność dostaje wiersz, zanim trafi do `package.json`.
 | 2026-10-24 | `globals` | zestawy zmiennych globalnych Node dla plików narzędzi | ręczna lista globali |
 | 2026-10-24 | `prettier`, `eslint-config-prettier` | jednolite formatowanie, bez konfliktu z regułami ESLint | same reguły stylistyczne ESLint (wolniejsze, przestarzałe) |
 | 2026-10-24 | — (bez nowej zależności) | potok Qwena (`tools/qwen-run.mjs`) ocenia zadania przez Vitest, nie `node --test` jak w benchmarku: definicja ukończenia wymaga testów Vitest | `node --test` (osobny dialekt testów tylko dla Qwena) |
+| 2026-10-24 | `zod` 4 | walidacja danych symboli (błędy ze ścieżką pola), później zapisu gry i ładunków serwera — jedna biblioteka schematów w całej aplikacji | ręczny walidator (więcej kodu, błędy bez ścieżki pola za darmo) |
 | 2026-10-24 | `@types/node` | typy Node dla narzędzi, testów i konfiguracji | brak (konfiguracje i testy narzędzi bez typów) |
