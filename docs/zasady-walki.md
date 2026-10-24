@@ -1,10 +1,10 @@
-# Bestiariusz — zasady walki (wersja 0.1, do zatwierdzenia)
+# Bestiariusz — zasady walki (wersja 0.2: rozdziały 1, 5a, 5b, 7, 9 i decyzje Z11–Z14 czekają na zatwierdzenie)
 
-**Zatwierdzone: ____ (data)**
+**Wersja 0.1 zatwierdzona: 2026-10-24 (zasady: S02-10, bez uwag; wartości bazowe: S02-11). Zmiany wersji 0.2 (Sprint 3) — efekty istot, budżet mocy, zdrowie Leszego — zatwierdzone: ____ (wpisz datę w S03-01b).**
 
 Ten dokument opisuje walkę tak, jak zaimplementuje ją Sprint 2. To jedyne źródło zasad: kod i testy mają się z nim zgadzać, a nie odwrotnie. Dokument jest też instrukcją do zadania S02-10 (gra na papierze): zagraj według niego trzy walki i zapisz wszystko, co nie działa albo nie bawi. Jeśli zmieniasz regułę, zmień ją tutaj, a ja zmienię test.
 
-Zasady wynikają z `docs/gdd-mvp.md` i z prototypu, który sprawdziłem symulacją. Wszystkie liczby poniżej są wartościami roboczymi; ostateczne ustalisz w S02-11.
+Zasady wynikają z `docs/gdd-mvp.md` i z prototypu, który sprawdziłem symulacją. Liczby poniżej są wartościami bazowymi zatwierdzonymi 2026-10-24 w zadaniu S02-11; zmiana którejkolwiek wymaga zmiany tutaj, w danych i, jeśli dotyczy testu, zgody właściciela.
 
 ## 1. Zasoby i limity
 
@@ -15,6 +15,7 @@ Zasady wynikają z `docs/gdd-mvp.md` i z prototypu, który sprawdziłem symulacj
 | Ręka | 5 kart | na początku tury dobierasz do pięciu kart; karta ponad limit idzie do kosza |
 | Blok gracza | 0 na starcie tury | znika na początku następnej tury gracza |
 | Kręgi | 3 miejsca (0, 1, 2) | w każdym najwyżej jedna istota |
+| Budżet mocy istoty (v0.2) | 10 | suma kosztów trzech symboli istoty; każdy niewydany punkt daje +1 zdrowia (rozdział 5b) |
 
 ## 2. Przebieg tury
 
@@ -80,6 +81,22 @@ Uderzenia bez żywiołu (`uderzenie`) nie podlegają odporności ani słabości.
 - Istota atakuje już w turze, w której ją zagrano (na końcu tej tury); nie ma „choroby przyzwania”.
 - Kręgów nie da się zamienić ani przesunąć.
 
+## 5a. Efekty istot (v0.2, Sprint 3)
+
+Żywioły i formy niosą **efekty**; przymioty zmieniają tylko liczby (atak, zdrowie). Efekt to dane w `src/data/symbols.json` (kiedy, co, ile, od czego zależy), a opis wszystkich efektów, kolejności i sposobu dodawania nowych jest w `docs/efekty-symboli.md`. Tu tylko zasady, które wchodzą w przebieg tury:
+
+1. **Przyzwanie.** Efekty „przy przyzwaniu” działają od razu po położeniu istoty w Kręgu, **przed** sprawdzeniem Obrzędu. Mogą zakończyć walkę.
+2. **Atak.** Podczas ataku istoty (rozdział 2, krok 1) jej efekty „przy ataku” działają **zaraz po jej uderzeniu**, zanim zaatakuje następna istota.
+3. **Koniec tury.** Po atakach wszystkich istot, przed fazą wroga, działają efekty „na koniec tury”: Krąg 0, potem 1, potem 2.
+4. **Obrażenia.** Istota, która została uderzona przez wroga i **przeżyła**, uruchamia efekty „gdy oberwie” — **raz za każde trafienie**, po zakończeniu całej fazy wroga (po sprawdzeniu, czy gracz przeżył), w kolejności trafień. Zniszczona istota nie uruchamia nic.
+5. **Kolejność w jednej istocie:** żywioł, potem forma, potem przymiot. Między istotami: Krąg 0, 1, 2.
+6. **Mnożnik.** Efekt działa tyle razy większą wartością, ile istot liczy jego zakres: „sama” (1), „inne tego samego żywiołu”, „wszystkie tego samego żywiołu” (z nią samą), „wszystkie inne”. Wiatr **nie** jest tu dowolnym żywiołem (liczy się tylko wiatr z wiatrem). Gdy mnożnik wynosi 0, efekt się nie uruchamia i nic się nie dzieje.
+7. Gdy wróg ginie od efektu, walka kończy się od razu i nic więcej się nie wykonuje.
+
+## 5b. Statystyki istoty i budżet mocy (v0.2, Sprint 3)
+
+Atak = baza formy + premia żywiołu + modyfikator przymiotu (nie mniej niż 0). Zdrowie = baza formy + premia żywiołu + modyfikator przymiotu **+ 1 za każdy niewydany punkt budżetu 10** (nie mniej niż 1). Koszt istoty to suma kosztów trzech symboli; żadna z 150 istot MVP nie przekracza 10. Przykłady: Woda + Kruk + Smutek kosztuje 6, ma atak 2 i zdrowie 3 + 1 + 4 = 8; Ogień + Wilk + Gniew kosztuje 10, ma atak 6 i zdrowie 4. Zasada jest w danych (`balance.json`: `powerBudget`, `leftoverHealth`), więc jej siłę da się zmienić bez zmiany kodu.
+
 ## 6. Obrzęd
 
 **Obrzęd** uruchamia się w chwili, gdy kładziesz trzecią istotę, a wszystkie trzy Kręgi są pełne i należą do jednego żywiołu. **Wiatr jest dowolnym żywiołem** (dopełnia Obrzęd każdego żywiołu); trzy istoty wiatru dają Obrzęd wiatru. Obrzęd zdarza się **raz na walkę** (pierwszy, który się uruchomi; drugi, nawet innego żywiołu, już nie). Sprawdzamy go przy przyzwaniu, nie na końcu tury.
@@ -96,7 +113,7 @@ Obrzęd ognia lub gromu może zabić wroga; wtedy wygrywasz od razu.
 
 ## 7. Wróg: Leszy
 
-**Zdrowie:** na papierze **60** (skrócona wersja do sprawdzania zasad, walka trwa ok. 4–5 tur). W danych gry roboczo 160; wartość ustalisz w S02-11 z symulacji. **Odporność:** ziemia. **Słabość:** ogień.
+**Zdrowie:** na papierze **60** (skrócona wersja do sprawdzania zasad, walka trwa ok. 4–5 tur). W danych gry **380** (v0.2, do zatwierdzenia w S03-01b: po wprowadzeniu efektów i zdrowia z niewydanego budżetu bot wygrywa 55,5% walk w ok. 17,9 tury). Wartość z v0.1 to 160 (55,3% w ok. 9,7 tury, bez efektów i bez zdrowia z budżetu); z nowymi zasadami dawałaby ok. 90% wygranych. **Odporność:** ziemia. **Słabość:** ogień.
 
 Leszy ma cztery działania:
 
@@ -144,6 +161,21 @@ Każdy scenariusz to jeden test w repozytorium (`tests/combat/circles.test.ts`, 
 | R6 | trzy wody (masz 35 zdrowia) / trzy ziemie / trzy wiatry | zdrowie 40 i blok 8 / blok 15 / 3 karty z talii i Żar 4 |
 | R7 | Wilk, Kruk ognia i Kruk wiatru stoją od początku tury | koniec tury nie wywołuje Obrzędu (liczy się chwila przyzwania) |
 
+### Scenariusze efektów (v0.2, testy w `tests/combat/effects.test.ts`)
+
+| # | Scenariusz | Wynik |
+|---|---|---|
+| E1 | Przyzwanie wiatru jako trzeciej istoty ognia | efekt przyzwania, dopiero potem Obrzęd |
+| E2 | Dwie istoty ognia kończą turę | po uderzeniu każdej jej efekt ataku, w kolejności Kręgów |
+| E3 | Jedna istota z efektem w żywiole, formie i przymiocie | trzy efekty w kolejności żywioł, forma, przymiot |
+| E4 | Efekty końca tury (blok, leczenie istoty i gracza) | po wszystkich atakach, przed fazą wroga; blok chroni już w tej fazie |
+| E5 | Istota trafiona i przeżywająca / trafiona i zniszczona | pierwsza reaguje po fazie wroga, druga nie |
+| E6 | Szpony: 3 trafienia w jedną istotę, która przeżywa | reakcja 3 razy |
+| E7 | Efekt, którego mnożnik wynosi 0 | żadnego zdarzenia |
+| E8 | Efekt ataku dobija wroga w środku tury | koniec walki, bez dalszych efektów i bez fazy wroga |
+| E9 | Wzrost ataku i zdrowia, leczenie istoty | wzrost zostaje na kolejne tury; leczenie nie przekracza maksimum |
+| E10 | Żar, leczenie i dobieranie z przyzwania | żar rośnie, leczenie nie przekracza maksimum, dobrana karta trafia do ręki |
+
 ## 10. Arkusz do gry na papierze (S02-10)
 
 **Przygotuj:** 12 kart z rozdziału 3 (wytnij z papieru lub użyj kart do gry z dopisanymi nazwami), karteczki na Krągi (trzy kratki z numerami 0, 1, 2), kartkę na licznik (poniżej). Tasujesz talię raz na początku i raz, gdy się skończy. Zamiar Leszego wyznaczasz według rozdziału 7, bez kostek.
@@ -179,6 +211,10 @@ Każdy scenariusz to jeden test w repozytorium (`tests/combat/circles.test.ts`, 
 | Z8 | Klątwa celuje w Krąg najsilniejszej istoty i jest pokazywana z zamiarem. | Gracz ma szansę zareagować, zgodnie z zasadą „zamiar zawsze widoczny”. |
 | Z9 | Blok wroga znika na początku jego fazy, blok gracza na początku jego tury. | Blok z jednej pełnej tury chroni przed jednym pełnym cyklem. |
 | Z10 | Dobieranie ponad limit ręki pali kartę (do kosza). | Prostsze niż odmowa dobrania; talia się nie „zacina”. |
+| Z11 | Efekty są **danymi** (cztery momenty, osiem operacji, cztery zakresy), nie kodem pisanym osobno dla każdej istoty. | Dodanie efektu to wpis w JSON; nowa operacja to jeden `case` i jeden test. |
+| Z12 | Kolejność w istocie: żywioł → forma → przymiot; między istotami Krąg 0→2. | Przewidywalne i łatwe do narysowania na kartce. |
+| Z13 | Niewydany budżet mocy daje +1 zdrowia za punkt (z `balance.json`). | Reguła pochodzi ze specyfikacji zadania 02 benchmarku (budżet mocy), nie z GDD; zapisana jako decyzja D22 w planie Sprintu 3. Efektem ubocznym jest dłuższa walka (patrz Z14). |
+| Z14 | Zdrowie Leszego 380 (z 160). | Efekty i zdrowie z budżetu podnoszą siłę gracza; przy 160 bot wygrywa ok. 90%. Alternatywa do rozważenia po S03-10: zostawić niższe zdrowie i podnieść obrażenia Leszego (krótsze walki, ale trzeba przejść kalibrację od nowa). |
 
 ## 12. Czego ten dokument jeszcze nie rozstrzyga
 
