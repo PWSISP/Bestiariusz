@@ -21,6 +21,7 @@ Gra mobilna (PixiJS + Capacitor), w której każda istota składa się z trzech 
 | `npm run lint` | ESLint (bez ostrzeżeń) i Prettier |
 | `npm run typecheck` | TypeScript: projekt główny i projekt `src/core` + `src/data` bez DOM |
 | `npm run format` | formatuje pliki Prettierem |
+| `npm run sim` | bot rozgrywa walki w terminalu i zapisuje CSV do `sim-results/` (np. `npm run sim -- --games 1000 --enemy-hp 160`) |
 
 ## Android
 

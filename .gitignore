@@ -7,3 +7,4 @@ playwright-report
 *.log
 .env*
 .DS_Store
+sim-results

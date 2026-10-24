@@ -59,7 +59,7 @@ export default defineConfig(
     },
   },
   {
-    files: ['tools/**/*.mjs', '*.config.*'],
+    files: ['tools/**/*.mjs', 'tools/**/*.ts', '*.config.*'],
     languageOptions: { globals: globals.node },
   },
   {

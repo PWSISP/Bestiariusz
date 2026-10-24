@@ -16,6 +16,7 @@
     "lint": "eslint . --max-warnings 0 && prettier --check .",
     "typecheck": "node tools/typecheck.mjs",
     "format": "prettier --write .",
+    "sim": "node tools/sim.ts",
     "android:sync": "vite build && cap sync android"
   },
   "devDependencies": {
