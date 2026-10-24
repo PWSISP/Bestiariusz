@@ -8,7 +8,7 @@
 - `npm run test:e2e` — Playwright
 - `npm run build`, `npm run dev`
 - `npm run format` — przed commitem
-- `npm run sim -- [--games 1000] [--seed 20261102] [--deck szeptucha] [--enemy leszy] [--enemy-hp N] [--player-hp N] [--out plik.csv]` — bot rozgrywa walki, CSV w `sim-results/`
+- `npm run sim -- [--games 1000] [--seed 20261102] [--deck szeptucha] [--enemy leszy] [--enemy-hp N] [--player-hp N] [--out plik.csv] [--data katalog]` — bot rozgrywa walki, CSV w `sim-results/`
 
 ## Konwencje
 

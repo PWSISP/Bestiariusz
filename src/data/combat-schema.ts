@@ -168,7 +168,7 @@ export function parseCombatData(raw: unknown, source = 'combat-data'): CombatDat
 
   const cards: Record<string, CardDef> = {};
   value.cards.forEach((card, i) => {
-    if (cards[card.id] !== undefined) bad(`cards[${i}].id`, `duplicate id "${card.id}"`);
+    if (Object.hasOwn(cards, card.id)) bad(`cards[${i}].id`, `duplicate id "${card.id}"`);
     cards[card.id] = card as CardDef;
     if (card.kind === 'creature') {
       const c = card.creature;
@@ -184,7 +184,7 @@ export function parseCombatData(raw: unknown, source = 'combat-data'): CombatDat
   const enemies: Record<string, EnemyDef> = {};
   let usesCurse = false;
   value.enemies.forEach((enemy, i) => {
-    if (enemies[enemy.id] !== undefined) bad(`enemies[${i}].id`, `duplicate id "${enemy.id}"`);
+    if (Object.hasOwn(enemies, enemy.id)) bad(`enemies[${i}].id`, `duplicate id "${enemy.id}"`);
     enemies[enemy.id] = enemy as EnemyDef;
     enemy.resist.forEach((el, k) => {
       if (!elementIds.has(el)) bad(`enemies[${i}].resist[${k}]`, `unknown element "${el}"`);
@@ -200,7 +200,7 @@ export function parseCombatData(raw: unknown, source = 'combat-data'): CombatDat
     });
   });
   // A curse effect puts the card "klatwa" into the discard pile, so the card must exist.
-  if (usesCurse && cards['klatwa']?.kind !== 'curse') {
+  if (usesCurse && (!Object.hasOwn(cards, 'klatwa') || cards['klatwa']?.kind !== 'curse')) {
     bad('cards', 'an enemy uses a curse, so a card "klatwa" of kind "curse" is required');
   }
 
@@ -209,13 +209,13 @@ export function parseCombatData(raw: unknown, source = 'combat-data'): CombatDat
     if (!elementIds.has(key)) bad(`balance.ritual.${key}`, `unknown element "${key}"`);
   }
   for (const el of elementIds) {
-    if (ritual[el] === undefined)
+    if (!Object.hasOwn(ritual, el))
       bad('balance.ritual', `missing ritual effect for element "${el}"`);
   }
 
   for (const [deckId, list] of Object.entries(value.decks)) {
     list.forEach((cardId, k) => {
-      const card = cards[cardId];
+      const card = Object.hasOwn(cards, cardId) ? cards[cardId] : undefined;
       if (card === undefined) bad(`decks.${deckId}[${k}]`, `unknown card "${cardId}"`);
       else if (card.kind === 'curse')
         bad(`decks.${deckId}[${k}]`, `curse card "${cardId}" cannot start in a deck`);

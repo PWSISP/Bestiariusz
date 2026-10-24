@@ -46,6 +46,10 @@ describe('npm run sim (tools/sim.ts)', () => {
     [['--enemy', 'nie-ma'], 'leszy'],
     [['--bogus', '1'], '--bogus'],
     [['--games'], '--games'],
+    [['--deck', 'constructor'], 'szeptucha'],
+    [['--deck', '__proto__'], 'szeptucha'],
+    [['--enemy', 'toString'], 'leszy'],
+    [['--data', 'tests/no-such-dir'], 'symbols.json'],
   ])('rejects %j with a Polish message and exit code 1, not a stack trace', (args, mention) => {
     const r = sim(...args);
     expect(r.status).toBe(1);

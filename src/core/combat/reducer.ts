@@ -23,13 +23,15 @@ import type {
 import { detectRitual } from './ritual.ts';
 
 const cardOf = (data: CombatData, id: string): CardDef => {
-  const card = data.cards[id];
+  const card = Object.hasOwn(data.cards, id) ? data.cards[id] : undefined;
   if (!card) throw new Error(`Unknown card: ${id}`);
   return card;
 };
 
 function pickIntent(state: CombatState, data: CombatData): Intent {
-  const def = data.enemies[state.enemy.id];
+  const def = Object.hasOwn(data.enemies, state.enemy.id)
+    ? data.enemies[state.enemy.id]
+    : undefined;
   if (!def) throw new Error(`Unknown enemy: ${state.enemy.id}`);
   const circles = state.player.circles;
   const actionId = chooseIntent(def.actions, {
@@ -66,7 +68,7 @@ function startPlayerTurn(state: CombatState, env: CombatEnv, events: CombatEvent
 }
 
 export function createCombat(data: CombatData, setup: CombatSetup, rng: Rng): CombatResult {
-  const def = data.enemies[setup.enemyId];
+  const def = Object.hasOwn(data.enemies, setup.enemyId) ? data.enemies[setup.enemyId] : undefined;
   if (!def) throw new Error(`Unknown enemy: ${setup.enemyId}`);
   for (const id of setup.deck) cardOf(data, id);
   const base: CombatState = {

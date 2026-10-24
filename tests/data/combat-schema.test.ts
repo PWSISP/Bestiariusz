@@ -84,6 +84,25 @@ describe('parseCombatData: valid data', () => {
     expect(data.decks['start']).toHaveLength(4);
   });
 
+  it('accepts an id that is also a built-in object name', () => {
+    const raw = rawOf();
+    const card = {
+      id: 'constructor',
+      kind: 'spell',
+      cost: 1,
+      element: null,
+      effects: [{ kind: 'block', amount: 1 }],
+    };
+    const data = parseCombatData({ ...raw, cards: [...raw.cards, card] }, 'combat.json');
+    expect(data.cards['constructor']?.kind).toBe('spell');
+  });
+
+  it('does not take a built-in object name in a deck for a known card', () => {
+    const raw = rawOf();
+    const error = failure({ ...raw, decks: { start: ['constructor'] } });
+    expect(error.fieldPath).toBe('decks.start[0]');
+  });
+
   it('does not touch its input', () => {
     const raw = rawOf();
     const copy = structuredClone(raw);

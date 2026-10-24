@@ -53,6 +53,15 @@ describe('createCombat', () => {
       createCombat(FIXTURE, { deck: ['nie-ma'], enemyId: 'leszy' }, createRng(1)),
     ).toThrow(Error);
   });
+
+  it('does not take built-in object names for enemy or card ids', () => {
+    expect(() =>
+      createCombat(FIXTURE, { deck: SZEPTUCHA, enemyId: 'toString' }, createRng(1)),
+    ).toThrow('Unknown enemy: toString');
+    expect(() =>
+      createCombat(FIXTURE, { deck: ['constructor'], enemyId: 'leszy' }, createRng(1)),
+    ).toThrow('Unknown card: constructor');
+  });
 });
 
 describe('reduce: rejected actions', () => {
