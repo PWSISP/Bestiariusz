@@ -395,8 +395,8 @@ describe('the shipped data files in src/data', () => {
   const dataDir = new URL('../../src/data/', import.meta.url);
   const data = loadCombatData((file) => fs.readFileSync(new URL(file, dataDir), 'utf8'));
 
-  it('are valid and define the starter deck and the first enemy', () => {
-    expect(Object.keys(data.enemies)).toEqual(['leszy']);
+  it('are valid and define the starter deck and the enemies, the Leszy first', () => {
+    expect(Object.keys(data.enemies)).toEqual(['leszy', 'utopiec', 'strzyga', 'poludnica']);
     expect(data.decks['szeptucha']).toHaveLength(12);
     expect(data.balance.playerMaxHp).toBeGreaterThan(0); // the value itself is tuned in S02-11
   });

@@ -78,6 +78,20 @@ describe('createCombatSession', () => {
     expect(session.summary()).toMatchObject({ outcome: 'lost', hpLeft: 0, hpMax: 1 });
   });
 
+  it('plays the deck and the health it is given, against the enemy it is given', () => {
+    const deck = ['uderzenie', 'uderzenie', 'plomien', 'oklad', 'oklad', 'mgla'];
+    const session = createCombatSession(data, { seed: 3, deck, startHp: 17, enemyId: 'utopiec' });
+    expect(session.state.enemy.id).toBe('utopiec');
+    expect(session.state.player.hp).toBe(17);
+    expect(session.state.player.maxHp).toBe(data.balance.playerMaxHp);
+    const all = [
+      ...session.state.deck.hand,
+      ...session.state.deck.draw,
+      ...session.state.deck.discard,
+    ];
+    expect([...all].sort()).toEqual([...deck].sort());
+  });
+
   it('refuses an unknown deck', () => {
     expect(() => createCombatSession(data, { seed: 1, deckId: 'nie-ma' })).toThrow('Unknown deck');
   });

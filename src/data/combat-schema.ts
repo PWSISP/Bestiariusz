@@ -116,6 +116,18 @@ const rawSchema = z
         powerBudget: positive.optional(),
         leftoverHealth: nonNegative.optional(),
         workshop: z.object({ emberCost: nonNegative, inkPerPower: positive }).strict().optional(),
+        expedition: z
+          .object({
+            stages: z.array(id).min(1),
+            deck: id,
+            healBetween: nonNegative,
+            rewardChoices: positive,
+            rewardPool: z.array(id).min(1),
+            startInk: nonNegative,
+            inkPerWin: nonNegative,
+          })
+          .strict()
+          .optional(),
       })
       .strict()
       .refine((b) => (b.leftoverHealth ?? 0) === 0 || b.powerBudget !== undefined, {
@@ -234,6 +246,25 @@ export function parseCombatData(raw: unknown, source = 'combat-data'): CombatDat
       else if (card.kind === 'curse')
         bad(`decks.${deckId}[${k}]`, `curse card "${cardId}" cannot start in a deck`);
     });
+  }
+
+  const expedition = value.balance.expedition;
+  if (expedition) {
+    expedition.stages.forEach((enemyId, k) => {
+      if (!Object.hasOwn(enemies, enemyId))
+        bad(`balance.expedition.stages[${k}]`, `unknown enemy "${enemyId}"`);
+    });
+    if (!Object.hasOwn(value.decks, expedition.deck))
+      bad('balance.expedition.deck', `unknown deck "${expedition.deck}"`);
+    expedition.rewardPool.forEach((cardId, k) => {
+      const card = Object.hasOwn(cards, cardId) ? cards[cardId] : undefined;
+      if (card === undefined)
+        bad(`balance.expedition.rewardPool[${k}]`, `unknown card "${cardId}"`);
+      else if (card.kind === 'curse')
+        bad(`balance.expedition.rewardPool[${k}]`, `curse card "${cardId}" cannot be a reward`);
+    });
+    if (new Set(expedition.rewardPool).size < expedition.rewardChoices)
+      bad('balance.expedition.rewardChoices', 'more choices than different cards in "rewardPool"');
   }
 
   if (issues.length > 0) throw new CombatDataError(source, issues);

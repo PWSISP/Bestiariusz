@@ -75,5 +75,159 @@
         ]
       }
     ]
+  },
+  {
+    "id": "utopiec",
+    "maxHp": 100,
+    "resist": ["woda"],
+    "weak": ["grom"],
+    "actions": [
+      {
+        "id": "chlap",
+        "baseWeight": 5,
+        "effects": [
+          {
+            "type": "atak",
+            "amount": 3,
+            "direct": true
+          }
+        ]
+      },
+      {
+        "id": "topiel",
+        "baseWeight": 3,
+        "cooldown": 2,
+        "effects": [
+          {
+            "type": "tarcza",
+            "amount": 6
+          }
+        ]
+      },
+      {
+        "id": "wciagniecie",
+        "baseWeight": 2,
+        "conditions": [
+          {
+            "when": "playerCirclesAtLeast",
+            "value": 2,
+            "bonus": 3
+          }
+        ],
+        "effects": [
+          {
+            "type": "wielokrotny",
+            "amount": 2,
+            "times": 2
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "strzyga",
+    "maxHp": 120,
+    "resist": ["wiatr"],
+    "weak": ["ogien"],
+    "actions": [
+      {
+        "id": "szpon",
+        "baseWeight": 5,
+        "effects": [
+          {
+            "type": "atak",
+            "amount": 5,
+            "direct": true
+          }
+        ]
+      },
+      {
+        "id": "wysysanie",
+        "baseWeight": 3,
+        "cooldown": 2,
+        "effects": [
+          {
+            "type": "kradziez"
+          },
+          {
+            "type": "atak",
+            "amount": 2,
+            "direct": true
+          }
+        ]
+      },
+      {
+        "id": "wrzask",
+        "baseWeight": 2,
+        "cooldown": 3,
+        "conditions": [
+          {
+            "when": "bossHpBelowPct",
+            "value": 50,
+            "bonus": 3
+          }
+        ],
+        "effects": [
+          {
+            "type": "tarcza",
+            "amount": 8
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "poludnica",
+    "maxHp": 150,
+    "resist": ["ogien"],
+    "weak": ["woda"],
+    "actions": [
+      {
+        "id": "kosa",
+        "baseWeight": 5,
+        "effects": [
+          {
+            "type": "atak",
+            "amount": 6,
+            "direct": true
+          }
+        ]
+      },
+      {
+        "id": "upal",
+        "baseWeight": 3,
+        "cooldown": 2,
+        "effects": [
+          {
+            "type": "wielokrotny",
+            "amount": 2,
+            "times": 3,
+            "direct": true
+          }
+        ]
+      },
+      {
+        "id": "zwid",
+        "baseWeight": 2,
+        "cooldown": 3,
+        "conditions": [
+          {
+            "when": "playerCirclesAtLeast",
+            "value": 2,
+            "bonus": 3
+          }
+        ],
+        "effects": [
+          {
+            "type": "klatwa",
+            "circle": 0
+          },
+          {
+            "type": "atak",
+            "amount": 2
+          }
+        ]
+      }
+    ]
   }
 ]
