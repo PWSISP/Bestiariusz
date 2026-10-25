@@ -1,0 +1,62 @@
+name: Prototype site
+
+# Started by hand (Actions → Prototype site → Run workflow, branch main). Builds the tester version of
+# the game (VITE_TESTER=1: local telemetry and its export), publishes it on GitHub Pages together with
+# the debug APK and the instruction page for testers (/testy/).
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      VITE_TESTER: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+      - uses: gradle/actions/setup-gradle@v4
+      - name: Build label
+        run: echo "VITE_BUILD=$(git rev-parse --short=7 HEAD)" >> "$GITHUB_ENV"
+      - run: npm ci
+      - run: npm test
+      # Builds the web version into dist/ (with the tester flag) and copies it into the Android project.
+      - run: npm run android:sync
+      # Windows does not keep the executable bit.
+      - run: chmod +x android/gradlew
+      - run: ./gradlew assembleDebug
+        working-directory: android
+      - name: Assemble the site
+        run: >
+          node tools/assemble-site.ts --dist dist
+          --apk android/app/build/outputs/apk/debug/app-debug.apk
+          --out site --build "$VITE_BUILD" --date "$(date -u +%F)"
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

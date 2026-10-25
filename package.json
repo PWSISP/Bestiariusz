@@ -18,7 +18,8 @@
     "format": "prettier --write .",
     "sim": "node tools/sim.ts",
     "balance": "node tools/balance.ts",
-    "android:sync": "vite build && cap sync android"
+    "android:sync": "vite build && cap sync android",
+    "site": "node tools/assemble-site.ts"
   },
   "devDependencies": {
     "@capacitor/cli": "^8.5.3",

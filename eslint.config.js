@@ -36,6 +36,7 @@ export default defineConfig(
   {
     ignores: [
       'dist',
+      'site',
       'android',
       'ios',
       'docs',
