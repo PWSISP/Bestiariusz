@@ -15,6 +15,8 @@ export interface LaunchOptions {
   readonly enemyHp: number | null;
   /** Player maximum health override (development builds only). */
   readonly playerHp: number | null;
+  /** True plays one duel with the Leszy, as before the expedition existed (development builds only). */
+  readonly duel: boolean;
   /** A development sheet to show instead of the game (development builds only). */
   readonly sheet: 'creatures' | 'icons' | null;
   /** True in the tester build (and with `?tester=1` in development builds): local telemetry and its export. */
@@ -54,6 +56,7 @@ export function parseLaunchOptions(search: string, env: LaunchEnvironment): Laun
     fps: fps !== null && ON.has(fps),
     enemyHp: env.dev ? wholeNumber(params.get('enemyHp'), 1, 99_999) : null,
     playerHp: env.dev ? wholeNumber(params.get('playerHp'), 1, 99_999) : null,
+    duel: env.dev && ON.has(params.get('duel')?.toLowerCase() ?? ''),
     sheet: env.dev && (sheet === 'creatures' || sheet === 'icons') ? sheet : null,
     tester:
       env.testerBuild === true || (env.dev && ON.has(params.get('tester')?.toLowerCase() ?? '')),

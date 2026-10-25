@@ -17,6 +17,8 @@ export interface ResultScreenDeps {
   readonly translate: TranslateFn;
   /** The player pressed the button. */
   readonly onContinue: () => void;
+  /** Key of the label of the button; `result.continue` when absent. */
+  readonly continueKey?: 'result.continue' | 'result.again';
   /** Tester build only: gives the telemetry to the tester (`text` is shown when copying fails). */
   readonly exporter?: {
     readonly text: () => string;
@@ -81,7 +83,7 @@ export function createResultScreen(deps: ResultScreenDeps): Screen {
     mount(ctx: ScreenContext) {
       ctx.layer.addChild(root);
       build({ width: ctx.overlay.clientWidth || 360, height: ctx.overlay.clientHeight || 800 });
-      const button = createButton('result.continue', deps.onContinue);
+      const button = createButton(deps.continueKey ?? 'result.continue', deps.onContinue);
       button.addEventListener('click', markTap);
       button.classList.add('result-continue');
       const exporter = deps.exporter;
