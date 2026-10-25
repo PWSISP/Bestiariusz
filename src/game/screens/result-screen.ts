@@ -6,6 +6,7 @@ import type { CombatSummary } from '../../core/combat/summary.ts';
 import { renderText } from '../../i18n/text.ts';
 import type { TranslateFn } from '../../i18n/text.ts';
 import { createButton } from '../../ui/dom.ts';
+import { markTap } from '../../ui/tap-guard.ts';
 import { buildResultView } from '../../view/result-view.ts';
 import type { Size } from '../../view/geometry.ts';
 import { COLORS, drawGradient, label } from '../render/theme.ts';
@@ -75,6 +76,7 @@ export function createResultScreen(deps: ResultScreenDeps): Screen {
       ctx.layer.addChild(root);
       build({ width: ctx.overlay.clientWidth || 360, height: ctx.overlay.clientHeight || 800 });
       const button = createButton('result.continue', deps.onContinue);
+      button.addEventListener('click', markTap);
       button.classList.add('result-continue');
       ctx.overlay.append(button);
     },

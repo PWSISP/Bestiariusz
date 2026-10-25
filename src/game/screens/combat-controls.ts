@@ -2,6 +2,7 @@
 // the cards, the Kręgi and the end-turn button. The picture is Pixi's; the buttons give it real
 // touch targets, focus, accessible names and pointer capture for dragging. They only translate DOM
 // events into HandInputEvents (src/view/hand-input.ts) and button presses; the screen decides.
+import { isSecondTap, markTap } from '../../ui/tap-guard.ts';
 import type { CombatView } from '../../view/combat-view.ts';
 import type { HandInputEvent } from '../../view/hand-input.ts';
 import { CARD_HEIGHT, CARD_WIDTH } from '../../view/hand-fan.ts';
@@ -75,14 +76,32 @@ export function createControls(
     return { x: e.clientX - r.left, y: e.clientY - r.top };
   };
 
-  // A press that skips an animation is swallowed before it reaches a button.
+  // A press that skips an animation, or is the second tap of a double tap on a button that changed the
+  // screen, is swallowed before it reaches a button, and so is the click that ends it: preventing the
+  // pointerdown does not cancel that click, and the button under the finger may be enabled by then.
+  let swallowClick = false;
   const onPressCapture = (e: PointerEvent): void => {
-    if (handlers.skip()) {
+    swallowClick = isSecondTap(e) || handlers.skip();
+    if (swallowClick) {
       e.stopPropagation();
       e.preventDefault();
     }
   };
+  const onClickCapture = (e: MouseEvent): void => {
+    if (!swallowClick || e.detail === 0) return;
+    swallowClick = false;
+    e.stopPropagation();
+    e.preventDefault();
+  };
   host.addEventListener('pointerdown', onPressCapture, true);
+  host.addEventListener('click', onClickCapture, true);
+  // Only the first finger on a card drives the hand; other fingers are ignored until it lifts.
+  let activePointer: number | null = null;
+  const onPointerEnd = (e: PointerEvent): void => {
+    if (e.pointerId === activePointer) activePointer = null;
+  };
+  host.addEventListener('pointerup', onPointerEnd);
+  host.addEventListener('pointercancel', onPointerEnd);
   // Lifting a tapped card moves its button from under the finger, so the click that ends the tap can land
   // on the backdrop; a click right after a card gesture is part of that gesture, not a tap outside.
   let cardGestureEnd = Number.NEGATIVE_INFINITY;
@@ -97,7 +116,10 @@ export function createControls(
     if (performance.now() - cardGestureEnd < 500) return;
     handlers.input({ type: 'tapOutside' });
   });
-  endTurn.addEventListener('click', () => handlers.endTurn());
+  endTurn.addEventListener('click', (e) => {
+    markTap(e);
+    handlers.endTurn();
+  });
   circles.forEach((button, circle) => {
     button.addEventListener('click', () => handlers.input({ type: 'tapCircle', circle }));
   });
@@ -108,22 +130,27 @@ export function createControls(
     const button = makeButton('hit-card');
     button.addEventListener('pointerdown', (e) => {
       if (e.button !== 0 && e.pointerType === 'mouse') return;
+      if (activePointer !== null && activePointer !== e.pointerId) return;
+      activePointer = e.pointerId;
       button.setPointerCapture(e.pointerId);
       const p = local(e);
       handlers.input({ type: 'pointerDown', handIndex, x: p.x, y: p.y });
     });
     button.addEventListener('pointermove', (e) => {
-      if (!button.hasPointerCapture(e.pointerId)) return;
+      if (e.pointerId !== activePointer || !button.hasPointerCapture(e.pointerId)) return;
       const p = local(e);
       handlers.input({ type: 'pointerMove', x: p.x, y: p.y });
     });
     button.addEventListener('pointerup', (e) => {
-      if (!button.hasPointerCapture(e.pointerId)) return;
+      if (e.pointerId !== activePointer || !button.hasPointerCapture(e.pointerId)) return;
       button.releasePointerCapture(e.pointerId);
       const p = local(e);
       handlers.input({ type: 'pointerUp', x: p.x, y: p.y });
     });
-    button.addEventListener('pointercancel', () => handlers.input({ type: 'pointerCancel' }));
+    button.addEventListener('pointercancel', (e) => {
+      if (e.pointerId !== activePointer) return;
+      handlers.input({ type: 'pointerCancel' });
+    });
     // Keyboard and screen readers click without a pointer (detail 0): treat it as a tap on the card.
     button.addEventListener('click', (e) => {
       if (e.detail !== 0 || !current) return;
@@ -188,6 +215,9 @@ export function createControls(
     },
     destroy() {
       host.removeEventListener('pointerdown', onPressCapture, true);
+      host.removeEventListener('click', onClickCapture, true);
+      host.removeEventListener('pointerup', onPointerEnd);
+      host.removeEventListener('pointercancel', onPointerEnd);
       host.remove();
     },
   };

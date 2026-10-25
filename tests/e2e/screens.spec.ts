@@ -66,6 +66,23 @@ test('double tap on Continue mounts exactly one combat', async ({ page }) => {
   expect(after.pixiStageChildren).toBe(1);
 });
 
+test('the second tap of a double tap on Continue does not reach the new combat', async ({
+  page,
+}) => {
+  await reachResult(page);
+  const box = (await continueButton(page).boundingBox())!;
+  // the right end of Continue lies over End turn of the combat screen
+  const x = box.x + box.width - 8;
+  const y = box.y + box.height / 2;
+  await page.touchscreen.tap(x, y);
+  await page.waitForTimeout(80);
+  await page.touchscreen.tap(x, y);
+  await page.waitForFunction(() => window.__bestiariusz!.manager.current === 'combat');
+  await page.waitForTimeout(200);
+  const turn = await page.evaluate(() => window.__bestiariusz!.game!.session()!.state.turn);
+  expect(turn).toBe(1);
+});
+
 test('survives rotation and resize on the combat and on the result screen', async ({ page }) => {
   await reachResult(page);
   for (const size of [

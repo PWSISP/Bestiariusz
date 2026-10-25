@@ -177,6 +177,73 @@ test('with animations on, an action locks the controls and a tap skips it', asyn
   expect((await snapshot(page)).turn).toBe(2);
 });
 
+test('a tap on End turn during the enemy animation only skips it', async ({ page }) => {
+  await boot(page, 'seed=7&anim=1');
+  await page.waitForFunction(() => !window.__bestiariusz!.game!.combat()!.busy());
+  await endTurnButton(page).tap();
+  await page.waitForTimeout(400); // past the double-tap window: a separate tap on the same button
+  expect(await page.evaluate(() => window.__bestiariusz!.game!.combat()!.busy())).toBe(true);
+  const box = (await endTurnButton(page).boundingBox())!;
+  await page.touchscreen.tap(box.x + box.width / 2, box.y + box.height / 2);
+  await page.waitForFunction(() => !window.__bestiariusz!.game!.combat()!.busy());
+  await page.waitForTimeout(150);
+  expect((await snapshot(page)).turn).toBe(2);
+});
+
+test('a double tap on End turn ends only one turn', async ({ page }) => {
+  await boot(page);
+  const box = (await endTurnButton(page).boundingBox())!;
+  const x = box.x + box.width / 2;
+  const y = box.y + box.height / 2;
+  await page.touchscreen.tap(x, y);
+  await page.waitForTimeout(80);
+  await page.touchscreen.tap(x, y);
+  await page.waitForTimeout(200);
+  expect((await snapshot(page)).turn).toBe(2);
+});
+
+test('a second finger does not take over the drag of the first', async ({ page }) => {
+  await boot(page);
+  const from = await centerOf(cards(page).nth(2)); // Jeleń Ziemi, a creature for 2 Ember
+  const other = await centerOf(cards(page).nth(4));
+  const to = await centerOf(circles(page).nth(0));
+  const client = await page.context().newCDPSession(page);
+  const finger = (id: number, x: number, y: number) => ({
+    x,
+    y,
+    id,
+    radiusX: 4,
+    radiusY: 4,
+    force: 1,
+  });
+  const send = (
+    type: 'touchStart' | 'touchMove' | 'touchEnd',
+    touchPoints: ReturnType<typeof finger>[],
+  ) => client.send('Input.dispatchTouchEvent', { type, touchPoints });
+  await send('touchStart', [finger(1, from.x, from.y)]);
+  for (let i = 1; i <= 5; i++) await send('touchMove', [finger(1, from.x, from.y - 30 * i)]);
+  const held = finger(1, from.x, from.y - 150);
+  await send('touchStart', [held, finger(2, other.x, other.y)]);
+  await send('touchMove', [held, finger(2, other.x + 20, other.y - 20)]);
+  // The system cancels another finger (CDP cannot lift one finger alone: touchEnd lifts them all).
+  await cards(page)
+    .nth(4)
+    .evaluate((el) =>
+      el.dispatchEvent(
+        new PointerEvent('pointercancel', { pointerId: 999, pointerType: 'touch', bubbles: true }),
+      ),
+    );
+  expect(await page.evaluate(() => window.__bestiariusz!.game!.combat()!.selected())).toBe(2);
+  for (let i = 1; i <= 5; i++) {
+    const x = held.x + ((to.x - held.x) * i) / 5;
+    const y = held.y + ((to.y - held.y) * i) / 5;
+    await send('touchMove', [finger(1, x, y)]);
+  }
+  await send('touchEnd', []);
+  await client.detach();
+  await expect.poll(async () => (await snapshot(page)).circles[0]).toBe('ziemia-jelen-spryt');
+});
+
 test('an animated action finishes by itself within the time budget', async ({ page }) => {
   await boot(page, 'seed=7&anim=1');
   await page.waitForFunction(() => !window.__bestiariusz!.game!.combat()!.busy());
