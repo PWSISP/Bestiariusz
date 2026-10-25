@@ -22,7 +22,81 @@ export interface ResultView {
   readonly primary: { readonly id: 'continue'; readonly label: TextRef };
 }
 
-export function buildResultView(_summary: CombatSummary): ResultView {
-  void text;
-  throw new Error('Not implemented');
+export function buildResultView(summary: CombatSummary): ResultView {
+  // Validate inputs according to rule 1
+  if (!Number.isInteger(summary.turns) || summary.turns < 1) {
+    throw new RangeError();
+  }
+  if (!Number.isInteger(summary.hpMax) || summary.hpMax < 1) {
+    throw new RangeError();
+  }
+  if (!Number.isInteger(summary.hpLeft) || summary.hpLeft < 0 || summary.hpLeft > summary.hpMax) {
+    throw new RangeError();
+  }
+
+  const outcome = summary.outcome;
+
+  // Rule 12: title
+  const title = outcome === 'won' ? text('result.won.title') : text('result.lost.title');
+
+  // Rule 13: enemyName
+  const enemyName = text(`enemy.${summary.enemyId}.name`);
+
+  // Rule 14 & 15: flavor
+  let flavor: TextRef;
+  if (outcome === 'won') {
+    // For win, check health fraction
+    // Compare with whole numbers: hpLeft * 4 >= hpMax * 3 for high, hpLeft * 20 >= hpMax * 7 for mid
+    const highThreshold = summary.hpMax * 3;
+    const midThreshold = summary.hpMax * 7;
+
+    if (summary.hpLeft * 4 >= highThreshold) {
+      flavor = text('result.won.flavor.high');
+    } else if (summary.hpLeft * 20 >= midThreshold) {
+      flavor = text('result.won.flavor.mid');
+    } else {
+      flavor = text('result.won.flavor.low');
+    }
+  } else {
+    // For defeat, check turns
+    if (summary.turns >= LONG_DEFEAT_TURNS) {
+      flavor = text('result.lost.flavor.long');
+    } else {
+      flavor = text('result.lost.flavor.short');
+    }
+  }
+
+  // Rule 16: stats
+  const stats: ResultStat[] = [
+    // turns stat
+    {
+      id: 'turns',
+      label: text('result.stat.turns', { turns: summary.turns }),
+    },
+    // hp stat
+    {
+      id: 'hp',
+      label: text('result.stat.hp', { hp: summary.hpLeft, max: summary.hpMax }),
+    },
+    // ritual stat
+    {
+      id: 'ritual',
+      label: summary.ritualUsed ? text('result.stat.ritual.yes') : text('result.stat.ritual.no'),
+    },
+  ];
+
+  // Rule 17: primary button
+  const primary = {
+    id: 'continue' as const,
+    label: text('result.continue'),
+  };
+
+  return {
+    outcome,
+    title,
+    flavor,
+    enemyName,
+    stats,
+    primary,
+  };
 }
