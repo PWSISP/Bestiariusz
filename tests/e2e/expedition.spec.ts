@@ -23,6 +23,17 @@ test('the expedition starts on the route with four fights and the Leszy as the b
   expect(await run(page)).toMatchObject({ stage: 0, status: 'active' });
 });
 
+test('the playerHp option of a development build sets the health of the whole expedition', async ({
+  page,
+}) => {
+  await bootRun(page, 'seed=7&playerHp=200');
+  expect(await run(page)).toMatchObject({ hp: 200 });
+  await page.getByRole('button', { name: 'Do walki' }).tap();
+  await waitFor(page, 'combat');
+  const player = await page.evaluate(() => window.__bestiariusz!.game!.session()!.state.player);
+  expect(player).toMatchObject({ hp: 200, maxHp: 200 });
+});
+
 test('a won fight offers a reward; taking it puts the card in the deck and moves on', async ({
   page,
 }) => {

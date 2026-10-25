@@ -61,6 +61,11 @@ export function startGame(deps: GameDeps): GameHandle {
   const { manager, data, options, telemetry } = deps;
   const freshSeed = deps.seed ?? newSeed;
   const expedition = !options.duel && data.balance.expedition !== undefined;
+  // The run carries health between fights, so it must see the `playerHp` override of a development build.
+  const runData: CombatData =
+    options.playerHp === null
+      ? data
+      : { ...data, balance: { ...data.balance, playerMaxHp: options.playerHp } };
   let session: CombatSession | null = null;
   let summary: CombatSummary | null = null;
   let run: RunState | null = null;
@@ -95,7 +100,7 @@ export function startGame(deps: GameDeps): GameHandle {
           manager.show('result');
           return;
         }
-        run = finishFight(data, run, { won: done.outcome === 'won', hpLeft: done.hpLeft });
+        run = finishFight(runData, run, { won: done.outcome === 'won', hpLeft: done.hpLeft });
         if (run.status === 'active') {
           offered = offerRewards(data, run);
           manager.show('reward');
@@ -123,7 +128,7 @@ export function startGame(deps: GameDeps): GameHandle {
   manager.register('route', () => {
     if (!run) throw new Error('No expedition to show');
     return createRouteScreen({
-      data,
+      data: runData,
       run,
       translate,
       onFight: startFight,
@@ -178,7 +183,7 @@ export function startGame(deps: GameDeps): GameHandle {
   function startExpedition(): void {
     const seed = options.seed !== null ? options.seed + expeditions : freshSeed();
     expeditions += 1;
-    run = startRun(data, seed);
+    run = startRun(runData, seed);
     summary = null;
     manager.show('route');
   }
