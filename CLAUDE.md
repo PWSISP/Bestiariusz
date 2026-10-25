@@ -9,6 +9,7 @@
 - `npm run build`, `npm run dev`
 - `npm run format` — przed commitem
 - `npm run sim -- [--games 1000] [--seed 20261102] [--deck szeptucha] [--enemy leszy] [--enemy-hp N] [--player-hp N] [--out plik.csv] [--data katalog]` — bot rozgrywa walki, CSV w `sim-results/`
+- `npm run balance -- [--games 200] [--seed 20261130] [--deck szeptucha] [--enemy leszy] [--copies 1] [--out plik.csv] [--data katalog]` — bot rozgrywa walki dla każdej z 150 istot (talia + badana istota), CSV z odsetkiem wygranych w `sim-results/`, flaga poza 35–65%
 
 ## Konwencje
 

@@ -17,6 +17,7 @@
     "typecheck": "node tools/typecheck.mjs",
     "format": "prettier --write .",
     "sim": "node tools/sim.ts",
+    "balance": "node tools/balance.ts",
     "android:sync": "vite build && cap sync android"
   },
   "devDependencies": {
