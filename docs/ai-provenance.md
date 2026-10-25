@@ -35,10 +35,11 @@ Pliki z `docs/` powstałe w Sprincie 1. Szkice napisał Claude, treść i zakres
 | `docs/superpowers/plans/2026-10-24-sprint-1-fundament.md` | akceptacja planu, wykonanie zadań | plan: Claude (Anthropic), wersja do potwierdzenia | 2026-10-24 |
 | `docs/ai-provenance.md` | decyzja o wyłączeniu modeli, akceptacja | szkic S01-09 i uzupełnienie licencji: Claude (Anthropic), Claude Sonnet 5.5 | 2026-10-24 |
 | `docs/retro/S01.md` | uzupełnienie godzin, otwartych punktów i akceptacja | szkic na podstawie logów potoku Qwena: Claude (Anthropic), Claude Sonnet 5.5 | 2026-10-24 |
-| `docs/zasady-walki.md` | zatwierdzenie zasad, zmiany reguł | wersja 0.1 zasad walki, liczby z symulacji; wersja 0.2 (efekty istot, budżet mocy, zdrowie Leszego, decyzje Z11–Z14): Claude (Anthropic), Claude Sonnet 5.5 | 2026-10-24 |
+| `docs/zasady-walki.md` | zatwierdzenie zasad, zmiany reguł | wersja 0.1 zasad walki, liczby z symulacji; wersja 0.2 (efekty istot, budżet mocy, zdrowie Leszego, decyzje Z11–Z14): Claude (Anthropic), Claude Sonnet 5.5; pomiary Leszego 380 w rozdziale 7 i w Z14 wstawiła sesja wykonawcza Claude Code, Claude Opus 5.5 (commit `3dff1ab`) | 2026-10-24, wersja 0.2 zatwierdzona 2026-10-25 |
 | `docs/superpowers/plans/2026-10-24-sprint-2-walka.md` | akceptacja planu, wybór metody wykonania | plan i pakiet plików Sprintu 2: Claude (Anthropic), Claude Sonnet 5.5 | 2026-10-24 |
 | `docs/retro/S02.md` | uzupełnienie godzin, uwag z gry na papierze i akceptacja | szkic na podstawie rejestru wykonania i raportów potoku Qwena: Claude (Anthropic), Claude Sonnet 5.5 | 2026-10-24 |
 | `docs/superpowers/plans/2026-10-24-sprint-3-dane-i-warsztat.md` | akceptacja planu, wybór metody wykonania | plan i pakiet plików Sprintu 3: Claude (Anthropic), Claude Sonnet 5.5 | 2026-10-24 |
-| `docs/efekty-symboli.md` | zatwierdzenie tabeli efektów i odczytania „Grom przeskakuje na drugi cel” | propozycja efektów symboli (wersja 0.1): Claude (Anthropic), Claude Sonnet 5.5 | 2026-10-24 |
+| `docs/efekty-symboli.md` | zatwierdzenie tabeli efektów i odczytania „Grom przeskakuje na drugi cel” (wersja 1.0, 2026-10-25) | propozycja efektów symboli (wersja 0.1): Claude (Anthropic), Claude Sonnet 5.5 | 2026-10-24, zatwierdzone 2026-10-25 |
+| `docs/retro/S03.md` | uzupełnienie godzin, telefonu i listy przed tagiem oraz akceptacja | szkic na podstawie historii gita, raportów potoku Qwena i raportu balansu: Claude (Anthropic), Claude Sonnet 5.5 | 2026-10-25 |
 
 Kod z `src/` nie jest tu wpisywany: autorstwo każdego modułu widać w historii git i w raportach potoku Qwena (`results/`, lokalnie).

@@ -4,7 +4,7 @@
 
 Ten dokument opisuje walkę tak, jak zaimplementuje ją Sprint 2. To jedyne źródło zasad: kod i testy mają się z nim zgadzać, a nie odwrotnie. Dokument jest też instrukcją do zadania S02-10 (gra na papierze): zagraj według niego trzy walki i zapisz wszystko, co nie działa albo nie bawi. Jeśli zmieniasz regułę, zmień ją tutaj, a ja zmienię test.
 
-Zasady wynikają z `docs/gdd-mvp.md` i z prototypu, który sprawdziłem symulacją. Liczby poniżej są wartościami bazowymi zatwierdzonymi 2026-10-24 w zadaniu S02-11; zmiana którejkolwiek wymaga zmiany tutaj, w danych i, jeśli dotyczy testu, zgody właściciela.
+Zasady wynikają z `docs/gdd-mvp.md` i z prototypu, który sprawdziłem symulacją. Liczby poniżej są wartościami bazowymi zatwierdzonymi 2026-10-24 w zadaniu S02-11 (zdrowie Leszego zmienione w wersji 0.2: rozdział 7 i Z14); zmiana którejkolwiek wymaga zmiany tutaj, w danych i, jeśli dotyczy testu, zgody właściciela.
 
 ## 1. Zasoby i limity
 
@@ -124,7 +124,9 @@ Obrzęd ognia lub gromu może zabić wroga; wtedy wygrywasz od razu.
 | **380** | **57,4%** | **18,3** |
 | 400 | 49,6% | 18,4 |
 | 420 | 41,1% | 18,1 |
-| 460 | 28,5% | 17,6 | **Odporność:** ziemia. **Słabość:** ogień.
+| 460 | 28,5% | 17,6 |
+
+**Odporność:** ziemia. **Słabość:** ogień.
 
 Leszy ma cztery działania:
 
