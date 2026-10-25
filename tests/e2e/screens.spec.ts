@@ -1,7 +1,7 @@
 // The screen manager under the real game: combat <-> result switches must leave nothing behind.
 import { expect, test } from '@playwright/test';
 import type { Page } from '@playwright/test';
-import { boot, cards, circles, endTurnButton } from './support.ts';
+import { boot, cards, circles, doubleTap, endTurnButton } from './support.ts';
 
 test.skip(
   ({ browserName }) => browserName !== 'chromium',
@@ -72,11 +72,7 @@ test('the second tap of a double tap on Continue does not reach the new combat',
   await reachResult(page);
   const box = (await continueButton(page).boundingBox())!;
   // the right end of Continue lies over End turn of the combat screen
-  const x = box.x + box.width - 8;
-  const y = box.y + box.height / 2;
-  await page.touchscreen.tap(x, y);
-  await page.waitForTimeout(80);
-  await page.touchscreen.tap(x, y);
+  await doubleTap(page, { x: box.x + box.width - 8, y: box.y + box.height / 2 });
   await page.waitForFunction(() => window.__bestiariusz!.manager.current === 'combat');
   await page.waitForTimeout(200);
   const turn = await page.evaluate(() => window.__bestiariusz!.game!.session()!.state.turn);

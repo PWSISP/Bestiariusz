@@ -1,5 +1,14 @@
 import { expect, test } from '@playwright/test';
-import { boot, cards, centerOf, circles, endTurnButton, snapshot, touchDrag } from './support.ts';
+import {
+  boot,
+  cards,
+  centerOf,
+  circles,
+  doubleTap,
+  endTurnButton,
+  snapshot,
+  touchDrag,
+} from './support.ts';
 
 test.skip(
   ({ browserName }) => browserName !== 'chromium',
@@ -180,11 +189,12 @@ test('with animations on, an action locks the controls and a tap skips it', asyn
 test('a tap on End turn during the enemy animation only skips it', async ({ page }) => {
   await boot(page, 'seed=7&anim=1');
   await page.waitForFunction(() => !window.__bestiariusz!.game!.combat()!.busy());
-  await endTurnButton(page).tap();
-  await page.waitForTimeout(400); // past the double-tap window: a separate tap on the same button
-  expect(await page.evaluate(() => window.__bestiariusz!.game!.combat()!.busy())).toBe(true);
   const box = (await endTurnButton(page).boundingBox())!;
-  await page.touchscreen.tap(box.x + box.width / 2, box.y + box.height / 2);
+  const y = box.y + box.height / 2;
+  await page.touchscreen.tap(box.x + 16, y);
+  await page.waitForFunction(() => window.__bestiariusz!.game!.combat()!.busy());
+  // the same button, but far from the first tap: a separate tap, not the second of a double tap
+  await page.touchscreen.tap(box.x + box.width - 16, y);
   await page.waitForFunction(() => !window.__bestiariusz!.game!.combat()!.busy());
   await page.waitForTimeout(150);
   expect((await snapshot(page)).turn).toBe(2);
@@ -193,12 +203,8 @@ test('a tap on End turn during the enemy animation only skips it', async ({ page
 test('a double tap on End turn ends only one turn', async ({ page }) => {
   await boot(page);
   const box = (await endTurnButton(page).boundingBox())!;
-  const x = box.x + box.width / 2;
-  const y = box.y + box.height / 2;
-  await page.touchscreen.tap(x, y);
-  await page.waitForTimeout(80);
-  await page.touchscreen.tap(x, y);
-  await page.waitForTimeout(200);
+  // a slow phone: the redraw after the first tap delays the handling of the second
+  await doubleTap(page, { x: box.x + box.width / 2, y: box.y + box.height / 2 });
   expect((await snapshot(page)).turn).toBe(2);
 });
 

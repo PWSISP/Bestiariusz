@@ -76,6 +76,38 @@ export async function touchDrag(
   await client.detach();
 }
 
+/**
+ * Two taps of one finger at the same point, `gapMs` apart by the finger's clock. The times are given
+ * explicitly because CDP awaits the handling of each touch: on a slow machine the redraw after the
+ * first tap would otherwise push the second one far beyond the gap. `cpuSlowdown` emulates a slow phone.
+ */
+export async function doubleTap(
+  page: Page,
+  at: { x: number; y: number },
+  gapMs = 80,
+  cpuSlowdown = 20,
+): Promise<void> {
+  const client = await page.context().newCDPSession(page);
+  await client.send('Emulation.setCPUThrottlingRate', { rate: cpuSlowdown });
+  const start = Date.now() / 1000;
+  const touch = (type: 'touchStart' | 'touchEnd', ms: number) =>
+    client.send('Input.dispatchTouchEvent', {
+      type,
+      touchPoints:
+        type === 'touchStart'
+          ? [{ x: at.x, y: at.y, id: 1, radiusX: 4, radiusY: 4, force: 1 }]
+          : [],
+      timestamp: start + ms / 1000,
+    });
+  await touch('touchStart', 0);
+  await touch('touchEnd', 30);
+  await touch('touchStart', gapMs);
+  await touch('touchEnd', gapMs + 30);
+  await page.waitForTimeout(1000);
+  await client.send('Emulation.setCPUThrottlingRate', { rate: 1 });
+  await client.detach();
+}
+
 /** The id of a card in the hand of the running combat (read from the game, not from the screen). */
 export function kindOf(page: Page, cardId: string): Promise<string> {
   return page.evaluate((id) => window.__bestiariusz!.game!.session()!.data.cards[id]!.kind, cardId);
