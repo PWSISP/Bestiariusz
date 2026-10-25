@@ -10,3 +10,4 @@ package-lock.json
 *.md
 sim-results
 public/testy
+.claude
