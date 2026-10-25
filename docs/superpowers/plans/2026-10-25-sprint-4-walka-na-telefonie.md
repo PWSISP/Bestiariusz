@@ -339,4 +339,6 @@ Scal gałąź `sprint-4-walka-na-telefonie` do `main` po zielonym CI, tak jak w 
 
 Plan napisany 25 X 2026, **czeka na twoją recenzję** i na wybór metody wykonania (subagent-driven albo Native). Nic z kodu Sprintu 4 nie jest jeszcze wykonane na laptopie. Gotowe: ten plan i pakiet plików w `docs/superpowers/plans/sprint-4-pliki/` ze sprawdzonym w chmurze przebiegiem (szkielety, rozwiązania wzorcowe, test różnicowy, E2E w Chromium). Sprint 4 startuje 14 XII 2026 (tablica sprintów), ale zadania można zacząć wcześniej, gdy S03 jest zamknięty (`s03-done`).
 
+**Aktualizacja 25 X 2026 (wykonanie na laptopie, Claude Code, Claude Opus 5.5):** wykonane S04-01, S04-05, S04-02a, S04-02b, S04-03, S04-04, S04-08, S04-06b, S04-07 i S04-06 bez kroku 3 (wzorce zrzutów czekają na `git push` i pierwszy bieg CI). Qwen: 3 zadania za pierwszym raportem, S04-02b za drugim, S04-04 za trzecim (szczegóły w `docs/retro/S04.md`). Poprawki względem pakietu: `docs` w ignorowanych ESLinta, trzy błędy ESLint w plikach pakietu, przypadek ikon w teście różnicowym. Zostają: S04-06 krok 3, S04-09 i S04-00 (tag `s04-done`, scalenie).
+
 Do twojej decyzji: odstępstwa D38 (grafiki wektorowe zamiast atlasu), D39 (testy wizualne tylko w Chromium, wzorce z CI) i D41 (walka ok. 18 tur zostaje; ewentualne skrócenie po S04-09).
