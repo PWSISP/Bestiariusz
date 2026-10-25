@@ -9,7 +9,9 @@ const raw = () => ({
   symbols: JSON.parse(read('symbols.json')) as unknown,
   cards: JSON.parse(read('cards.json')) as unknown,
   enemies: JSON.parse(read('enemies.json')) as unknown,
-  balance: JSON.parse(read('balance.json')) as Record<string, any>,
+  balance: JSON.parse(read('balance.json')) as Record<string, unknown> & {
+    expedition: Record<string, unknown>;
+  },
   decks: JSON.parse(read('decks.json')) as unknown,
 });
 const withExpedition = (change: Record<string, unknown>) => {
