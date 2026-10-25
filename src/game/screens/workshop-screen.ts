@@ -42,7 +42,10 @@ export function createWorkshopScreen(deps: WorkshopScreenDeps): Screen {
       col.append(el('h2', 'workshop-heading', tr(`workshop.column.${column.kind}`)));
       for (const choice of column.choices) {
         const pick = button(
-          `${tr(`symbol.${column.kind}.${choice.id}.name`)} (${choice.cost})`,
+          tr('workshop.symbol', {
+            name: tr(`symbol.${column.kind}.${choice.id}.name`),
+            cost: choice.cost,
+          }),
           `workshop-symbol${choice.selected ? ' selected' : ''}`,
           () => {
             selection = toggleSymbol(selection, column.kind, choice.id);

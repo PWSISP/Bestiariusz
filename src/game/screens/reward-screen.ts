@@ -27,10 +27,11 @@ export function createRewardScreen(deps: RewardScreenDeps): Screen {
     pick.addEventListener('click', markTap);
     pick.dataset['card'] = id;
     pick.append(el('span', 'reward-name', renderText(info.title, tr)));
-    const meta = [tr('reward.cost', { cost: info.cost ?? 0 })];
-    if (info.stats)
-      meta.push(tr('reward.stats', { attack: info.stats.attack, health: info.stats.health }));
-    pick.append(el('span', 'reward-meta', meta.join(' · ')));
+    const cost = info.cost ?? 0;
+    const meta = info.stats
+      ? tr('reward.stats', { cost, attack: info.stats.attack, health: info.stats.health })
+      : tr('reward.cost', { cost });
+    pick.append(el('span', 'reward-meta', meta));
     for (const line of info.lines) pick.append(el('span', 'reward-line', renderText(line, tr)));
     list.append(pick);
   }
