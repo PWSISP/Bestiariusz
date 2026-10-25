@@ -207,14 +207,14 @@ Księgowy nie ma osobnej pozycji w biznesplanie. Dwie konsultacje (S20 i S24, ra
 | ID | Pr. | Zadanie | Kto | Kryterium akceptacji | Zależy od | h |
 |---|---|---|---|---|---|---|
 | ☐ S03-00 | M | Planowanie sprintu, demo na koniec i retrospektywa | Ty | Claude rozbił zadania na specyfikacje; build sprintu zagrany przez ciebie na telefonie; `docs/retro/S03.md` (5 linii) i log godzin uzupełnione | — | 2 |
-| ☐ S03-01 | M | Dane MVP: 5 żywiołów, 6 form, 5 przymiotów z kosztami i efektami (JSON) wg `docs/gdd-mvp.md` | Claude | Wczytuje się bez błędów; nocny test sprawdza budżet mocy 10 dla każdej z 150 kombinacji; zastępuje przejściowy `src/data/symbols.json` (D16) | S01-03, S01-11 | 3 |
-| ☐ S03-02 | M | Ocena istoty i lista dostępnych istot (benchmark 02) | Qwen | Testy zielone; lista zgodna ze spisem z danych MVP | S03-01 | 2,5 |
-| ☐ S03-03 | M | Kod istoty: 7 znaków, kodowanie, dekodowanie i suma kontrolna (benchmark 08) | Qwen | Round-trip na 20 000 losowych istot; literówka w jednym znaku wykryta; znaki mylące (0/O, 1/I) obsłużone | S03-01 | 2,5 |
-| ☐ S03-04 | M | Legenda z szablonów zdań PL i EN z rodzajem gramatycznym formy (benchmark 04) | Qwen | Dla 150 istot legenda bez pustych miejsc i błędów zgody rodzaju | S03-01 | 3 |
-| ☐ S03-05 | M | System efektów: haki zdarzeń (przyzwanie, atak, obrażenia, koniec tury) i kolejność rozstrzygania | Claude | Efekty dodawane jako dane i mała funkcja; test kolejności na 10 scenariuszach | S02-01 | 5 |
-| ☐ S03-06 | M | Synergie pięciu żywiołów: Ogień, Woda, Ziemia, Wiatr, Grom | Qwen | Każda synergia ma test wg opisu w GDD (np. Grom przeskakuje na drugi cel) | S03-05 | 4 |
-| ☐ S03-07 | M | Warsztat – logika: wybór trzech symboli, podgląd statystyk, koszt Atramentu, dodanie istoty do talii | Claude | Niedozwolone kombinacje odrzucane z komunikatem (klucz i18n); stan niemutowalny | S03-02 | 3 |
-| ☐ S03-08 | M | Nocny test balansu: boty grają tysiące walk, raport win-rate na symbol | Claude | CSV z win-rate dla 150 istot; wyróżnia istoty poza przedziałem 35–65% | S03-06, S02-09 | 4 |
+| ☑ S03-01 | M | Dane MVP: 5 żywiołów, 6 form, 5 przymiotów z kosztami i efektami (JSON) wg `docs/gdd-mvp.md` | Claude | Wczytuje się bez błędów; nocny test sprawdza budżet mocy 10 dla każdej z 150 kombinacji; zastępuje przejściowy `src/data/symbols.json` (D16) | S01-03, S01-11 | 3 |
+| ☑ S03-02 | M | Ocena istoty i lista dostępnych istot (benchmark 02) | Qwen | Testy zielone; lista zgodna ze spisem z danych MVP | S03-01 | 2,5 |
+| ☑ S03-03 | M | Kod istoty: 7 znaków, kodowanie, dekodowanie i suma kontrolna (benchmark 08) | Qwen | Round-trip na 20 000 losowych istot; literówka w jednym znaku wykryta; znaki mylące (0/O, 1/I) obsłużone | S03-01 | 2,5 |
+| ☑ S03-04 | M | Legenda z szablonów zdań PL i EN z rodzajem gramatycznym formy (benchmark 04) | Qwen | Dla 150 istot legenda bez pustych miejsc i błędów zgody rodzaju | S03-01 | 3 |
+| ☑ S03-05 | M | System efektów: haki zdarzeń (przyzwanie, atak, obrażenia, koniec tury) i kolejność rozstrzygania | Claude | Efekty dodawane jako dane i mała funkcja; test kolejności na 10 scenariuszach | S02-01 | 5 |
+| ☑ S03-06 | M | Synergie pięciu żywiołów: Ogień, Woda, Ziemia, Wiatr, Grom | Qwen | Każda synergia ma test wg opisu w GDD (np. Grom przeskakuje na drugi cel) | S03-05 | 4 |
+| ☑ S03-07 | M | Warsztat – logika: wybór trzech symboli, podgląd statystyk, koszt Atramentu, dodanie istoty do talii | Claude | Niedozwolone kombinacje odrzucane z komunikatem (klucz i18n); stan niemutowalny | S03-02 | 3 |
+| ☑ S03-08 | M | Nocny test balansu: boty grają tysiące walk, raport win-rate na symbol | Claude | CSV z win-rate dla 150 istot; wyróżnia istoty poza przedziałem 35–65% | S03-06, S02-09 | 4 |
 | ☐ S03-09 | M | Używany telefon z Androidem z ok. 2021 r. (klasa Galaxy A52): zakup, pierwszy build, pomiar klatek | Ty | APK z S01 działa na telefonie; wynik FPS zapisany jako punkt odniesienia | — | 3 |
 | ☐ S03-10 | S | Test na papierze: 10 najciekawszych i 10 najnudniejszych kombinacji, notatki do balansu | Ty | `docs/balans-notatki.md` z 20 pozycjami | S03-01 | 2 |
 
@@ -937,3 +937,4 @@ Przy rozpisywaniu zadań musiałem doprecyzować kilka miejsc, w których biznes
 | 24 X 2026 | Sprint 2: ukończone S02-01 … S02-09 (kod walki, moduły Qwena, test różnicowy, reducer, bot i `npm run sim`). Synchronizacja planu z decyzjami D11–D21 przy zamknięciu sprintu (S02-00). |
 | 24 X 2026 | Synchronizacja po Sprincie 2 (decyzje D11–D21 z `docs/superpowers/plans/2026-10-24-sprint-2-walka.md`): S02-01 jawne wartości zamiast snapshotów; kryterium „ręka ≤ 5” z S02-04 do S02-03; S02-06 akcje `direct`; S02-07 scenariusze K1–K10 i R1–R7 oraz Obrzęd raz na walkę; S02-11 ścieżka `src/data/balance.json`; S03-01 zastępuje przejściowe `symbols.json`. |
 | 24 X 2026 | Sprint 2: S02-10 zamknięte bez uwag (decyzja właściciela; kryterium „minimum 10 uwag” świadomie pominięte, zapis w `docs/papier-S02.md`), zasady walki v0.1 zatwierdzone. S02-11: wartości bazowe zatwierdzone bez zmian (gracz 40 zdrowia, Leszy 160; bot 55,3% wygranych). |
+| 25 X 2026 | Sprint 3: ukończone S03-01 … S03-08 (dane MVP z efektami, cztery moduły Qwena za pierwszym podejściem, test różnicowy, system efektów, Warsztat, `npm run balance`). S03-01b: Leszy 380 zdrowia, tabela efektów i odczytanie Gromu zatwierdzone, reguła D22 zostaje. Synchronizacja opisów zadań z decyzjami D22–D32 przy zamknięciu sprintu (S03-00). |
