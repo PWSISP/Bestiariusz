@@ -1,4 +1,5 @@
 import { expect, test } from '@playwright/test';
+import type { Page } from '@playwright/test';
 import { boot, cards, endTurnButton } from './support.ts';
 
 test.skip(
@@ -8,8 +9,7 @@ test.skip(
 
 test.use({ viewport: { width: 360, height: 800 }, hasTouch: true, isMobile: true });
 
-const summary = (page: import('@playwright/test').Page) =>
-  page.evaluate(() => window.__bestiariusz!.game!.lastSummary());
+const summary = (page: Page) => page.evaluate(() => window.__bestiariusz!.game!.lastSummary());
 
 test('winning the combat shows the result screen with a victory summary', async ({ page }) => {
   await boot(page, 'seed=7&enemyHp=1');
