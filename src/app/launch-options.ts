@@ -1,7 +1,8 @@
 // Options read from the address of the page (`?seed=42&anim=0`). Pure: takes the query string and the
 // facts about the environment, returns plain values. Options for tests and measurements (`seed`,
 // `enemyHp`, `playerHp`) are honoured in development builds only, so a player cannot start a
-// weakened enemy by editing the address; `anim` and `fps` are harmless and work everywhere.
+// weakened enemy by editing the address; `anim` and `fps` are harmless and work everywhere. Telemetry
+// (`tester`) is switched on by the build of the testers, never by the address of a normal build.
 
 export interface LaunchOptions {
   /** Fixed seed of the run; null = ask for a fresh one. */
@@ -16,12 +17,16 @@ export interface LaunchOptions {
   readonly playerHp: number | null;
   /** A development sheet to show instead of the game (development builds only). */
   readonly sheet: 'creatures' | 'icons' | null;
+  /** True in the tester build (and with `?tester=1` in development builds): local telemetry and its export. */
+  readonly tester: boolean;
 }
 
 export interface LaunchEnvironment {
   readonly dev: boolean;
   /** The system asks for less motion (`prefers-reduced-motion`). */
   readonly reducedMotion: boolean;
+  /** The build was made for testers (`VITE_TESTER=1`). */
+  readonly testerBuild?: boolean;
 }
 
 const OFF = new Set(['0', 'false', 'off', 'no']);
@@ -50,5 +55,7 @@ export function parseLaunchOptions(search: string, env: LaunchEnvironment): Laun
     enemyHp: env.dev ? wholeNumber(params.get('enemyHp'), 1, 99_999) : null,
     playerHp: env.dev ? wholeNumber(params.get('playerHp'), 1, 99_999) : null,
     sheet: env.dev && (sheet === 'creatures' || sheet === 'icons') ? sheet : null,
+    tester:
+      env.testerBuild === true || (env.dev && ON.has(params.get('tester')?.toLowerCase() ?? '')),
   };
 }

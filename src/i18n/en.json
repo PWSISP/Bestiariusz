@@ -131,6 +131,9 @@
   "result.stat.ritual.yes": "Ritual: done",
   "result.stat.ritual.no": "Ritual: not done",
   "result.continue": "Continue",
+  "result.export": "Save test data",
+  "result.export.copied": "Data copied. Paste it into a message to the person running the test.",
+  "result.export.manual": "Copying failed. Select all the text below, copy it and paste it into a message to the person running the test.",
   "dev.fps": "FPS {fps} · p95 {p95} ms",
   "circle.caption": "Circle {n}"
 }

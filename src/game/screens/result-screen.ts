@@ -4,6 +4,7 @@ import { Container, Graphics } from 'pixi.js';
 import type { Screen, ScreenContext } from '../../app/screen-manager.ts';
 import type { CombatSummary } from '../../core/combat/summary.ts';
 import { renderText } from '../../i18n/text.ts';
+import type { ExportOutcome } from '../../platform/telemetry-store.ts';
 import type { TranslateFn } from '../../i18n/text.ts';
 import { createButton } from '../../ui/dom.ts';
 import { markTap } from '../../ui/tap-guard.ts';
@@ -16,6 +17,11 @@ export interface ResultScreenDeps {
   readonly translate: TranslateFn;
   /** The player pressed the button. */
   readonly onContinue: () => void;
+  /** Tester build only: gives the telemetry to the tester (`text` is shown when copying fails). */
+  readonly exporter?: {
+    readonly text: () => string;
+    readonly run: () => Promise<ExportOutcome>;
+  };
 }
 
 export function createResultScreen(deps: ResultScreenDeps): Screen {
@@ -78,7 +84,37 @@ export function createResultScreen(deps: ResultScreenDeps): Screen {
       const button = createButton('result.continue', deps.onContinue);
       button.addEventListener('click', markTap);
       button.classList.add('result-continue');
-      ctx.overlay.append(button);
+      const exporter = deps.exporter;
+      if (!exporter) {
+        ctx.overlay.append(button);
+        return;
+      }
+      const actions = document.createElement('div');
+      actions.className = 'result-actions';
+      const status = document.createElement('p');
+      status.className = 'result-export-status';
+      status.setAttribute('role', 'status');
+      const manual = document.createElement('textarea');
+      manual.className = 'result-manual';
+      manual.readOnly = true;
+      manual.hidden = true;
+      manual.setAttribute('aria-label', deps.translate('result.export.manual'));
+      const exportButton = createButton('result.export', () => {
+        void exporter.run().then((outcome) => {
+          if (outcome === 'copied') {
+            status.textContent = deps.translate('result.export.copied');
+            return;
+          }
+          status.textContent = deps.translate('result.export.manual');
+          manual.value = exporter.text();
+          manual.hidden = false;
+          manual.focus();
+          manual.select();
+        });
+      });
+      exportButton.classList.add('result-export');
+      actions.append(status, manual, exportButton, button);
+      ctx.overlay.append(actions);
     },
     resize(size: Size) {
       build(size);

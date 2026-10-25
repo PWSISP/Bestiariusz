@@ -45,6 +45,7 @@ Pliki z `docs/` powstałe w Sprincie 1. Szkice napisał Claude, treść i zakres
 | `docs/superpowers/plans/2026-10-25-sprint-5-rezerwa-i-testy-bramki-1.md` | akceptacja planu, decyzje D45–D49, wybór metody wykonania | plan i pakiet plików Sprintu 5: Claude (Anthropic), Claude Sonnet 5.5 | 2026-10-25 |
 | `docs/zaleglosci.md` | decyzje przy każdej pozycji | szkic listy z retrospektyw S01–S04 i planu sprintów: Claude (Anthropic), Claude Sonnet 5.5 | 2026-10-25 |
 | `docs/test-b1.md` | zakres testu, pytania ankiety, akceptacja | szkic scenariusza i ankiety: Claude (Anthropic), Claude Sonnet 5.5 | 2026-10-25 |
-| `public/testy/index.html` | akceptacja treści instrukcji dla testerów | szkic instrukcji: Claude (Anthropic), Claude Sonnet 5.5 | 2026-10-25 |
+| `public/testy/index.html` | akceptacja treści instrukcji dla testerów | szkic instrukcji: Claude (Anthropic), Claude Sonnet 5.5; poprawki przy wykonaniu (neutralne płciowo sformułowania, pełna lista pól eksportu): sesja Claude Code, Claude Opus 5.5 | 2026-10-25 |
+| `docs/retro/S05.md` | odkrycia z próby osoby spoza projektu, lista przed tagiem oraz akceptacja | szkic na podstawie rejestru wykonania, raportu potoku Qwena i recenzji gałęzi: Claude (Anthropic), Claude Opus 5.5 | 2026-10-25 |
 
 Kod z `src/` nie jest tu wpisywany: autorstwo każdego modułu widać w historii git i w raportach potoku Qwena (`results/`, lokalnie).

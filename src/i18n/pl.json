@@ -131,6 +131,9 @@
   "result.stat.ritual.yes": "Obrzęd: wykonany",
   "result.stat.ritual.no": "Obrzęd: nie",
   "result.continue": "Dalej",
+  "result.export": "Zapisz dane testu",
+  "result.export.copied": "Dane skopiowane. Wklej je w wiadomości do prowadzącego test.",
+  "result.export.manual": "Nie udało się skopiować. Zaznacz cały tekst poniżej, skopiuj go i wklej w wiadomości do prowadzącego test.",
   "dev.fps": "FPS {fps} · p95 {p95} ms",
   "circle.caption": "Krąg {n}"
 }
