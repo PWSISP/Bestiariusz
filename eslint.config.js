@@ -124,4 +124,43 @@ export default defineConfig(
       ],
     },
   },
+  {
+    // Presentation logic that decides what the screen shows (layout, hand fan, animation plans, view models).
+    // Pure and testable without a renderer: no clock, no randomness, no renderer, no platform, no outer layers.
+    files: ['src/view/**'],
+    rules: {
+      'no-restricted-properties': ['error', mathRandom, dateNow],
+      'no-restricted-syntax': [
+        'error',
+        {
+          selector: "NewExpression[callee.name='Date']",
+          message: 'Presentation logic must not read the clock; time arrives as an argument.',
+        },
+      ],
+      'no-restricted-imports': [
+        'error',
+        {
+          patterns: [
+            nodeBuiltins,
+            {
+              group: ['pixi.js'],
+              message: 'src/view must stay renderer-free; drawing belongs in src/game.',
+            },
+            {
+              group: ['i18next*'],
+              message: 'src/view returns text references; translate in the screens.',
+            },
+            {
+              group: ['@capacitor/*'],
+              message: 'src/view must stay platform-free; use src/platform.',
+            },
+            {
+              group: ['**/ui/**', '**/game/**', '**/platform/**', '**/app/**'],
+              message: 'src/view must not depend on outer layers; pass data in instead.',
+            },
+          ],
+        },
+      ],
+    },
+  },
 );
