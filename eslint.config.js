@@ -38,6 +38,7 @@ export default defineConfig(
       'dist',
       'android',
       'ios',
+      'docs',
       'results',
       'runs',
       'test-results',
