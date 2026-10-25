@@ -94,6 +94,19 @@ test('the Workshop makes a creature for ink and adds it to the deck', async ({ p
   await page.getByRole('button', { name: 'Wróć' }).tap();
   await waitFor(page, 'route');
   await expect(page.locator('.run-stat').nth(2)).toContainText(String(after.deck.length));
+  // S06-02: the creature goes into the next fight as a card the fight knows
+  await page.getByRole('button', { name: 'Do walki' }).tap();
+  await waitFor(page, 'combat');
+  const fight = await page.evaluate(() => {
+    const session = window.__bestiariusz!.game!.session()!;
+    const { draw, hand, discard } = session.state.deck;
+    return {
+      cards: [...draw, ...hand, ...discard],
+      kind: session.data.cards['woda-kruk-smutek']?.kind ?? null,
+    };
+  });
+  expect(fight.cards).toContain('woda-kruk-smutek');
+  expect(fight.kind).toBe('creature');
 });
 
 test('losing a fight ends the expedition; New expedition starts a fresh one', async ({ page }) => {
