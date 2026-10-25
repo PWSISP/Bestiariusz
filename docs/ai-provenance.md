@@ -51,6 +51,6 @@ Pliki z `docs/` powstałe w Sprincie 1. Szkice napisał Claude, treść i zakres
 | `docs/wyprawa.md` | akceptacja opisu pętli i liczb wyprawy | szkic opisu i pomiar botem: Claude (Anthropic), Claude Sonnet 5.5 | 2026-10-25 |
 | `docs/dzwieki.md` | akceptacja decyzji o dźwiękach syntezowanych (D54) | szkic: Claude (Anthropic), Claude Sonnet 5.5 | 2026-10-25 |
 | `docs/bramka-1.md` | wypełnienie wyników testu i decyzja bramki 1 | szablon: Claude (Anthropic), Claude Sonnet 5.5 | 2026-10-25 |
-| `docs/retro/S06.md` | uzupełnienie po sprincie i akceptacja | szkic z listą przed tagiem: Claude (Anthropic), Claude Sonnet 5.5 | 2026-10-25 |
+| `docs/retro/S06.md` | uzupełnienie po sprincie i akceptacja | szkic z listą przed tagiem: Claude (Anthropic), Claude Sonnet 5.5; pkt 1, 2, 5 i lista przed tagiem uzupełnione o stan kodu z rejestru wykonania, raportów potoku Qwena i recenzji gałęzi: sesja Claude Code, Claude Opus 5.5 | 2026-10-25 |
 
 Kod z `src/` nie jest tu wpisywany: autorstwo każdego modułu widać w historii git i w raportach potoku Qwena (`results/`, lokalnie).
