@@ -159,19 +159,19 @@ Księgowy nie ma osobnej pozycji w biznesplanie. Dwie konsultacje (S20 i S24, ra
 
 | ID | Pr. | Zadanie | Kto | Kryterium akceptacji | Zależy od | h |
 |---|---|---|---|---|---|---|
-| ☐ S01-00 | M | Planowanie sprintu, demo na koniec i retrospektywa | Ty | Claude rozbił zadania na specyfikacje; build sprintu zagrany przez ciebie na telefonie; `docs/retro/S01.md` (5 linii) uzupełniona | — | 2 |
-| ☐ S01-01 | M | Repozytorium i narzędzia: Git (prywatne), Vite, TypeScript strict, ESLint, Prettier, Vitest, struktura katalogów z dodatku A | Claude | Polecenia `npm run dev`, `test`, `lint`, `typecheck` i `build` działają od zera po `npm ci`; strict bez wyjątków | — | 3 |
-| ☐ S01-02 | M | Potok Qwena w repozytorium: skrypt `tools/qwen-run.mjs` (port z benchmarku), `CLAUDE.md` dla Qwena, szablon specyfikacji zadania, lista chronionych plików | Claude | Zadanie próbne wykonane przez Qwena na twoim laptopie: testy zielone, raport w `results/` | — | 4 |
-| ☐ S01-03 | M | Schemat danych symboli (Żywioł, Forma, Przymiot) z kosztami mocy i walidacją wczytywania | Claude | Błędny plik danych kończy się czytelnym błędem z nazwą pola; test na 3 przykładowych symbolach | — | 2 |
-| ☐ S01-04 | M | Generator liczb losowych z ziarnem (PCG32): next, int, pick, shuffle | Qwen | Ten sam ciąg dla ziarna 20261102 w Node, Chromium i WebKit (test Playwright); w `src/` zero użyć `Math.random` | S01-02 | 2 |
-| ☐ S01-05 | M | Szkielet aplikacji: menedżer ekranów, pętla PixiJS v8, nakładka UI w HTML, magistrala zdarzeń | Claude | Dwa ekrany testowe przełączają się bez wycieków (test liczby obiektów po 100 przełączeniach) | S01-01 | 3 |
-| ☐ S01-06 | M | Lokalizacja: i18next z ICU, pliki `pl.json` i `en.json`, typowane klucze, reguła lint „zero tekstu w kodzie interfejsu” | Qwen | „1 karta, 2 karty, 5 kart” poprawnie w PL; lint odrzuca literał tekstowy w komponencie UI | S01-02 | 2,5 |
-| ☐ S01-07 | M | CI w GitHub Actions: lint, typecheck, testy i build web przy każdym pushu | Claude | Zielony pipeline na gałęzi `main`; build web poniżej 5 minut | S01-01 | 2 |
-| ☐ S01-08 | M | Capacitor: platforma Android, debugowy APK budowany w CI | Claude | APK instaluje się na twoim telefonie i pokazuje ekran PixiJS | S01-05, S01-07 | 3 |
-| ☐ S01-09 | M | Licencje modeli i spis wkładu AI: `docs/ai-provenance.md` (FLUX.2 klein 4B – Apache 2.0, ACE-Step 1.5 – MIT), zasada „co zrobił człowiek, co AI” | Ty | Plik istnieje, zasada opisana w README; modele FLUX.2 klein 9B i dev wykluczone z projektu | — | 1,5 |
-| ☐ S01-10 | M | Konta bez opłat: prywatne repozytorium, projekt Supabase w regionie UE, roboczy serwer Discord, skrzynka e-mail projektu | Ty | Dane dostępowe w menedżerze haseł; żadnych kluczy w repozytorium | — | 2 |
-| ☐ S01-11 | M | Zamrożenie zakresu MVP z Claude: lista 5 żywiołów × 6 form × 5 przymiotów z kosztami mocy (`docs/gdd-mvp.md`) | Ty | 150 kombinacji policzonych, lista zatwierdzona przez ciebie | — | 4 |
-| ☐ S01-12 | S | Rytm pracy: stały kalendarz 15–20 h tygodniowo | Ty | Kalendarz na 4 tygodnie z góry | — | 1 |
+| ☑ S01-00 | M | Planowanie sprintu, demo na koniec i retrospektywa | Ty | Claude rozbił zadania na specyfikacje; build sprintu zagrany przez ciebie na telefonie; `docs/retro/S01.md` (5 linii) uzupełniona | — | 2 |
+| ☑ S01-01 | M | Repozytorium i narzędzia: Git (prywatne), Vite, TypeScript strict, ESLint, Prettier, Vitest, struktura katalogów z dodatku A | Claude | Polecenia `npm run dev`, `test`, `lint`, `typecheck` i `build` działają od zera po `npm ci`; strict bez wyjątków | — | 3 |
+| ☑ S01-02 | M | Potok Qwena w repozytorium: skrypt `tools/qwen-run.mjs` (port z benchmarku), `CLAUDE.md` dla Qwena, szablon specyfikacji zadania, lista chronionych plików | Claude | Zadanie próbne wykonane przez Qwena na twoim laptopie: testy zielone, raport w `results/` | — | 4 |
+| ☑ S01-03 | M | Schemat danych symboli (Żywioł, Forma, Przymiot) z kosztami mocy i walidacją wczytywania | Claude | Błędny plik danych kończy się czytelnym błędem z nazwą pola; test na 3 przykładowych symbolach | — | 2 |
+| ☑ S01-04 | M | Generator liczb losowych z ziarnem (PCG32): next, int, pick, shuffle | Qwen | Ten sam ciąg dla ziarna 20261102 w Node, Chromium i WebKit (test Playwright); w `src/` zero użyć `Math.random` | S01-02 | 2 |
+| ☑ S01-05 | M | Szkielet aplikacji: menedżer ekranów, pętla PixiJS v8, nakładka UI w HTML, magistrala zdarzeń | Claude | Dwa ekrany testowe przełączają się bez wycieków (test liczby obiektów po 100 przełączeniach) | S01-01 | 3 |
+| ☑ S01-06 | M | Lokalizacja: i18next z ICU, pliki `pl.json` i `en.json`, typowane klucze, reguła lint „zero tekstu w kodzie interfejsu” | Qwen | „1 karta, 2 karty, 5 kart” poprawnie w PL; lint odrzuca literał tekstowy w komponencie UI | S01-02 | 2,5 |
+| ☑ S01-07 | M | CI w GitHub Actions: lint, typecheck, testy i build web przy każdym pushu | Claude | Zielony pipeline na gałęzi `main`; build web poniżej 5 minut | S01-01 | 2 |
+| ☑ S01-08 | M | Capacitor: platforma Android, debugowy APK budowany w CI | Claude | APK instaluje się na twoim telefonie i pokazuje ekran PixiJS | S01-05, S01-07 | 3 |
+| ☑ S01-09 | M | Licencje modeli i spis wkładu AI: `docs/ai-provenance.md` (FLUX.2 klein 4B – Apache 2.0, ACE-Step 1.5 – MIT), zasada „co zrobił człowiek, co AI” | Ty | Plik istnieje, zasada opisana w README; modele FLUX.2 klein 9B i dev wykluczone z projektu | — | 1,5 |
+| ☑ S01-10 | M | Konta bez opłat: prywatne repozytorium, projekt Supabase w regionie UE, roboczy serwer Discord, skrzynka e-mail projektu | Ty | Dane dostępowe w menedżerze haseł; żadnych kluczy w repozytorium | — | 2 |
+| ☑ S01-11 | M | Zamrożenie zakresu MVP z Claude: lista 5 żywiołów × 6 form × 5 przymiotów z kosztami mocy (`docs/gdd-mvp.md`) | Ty | 150 kombinacji policzonych, lista zatwierdzona przez ciebie | — | 4 |
+| ☑ S01-12 | S | Rytm pracy: stały kalendarz 15–20 h tygodniowo | Ty | Kalendarz na 4 tygodnie z góry | — | 1 |
 
 ### S02 · 16–29 XI 2026 · Rdzeń I: walka bez grafiki
 
@@ -183,7 +183,7 @@ Księgowy nie ma osobnej pozycji w biznesplanie. Dwie konsultacje (S20 i S24, ra
 
 | ID | Pr. | Zadanie | Kto | Kryterium akceptacji | Zależy od | h |
 |---|---|---|---|---|---|---|
-| ☐ S02-00 | M | Planowanie sprintu, demo na koniec i retrospektywa | Ty | Claude rozbił zadania na specyfikacje; build sprintu zagrany przez ciebie na telefonie; `docs/retro/S02.md` (5 linii) uzupełniona | — | 2 |
+| ☑ S02-00 | M | Planowanie sprintu, demo na koniec i retrospektywa | Ty | Claude rozbił zadania na specyfikacje; build sprintu zagrany przez ciebie na telefonie; `docs/retro/S02.md` (5 linii) uzupełniona | — | 2 |
 | ☑ S02-01 | M | Model stanu walki: niemutowalny stan, jeden reducer akcji, zdarzenia | Claude | Wszystkie zmiany stanu przechodzą przez reducer; testy z jawnymi wartościami (D20) | S01-03 | 4 |
 | ☑ S02-02 | M | Obrażenia z żywiołami: blok, odporności i słabości, przebicie (rozwiązanie sprawdzone w benchmarku 05) | Qwen | Testy z benchmarku zielone; fuzzing względem rozwiązania wzorcowego: 0 rozbieżności | S02-01 | 2,5 |
 | ☑ S02-03 | M | Talia: dobieranie, tasowanie z ziarnem, odrzucone, koniec tury (benchmark 06) | Qwen | Testy zielone; ta sama talia dla tego samego ziarna; ręka nie przekracza 5 (`HAND_LIMIT`) | S01-04 | 2,5 |
@@ -206,7 +206,7 @@ Księgowy nie ma osobnej pozycji w biznesplanie. Dwie konsultacje (S20 i S24, ra
 
 | ID | Pr. | Zadanie | Kto | Kryterium akceptacji | Zależy od | h |
 |---|---|---|---|---|---|---|
-| ☐ S03-00 | M | Planowanie sprintu, demo na koniec i retrospektywa | Ty | Claude rozbił zadania na specyfikacje; build sprintu zagrany przez ciebie na telefonie; `docs/retro/S03.md` (5 linii) uzupełniona | — | 2 |
+| ☑ S03-00 | M | Planowanie sprintu, demo na koniec i retrospektywa | Ty | Claude rozbił zadania na specyfikacje; build sprintu zagrany przez ciebie na telefonie; `docs/retro/S03.md` (5 linii) uzupełniona | — | 2 |
 | ☑ S03-01 | M | Dane MVP: 5 żywiołów, 6 form, 5 przymiotów z kosztami i efektami (JSON) wg `docs/gdd-mvp.md` | Claude | Wczytuje się bez błędów; budżet mocy 10 dla każdej z 150 kombinacji sprawdza zwykły test jednostkowy `tests/data/mvp-data.test.ts` (D32); efekty symboli opisuje `docs/efekty-symboli.md` (D23); zastępuje przejściowy `src/data/symbols.json` (D16) | S01-03, S01-11 | 3 |
 | ☑ S03-02 | M | Ocena istoty i lista dostępnych istot (benchmark 02) | Qwen | Testy zielone; lista zgodna ze spisem z danych MVP | S03-01 | 2,5 |
 | ☑ S03-03 | M | Kod istoty: 7 znaków, kodowanie, dekodowanie i suma kontrolna (benchmark 08) | Qwen | Round-trip na 20 000 losowych istot; literówka w jednym znaku wykryta; znaki mylące (0/O, 1/I) obsłużone | S03-01 | 2,5 |
@@ -230,7 +230,7 @@ Księgowy nie ma osobnej pozycji w biznesplanie. Dwie konsultacje (S20 i S24, ra
 
 | ID | Pr. | Zadanie | Kto | Kryterium akceptacji | Zależy od | h |
 |---|---|---|---|---|---|---|
-| ☐ S04-00 | M | Planowanie sprintu, demo na koniec i retrospektywa | Ty | Claude rozbił zadania na specyfikacje; build sprintu zagrany przez ciebie na telefonie; `docs/retro/S04.md` (5 linii) uzupełniona | — | 2 |
+| ☑ S04-00 | M | Planowanie sprintu, demo na koniec i retrospektywa | Ty | Claude rozbił zadania na specyfikacje; build sprintu zagrany przez ciebie na telefonie; `docs/retro/S04.md` (5 linii) uzupełniona | — | 2 |
 | ☑ S04-01 | M | Układ walki w pionie: Kręgi u góry, ręka pod kciukiem, zdrowie, Żar, koniec tury, zamiar wroga | Claude | Ekran 360×800 dp; wszystkie sterowania w zasięgu kciuka; pola dotyku ≥ 48 dp | S02-01 | 4 |
 | ☑ S04-02 | M | Karty w ręce: wachlarz, wybór dotknięciem, przeciąganie na Krąg, anulowanie | Qwen | Test E2E (Playwright, dotyk): zagranie karty z ręki do Kręgu zmienia stan zgodnie z logiką | S04-01 | 3 |
 | ☑ S04-03 | M | Warstwowy renderer istoty (tło żywiołu, sylwetka formy, nakładka przymiotu) z grafikami zastępczymi | Qwen | 150 istot rysuje się z 3 warstw; grafiki zastępcze wektorowe, 0 bajtów atlasu (D38) | S03-01 | 3 |
@@ -239,11 +239,11 @@ Księgowy nie ma osobnej pozycji w biznesplanie. Dwie konsultacje (S20 i S24, ra
 | ☐ S04-06 | M | Testy wizualne Playwright (Chromium; WebKit bez WebGL jest zawodny, D39): zrzuty walki w trzech rozmiarach | Claude | Po zatwierdzeniu wzorców z CI: CI porównuje zrzuty ze wzorcami; różnica powyżej 1% blokuje | S04-01 | 3 |
 | ☑ S04-07 | M | Pętla gry: łączenie logiki z interfejsem; walka z Leszym (3 zamiary, wersja robocza) | Claude | Można rozegrać całą walkę do końca na telefonie | S04-01, S04-02 | 4 |
 | ☑ S04-08 | M | Ekran końca walki (szkic): wygrana, porażka, przycisk dalej | Qwen | Obie ścieżki pokryte testem E2E | S04-07 | 2 |
-| ☐ S04-09 | S | Granie na telefonie przez 3 wieczory; lista 20 problemów (błędy i odczucia) | Ty | `docs/playtest-S04.md` | S04-07 | 4 |
+| ☑ S04-09 | S | Granie na telefonie przez 3 wieczory; lista 20 problemów (błędy i odczucia) | Ty | `docs/playtest-S04.md` | S04-07 | 4 |
 
 ### S05 · 28 XII 2026 – 10 I 2027 · Rezerwa i przygotowanie testów bramki 1
 
-**Faza:** A. Prototyp · **sprint rezerwowy** · **Twój czas:** 16 h
+**Faza:** A. Prototyp · **sprint rezerwowy** · **Twój czas:** 16,5 h
 
 **Cel:** Zaległości z S01–S04 domknięte, 10 testerów umówionych, prototyp dostępny dla każdego bez instalatora developerskiego.
 
@@ -254,9 +254,11 @@ Księgowy nie ma osobnej pozycji w biznesplanie. Dwie konsultacje (S20 i S24, ra
 | ☐ S05-00 | M | Planowanie sprintu, demo na koniec i retrospektywa | Ty | Claude rozbił zadania na specyfikacje; build sprintu zagrany przez ciebie na telefonie; `docs/retro/S05.md` (5 linii) uzupełniona | — | 1 |
 | ☐ S05-01 | M | Zaległości z S01–S04 (`docs/zaleglosci.md`) | Ty | Lista pusta albo przeniesiona z uzasadnieniem | — | 6 |
 | ☐ S05-02 | M | Rekrutacja 10 testerów do bramki 1 (w tym min. 3 osoby bez doświadczenia z deckbuilderami) | Ty | 10 nazwisk z potwierdzonym terminem | — | 2 |
-| ☐ S05-03 | M | Dystrybucja prototypu: wersja web pod stałym adresem (iPhone przez przeglądarkę) i APK do pobrania; instrukcja dla testerów | Claude | Oba warianty uruchomione przez osobę niezwiązaną z projektem | — | 3 |
+| ☐ S05-03 | M | Dystrybucja prototypu (GitHub Pages, D45): wersja web pod stałym adresem (iPhone przez przeglądarkę) i APK do pobrania; instrukcja dla testerów | Claude | Oba warianty uruchomione przez osobę niezwiązaną z projektem | — | 3 |
 | ☐ S05-04 | M | Plan testu bramki 1: scenariusz 30 minut, ankieta (czy chcesz grać dalej, co było niejasne) | Ty | `docs/test-b1.md`; ankieta w formularzu bez danych osobowych | — | 2 |
-| ☐ S05-05 | S | Telemetria lokalna prototypu: czas walki, liczba tur, wynik – tylko do pliku eksportowanego przez testera | Qwen | Plik JSON po sesji; brak wysyłania przez sieć | — | 2 |
+| ☐ S05-05a | S | Dziennik walk testera: czysty moduł `src/core/telemetry/log.ts` (tworzenie, dopisywanie, serializacja, odczyt) | Qwen | Test `S05-05a` zielony; format pliku zgodny ze specyfikacją | — | 0,5 |
+| ☐ S05-05b | S | Telemetria lokalna prototypu: czas walki, liczba tur, wynik – tylko w buildzie testera (D46), eksport przez schowek i plik | Claude | Plik JSON po sesji; brak wysyłania przez sieć (test E2E i test źródeł) | S05-05a | 1 |
+| ☐ S05-06 | S | Rozgrzewka serwera Vite przed testami E2E (retro S04) | Claude | `npm run test:e2e` bez przekroczeń czasu na zimnym serwerze | — | 0,5 |
 
 ### S06 · 11–24 I 2027 · Prototyp do testu: pełna krótka wyprawa
 
@@ -861,7 +863,7 @@ Każdy standardowy element aplikacji ma co najmniej jedno zadanie. Kolumna „Od
 | Prośba o ocenę w sklepie | S21 | S21 | S21-06 |
 | Zalecana i wymuszona aktualizacja, tryb konserwacji | S22 | S22 | S22-05 |
 | Stan offline i kolejka wyników | S18 | S18 | S18-04, S18-06 |
-| Analityka i raportowanie awarii (za zgodą) | S5 | S23 | S05-05, S19-03, S21-02, S23-01 |
+| Analityka i raportowanie awarii (za zgodą) | S5 | S23 | S05-05a, S05-05b, S19-03, S21-02, S23-01 |
 | Powiadomienia lokalne (opcjonalne) | S22 | S22 | S22-06 |
 | Ekrany błędów i stany puste | S13 | S23 | S13-07, S17-02, S18-06, S23-04 |
 | Usuwanie danych i prawa RODO | S18 | S19 | S18-01, S19-02, S19-04 |
@@ -941,3 +943,5 @@ Przy rozpisywaniu zadań musiałem doprecyzować kilka miejsc, w których biznes
 | 25 X 2026 | Synchronizacja po Sprincie 3 (decyzje D22–D32 z `docs/superpowers/plans/2026-10-24-sprint-3-dane-i-warsztat.md`): S03-01 nocny test budżetu to zwykły test jednostkowy (D32), efekty symboli w `docs/efekty-symboli.md` (D23); S03-05 scenariusze 1–10 w `tests/combat/effects.test.ts` i E1–E10 w zasadach walki; S03-06 test wg `docs/efekty-symboli.md`, zależność S03-01 zamiast S03-05 (D24, D25); S03-07 zwrot karty i reszty Atramentu, talia w stanie przebiegu w S06 (D30); S03-08 zadanie bez słowa „nocny”, polecenie `npm run balance` i przedział 35–65% (D27). Zdrowie Leszego 160 → 380 (Z14, S03-01b); reguła D22 (niewydany budżet mocy daje zdrowie) i dane efektów zastępują opis z GDD. |
 | 25 X 2026 | Rezygnacja z zapisywania godzin faktycznych: usunięty `docs/log-godzin.csv` i wszystkie kroki „uzupełnij log godzin” (S01-12, S07-09, S32-06, zadania -00, definicja ukończenia). Kolumna `h` zostaje jako szacunek planu. |
 | 25 X 2026 | Sprint 4: ukończone S04-01 … S04-05, S04-07, S04-08 (warstwa `src/view`, pięć modułów Qwena, test różnicowy, pętla gry, ekran walki i wyniku, testy E2E w Chromium). Odstępstwa: S04-03 grafiki zastępcze wektorowe zamiast atlasu (D38); S04-04 wielokąty w danych zamiast SVG; S04-06 tylko Chromium (D39), wzorce zrzutów z CI, wykonawca Claude zamiast Qwena (to klej E2E). Otwarte: S04-06 (wzorce zrzutów po pierwszym biegu CI), S04-09 i S04-00. |
+| 25 X 2026 | Sprint 4: S04-00 i S04-09 zaliczone decyzją właściciela (bez playtestu na liście 20 pozycji i bez pomiaru FPS; punkt odniesienia klatek na A56 nadal nieznany). Otwarte: S04-06 krok 3 (wzorce zrzutów z CI) i zielone CI gałęzi sprintu. |
+| 25 X 2026 | Porządki: odhaczone S01-00 … S01-12 (w tym S01-01 … S01-09, S01-11 z dowodami: repozytorium, CI, retro, `gdd-mvp.md`), S02-00 i S03-00. Sprint 5: S05-05 rozbite na S05-05a (Qwen) i S05-05b (Claude), dodane S05-06; plan w `docs/superpowers/plans/2026-10-25-sprint-5-rezerwa-i-testy-bramki-1.md` (decyzje D45–D49). Zaległości S03-09 i S03-10 trafiają do `docs/zaleglosci.md`. |

@@ -42,5 +42,9 @@ Pliki z `docs/` powstałe w Sprincie 1. Szkice napisał Claude, treść i zakres
 | `docs/retro/S03.md` | uzupełnienie telefonu i listy przed tagiem oraz akceptacja | szkic na podstawie historii gita, raportów potoku Qwena i raportu balansu: Claude (Anthropic), Claude Sonnet 5.5 | 2026-10-25 |
 | `docs/superpowers/plans/2026-10-25-sprint-4-walka-na-telefonie.md` | akceptacja planu, decyzje D33–D44, wybór metody wykonania | plan i pakiet plików Sprintu 4: Claude (Anthropic), model do potwierdzenia w historii gita; wykonanie i uzupełnienia specyfikacji S04-02b i S04-04: sesja Claude Code, Claude Opus 5.5 | 2026-10-25 |
 | `docs/retro/S04.md` | uwagi z gry na telefonie, FPS, lista przed tagiem oraz akceptacja | szkic na podstawie rejestru wykonania i raportów potoku Qwena: Claude (Anthropic), Claude Opus 5.5 | 2026-10-25 |
+| `docs/superpowers/plans/2026-10-25-sprint-5-rezerwa-i-testy-bramki-1.md` | akceptacja planu, decyzje D45–D49, wybór metody wykonania | plan i pakiet plików Sprintu 5: Claude (Anthropic), Claude Sonnet 5.5 | 2026-10-25 |
+| `docs/zaleglosci.md` | decyzje przy każdej pozycji | szkic listy z retrospektyw S01–S04 i planu sprintów: Claude (Anthropic), Claude Sonnet 5.5 | 2026-10-25 |
+| `docs/test-b1.md` | zakres testu, pytania ankiety, akceptacja | szkic scenariusza i ankiety: Claude (Anthropic), Claude Sonnet 5.5 | 2026-10-25 |
+| `public/testy/index.html` | akceptacja treści instrukcji dla testerów | szkic instrukcji: Claude (Anthropic), Claude Sonnet 5.5 | 2026-10-25 |
 
 Kod z `src/` nie jest tu wpisywany: autorstwo każdego modułu widać w historii git i w raportach potoku Qwena (`results/`, lokalnie).
