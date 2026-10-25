@@ -16,9 +16,13 @@ export interface Snapshot {
   runs: number;
 }
 
-/** Opens the game with fixed options and waits for the combat screen. `anim=0` unless told otherwise. */
+/**
+ * Opens the game with fixed options and waits for the combat screen: the single duel with the Leszy
+ * (`duel=1`), as the combat tests need it. `anim=0` unless told otherwise.
+ */
 export async function boot(page: Page, query = 'seed=7'): Promise<void> {
-  const q = /(^|&)anim=/.test(query) ? query : `${query}&anim=0`;
+  const withDuel = /(^|&)duel=/.test(query) ? query : `${query}&duel=1`;
+  const q = /(^|&)anim=/.test(withDuel) ? withDuel : `${withDuel}&anim=0`;
   await page.goto(`/?${q}`);
   await page.waitForFunction(() => window.__bestiariusz?.manager.current === 'combat');
   await page.waitForFunction(() => document.querySelectorAll('.hit-card').length > 0);
@@ -111,4 +115,30 @@ export async function doubleTap(
 /** The id of a card in the hand of the running combat (read from the game, not from the screen). */
 export function kindOf(page: Page, cardId: string): Promise<string> {
   return page.evaluate((id) => window.__bestiariusz!.game!.session()!.data.cards[id]!.kind, cardId);
+}
+
+/** Opens the game on the route of a new expedition (no `duel`). `anim=0` unless told otherwise. */
+export async function bootRun(page: Page, query = 'seed=7'): Promise<void> {
+  const q = /(^|&)anim=/.test(query) ? query : `${query}&anim=0`;
+  await page.goto(`/?${q}`);
+  await page.waitForFunction(() => window.__bestiariusz?.manager.current === 'route');
+}
+
+export const screenId = (page: Page): Promise<string | null> =>
+  page.evaluate(() => window.__bestiariusz!.manager.current);
+
+/** Plays a damage spell from the hand (select, then play) until the combat is over. */
+export async function winFight(page: Page): Promise<void> {
+  await page.waitForFunction(() => document.querySelectorAll('.hit-card').length > 0);
+  for (let guard = 0; guard < 12; guard++) {
+    if ((await screenId(page)) !== 'combat') return;
+    const hand = await page.evaluate(() => [
+      ...window.__bestiariusz!.game!.session()!.state.deck.hand,
+    ]);
+    const slot = hand.findIndex((id) => id === 'uderzenie' || id === 'plomien');
+    if (slot < 0) throw new Error(`no damage spell in the hand: ${hand.join(',')}`);
+    await cards(page).nth(slot).tap();
+    await cards(page).nth(slot).tap();
+    await page.waitForTimeout(50);
+  }
 }

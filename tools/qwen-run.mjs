@@ -29,6 +29,8 @@ const COPY_ITEMS = [
   'tests',
   'tasks',
   'tools/typecheck.mjs',
+  // imported by tests/tools/assemble-site.test.ts; without it the typecheck of the copy fails
+  'tools/assemble-site.ts',
 ];
 const AGENT_GUIDE = 'tools/qwen/CLAUDE.md';
 

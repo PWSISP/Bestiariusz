@@ -51,6 +51,23 @@ export interface WorkshopBalance {
   readonly inkPerPower: number;
 }
 
+/** The expedition of S06: fights in a fixed order with rewards and ink between them. */
+export interface ExpeditionBalance {
+  /** Enemy ids in the order of the fights; the last one is the boss. */
+  readonly stages: readonly string[];
+  /** Id of the starting deck in `decks`. */
+  readonly deck: string;
+  /** Health the player recovers after a won fight (never above the maximum). */
+  readonly healBetween: number;
+  /** How many cards a reward offers. */
+  readonly rewardChoices: number;
+  /** Card ids a reward can offer. */
+  readonly rewardPool: readonly string[];
+  /** Ink at the start of the expedition and for every won fight. */
+  readonly startInk: number;
+  readonly inkPerWin: number;
+}
+
 export interface Balance {
   readonly playerMaxHp: number;
   /** Ritual effect per element; applies element damage with the ritual's element. */
@@ -61,6 +78,8 @@ export interface Balance {
   readonly leftoverHealth?: number;
   /** Prices of the Workshop (S03-07); absent when the Workshop is not available. */
   readonly workshop?: WorkshopBalance;
+  /** The expedition (S06); absent when the game only offers a single duel. */
+  readonly expedition?: ExpeditionBalance;
 }
 
 export interface CombatData {
@@ -159,6 +178,8 @@ export interface CombatSetup {
   /** Card ids of the whole deck (duplicates allowed). */
   readonly deck: readonly string[];
   readonly enemyId: string;
+  /** Health the player starts with (an expedition carries it from fight to fight); absent = full health. */
+  readonly startHp?: number;
 }
 
 /** What the reducer needs besides the state. */

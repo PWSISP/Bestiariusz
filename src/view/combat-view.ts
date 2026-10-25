@@ -125,7 +125,7 @@ export function cardTitle(data: CombatData, cardId: string): TextRef {
   return card.kind === 'creature' ? creatureTitle(card.creature) : text(`card.${card.id}.name`);
 }
 
-function creatureTitle(spec: CreatureSpec): TextRef {
+export function creatureTitle(spec: CreatureSpec): TextRef {
   return text('card.title.creature', {
     form: text(`symbol.form.${spec.form}.name`),
     element: text(`symbol.element.${spec.element}.of`),
@@ -142,7 +142,7 @@ function legendOf(data: CombatData, spec: CreatureSpec): TextRef {
   });
 }
 
-function creatureEffectLine(def: CreatureEffectDef): TextRef {
+export function creatureEffectLine(def: CreatureEffectDef): TextRef {
   const op = text(`fx.op.${def.op}${def.pierce ? '.pierce' : ''}`, { amount: def.amount });
   const when = text(`fx.when.${def.trigger}`);
   return def.scope === 'self'
@@ -150,7 +150,7 @@ function creatureEffectLine(def: CreatureEffectDef): TextRef {
     : text('fx.line.scoped', { when, what: op, scope: text(`fx.scope.${def.scope}`) });
 }
 
-function spellLine(effect: Effect): TextRef {
+export function spellLine(effect: Effect): TextRef {
   switch (effect.kind) {
     case 'damage':
       return text(effect.pierce ? 'fx.damage.pierce' : 'fx.damage', { amount: effect.amount });

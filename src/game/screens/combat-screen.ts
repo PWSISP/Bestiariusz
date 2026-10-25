@@ -26,7 +26,7 @@ import type { TextRef } from '../../view/text.ts';
 import type { LaunchOptions } from '../../app/launch-options.ts';
 import type { CombatSession } from '../combat-session.ts';
 import { createCombatScene } from '../render/combat-scene.ts';
-import type { PlayedCard, SceneFrame } from '../render/combat-scene.ts';
+import type { JuiceHooks, PlayedCard, SceneFrame } from '../render/combat-scene.ts';
 import { createControls } from './combat-controls.ts';
 
 /** What the tests and the measurements can ask the running screen. */
@@ -46,6 +46,8 @@ export interface CombatScreenDeps {
   readonly onFinished: (summary: CombatSummary) => void;
   readonly probe: { current: CombatProbe | null };
   readonly insets?: () => Insets;
+  /** The effects the player has switched on, and the sounds; absent in tests of other kinds. */
+  readonly juice?: JuiceHooks;
 }
 
 const HINT_MS = 1600;
@@ -207,7 +209,7 @@ export function createCombatScreen(deps: CombatScreenDeps): Screen {
         width: ctx.overlay.clientWidth || size.width,
         height: ctx.overlay.clientHeight || size.height,
       };
-      scene = createCombatScene(tr);
+      scene = createCombatScene(tr, deps.juice);
       scene.setAnimated(options.anim);
       ctx.layer.addChild(scene.root);
       controls = createControls(ctx.overlay, tr, {

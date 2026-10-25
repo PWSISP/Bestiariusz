@@ -27,6 +27,7 @@ const COPY_ITEMS = [
   'vite.config.ts',
   'eslint.config.js',
   'tools/typecheck.mjs',
+  'tools/assemble-site.ts',
   'tools/qwen/CLAUDE.md',
 ];
 

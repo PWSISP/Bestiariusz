@@ -20,6 +20,10 @@ export const DEFAULT_ENEMY = 'leszy';
 export interface SessionOptions {
   readonly seed: number;
   readonly deckId?: string;
+  /** The cards of the deck, instead of a deck from the data (an expedition carries its own deck). */
+  readonly deck?: readonly string[];
+  /** Health the player starts with, at most the maximum (an expedition carries health between fights). */
+  readonly startHp?: number;
   readonly enemyId?: string;
   /** Replaces the maximum health of the enemy (tests and measurements). */
   readonly enemyHp?: number | null;
@@ -60,12 +64,16 @@ export function withHealthOverrides(
 export function createCombatSession(data: CombatData, options: SessionOptions): CombatSession {
   const enemyId = options.enemyId ?? DEFAULT_ENEMY;
   const deckId = options.deckId ?? DEFAULT_DECK;
-  const deck = Object.hasOwn(data.decks, deckId) ? data.decks[deckId] : undefined;
+  const deck = options.deck ?? (Object.hasOwn(data.decks, deckId) ? data.decks[deckId] : undefined);
   if (!deck) throw new Error(`Unknown deck: ${deckId}`);
   const used = withHealthOverrides(data, enemyId, options.enemyHp, options.playerHp);
   const rng = createRng(options.seed);
   const env: CombatEnv = { data: used, rng };
-  const created = createCombat(used, { deck, enemyId }, rng);
+  const created = createCombat(
+    used,
+    options.startHp === undefined ? { deck, enemyId } : { deck, enemyId, startHp: options.startHp },
+    rng,
+  );
   let state = created.state;
 
   const act = (action: CombatAction): CombatResult => {

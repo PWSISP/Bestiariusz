@@ -84,7 +84,10 @@ export function createCombat(data: CombatData, setup: CombatSetup, rng: Rng): Co
     turn: 0,
     phase: 'player',
     player: {
-      hp: data.balance.playerMaxHp,
+      hp: Math.max(
+        1,
+        Math.min(data.balance.playerMaxHp, setup.startHp ?? data.balance.playerMaxHp),
+      ),
       maxHp: data.balance.playerMaxHp,
       block: 0,
       circles: [null, null, null],

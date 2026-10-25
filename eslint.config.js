@@ -41,6 +41,7 @@ export default defineConfig(
       'ios',
       'docs',
       'results',
+      '.claude',
       'runs',
       'test-results',
       'playwright-report',

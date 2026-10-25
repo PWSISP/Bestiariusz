@@ -17,6 +17,8 @@ import { drawElementIcon, drawGlyph } from '../art/glyphs.ts';
 import type { GlyphName } from '../art/glyphs.ts';
 import { createEnemyArt } from '../art/enemy-art.ts';
 import { createCreatureArt } from '../art/placeholder-art.ts';
+import { juiceForCue, shakeOffset } from '../../view/juice.ts';
+import type { JuiceCue, JuiceSettings, SoundId } from '../../view/juice.ts';
 import { createCardNode } from './card-node.ts';
 import { COLORS, drawBar, drawGradient, label } from './theme.ts';
 
@@ -70,7 +72,17 @@ const GLYPH_OF_CHIP: Record<IntentChip['kind'], GlyphName> = {
   steal: 'steal',
 };
 
-export function createCombatScene(tr: (ref: TextRef) => string): CombatScene {
+/** The player's switches for the effects and the way to play a sound (S06-04). */
+export interface JuiceHooks {
+  settings(): JuiceSettings;
+  sound(id: SoundId): void;
+}
+
+const SHAKE_MAX_PX = 8;
+/** Without hooks every flash and number is drawn and nothing shakes or sounds. */
+const ALL_JUICE: JuiceCue = { shake: null, sound: null, flash: true, number: true };
+
+export function createCombatScene(tr: (ref: TextRef) => string, juice?: JuiceHooks): CombatScene {
   const root = new Container();
   const backdrop = new Graphics();
   const stageRoot = new Container();
@@ -110,6 +122,7 @@ export function createCombatScene(tr: (ref: TextRef) => string): CombatScene {
   let shownPlayer = -1;
   let clock = 0;
   let animationOn = true;
+  let shake: { strength: number; durationMs: number; age: number } | null = null;
 
   const toLocal = (r: Rect): Rect => {
     const l = frame?.layout;
@@ -694,21 +707,26 @@ export function createCombatScene(tr: (ref: TextRef) => string): CombatScene {
       x: enemyRect.x + enemyRect.width / 2,
       y: enemyRect.y + enemyRect.height * 0.45,
     };
+    const fx = juice ? juiceForCue(cue, juice.settings()) : ALL_JUICE;
+    if (juice && fx.sound) juice.sound(fx.sound);
+    if (animationOn && fx.shake) shake = { ...fx.shake, age: 0 };
     switch (cue.kind) {
       case 'hit': {
-        flashRect(
-          { x: enemyRect.x, y: enemyRect.y, width: enemyRect.width, height: enemyRect.height },
-          0xffffff,
-          0.35,
-          220,
-        );
-        floatText(
-          cue.amount > 0 ? `-${cue.amount}` : '0',
-          enemyCenter.x + (cue.circle ?? 1) * 16 - 16,
-          enemyCenter.y,
-          cue.amount > 0 ? COLORS.white : COLORS.dim,
-          cue.amount >= 10 ? 32 : 26,
-        );
+        if (fx.flash)
+          flashRect(
+            { x: enemyRect.x, y: enemyRect.y, width: enemyRect.width, height: enemyRect.height },
+            0xffffff,
+            0.35,
+            220,
+          );
+        if (fx.number)
+          floatText(
+            cue.amount > 0 ? `-${cue.amount}` : '0',
+            enemyCenter.x + (cue.circle ?? 1) * 16 - 16,
+            enemyCenter.y,
+            cue.amount > 0 ? COLORS.white : COLORS.dim,
+            cue.amount >= 10 ? 32 : 26,
+          );
         break;
       }
       case 'effect': {
@@ -721,7 +739,7 @@ export function createCombatScene(tr: (ref: TextRef) => string): CombatScene {
               : cue.detail === 'kindle'
                 ? elementColor('ogien')
                 : COLORS.gold;
-        floatText(`+${cue.amount}`, c.x, c.y - 30, color, 22);
+        if (fx.number) floatText(`+${cue.amount}`, c.x, c.y - 30, color, 22);
         break;
       }
       case 'ritual': {
@@ -739,13 +757,15 @@ export function createCombatScene(tr: (ref: TextRef) => string): CombatScene {
         break;
       }
       case 'hurt': {
-        flashRect(
-          { x: 0, y: 0, width: stageSize.width, height: stageSize.height },
-          COLORS.red,
-          0.3,
-          320,
-        );
-        floatText(`-${cue.amount}`, statusRect.x + 90, statusRect.y - 6, COLORS.red, 26);
+        if (fx.flash)
+          flashRect(
+            { x: 0, y: 0, width: stageSize.width, height: stageSize.height },
+            COLORS.red,
+            0.3,
+            320,
+          );
+        if (fx.number)
+          floatText(`-${cue.amount}`, statusRect.x + 90, statusRect.y - 6, COLORS.red, 26);
         break;
       }
       case 'turn':
@@ -890,6 +910,14 @@ export function createCombatScene(tr: (ref: TextRef) => string): CombatScene {
       } else {
         fx.step(p);
       }
+    }
+    if (shake) {
+      shake.age += deltaMs;
+      const off = shakeOffset(shake.strength, shake.age / shake.durationMs, SHAKE_MAX_PX);
+      root.position.set(off.x, off.y);
+      if (shake.age >= shake.durationMs) shake = null;
+    } else if (root.position.x !== 0 || root.position.y !== 0) {
+      root.position.set(0, 0);
     }
     poseCircles(timeline);
     poseEnemy(timeline);

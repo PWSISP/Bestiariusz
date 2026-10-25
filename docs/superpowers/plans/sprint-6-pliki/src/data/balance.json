@@ -1,0 +1,76 @@
+{
+  "playerMaxHp": 40,
+  "powerBudget": 10,
+  "leftoverHealth": 1,
+  "workshop": {
+    "emberCost": 2,
+    "inkPerPower": 4
+  },
+  "expedition": {
+    "stages": [
+      "utopiec",
+      "strzyga",
+      "poludnica",
+      "leszy"
+    ],
+    "deck": "szeptucha",
+    "healBetween": 12,
+    "rewardChoices": 3,
+    "rewardPool": [
+      "piorun",
+      "grom-kruk-smutek",
+      "iskra",
+      "ziemia-wilk-gniew",
+      "wiatr-sowa-spryt",
+      "woda-jelen-odwaga",
+      "ognisko",
+      "skala",
+      "podmuch",
+      "zrodlo"
+    ],
+    "startInk": 12,
+    "inkPerWin": 12
+  },
+  "ritual": {
+    "ogien": [
+      {
+        "kind": "damage",
+        "amount": 14,
+        "pierce": true
+      }
+    ],
+    "grom": [
+      {
+        "kind": "damage",
+        "amount": 16,
+        "pierce": true
+      }
+    ],
+    "woda": [
+      {
+        "kind": "heal",
+        "amount": 10
+      },
+      {
+        "kind": "block",
+        "amount": 8
+      }
+    ],
+    "ziemia": [
+      {
+        "kind": "block",
+        "amount": 15
+      }
+    ],
+    "wiatr": [
+      {
+        "kind": "draw",
+        "count": 3
+      },
+      {
+        "kind": "ember",
+        "amount": 2
+      }
+    ]
+  }
+}

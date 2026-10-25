@@ -12,6 +12,7 @@ describe('parseLaunchOptions', () => {
       fps: false,
       enemyHp: null,
       playerHp: null,
+      duel: false,
       sheet: null,
       tester: false,
     });
@@ -21,6 +22,7 @@ describe('parseLaunchOptions', () => {
       fps: false,
       enemyHp: null,
       playerHp: null,
+      duel: false,
       sheet: null,
       tester: false,
     });
@@ -33,6 +35,7 @@ describe('parseLaunchOptions', () => {
       fps: true,
       enemyHp: 5,
       playerHp: 30,
+      duel: false,
       sheet: 'icons',
       tester: false,
     };
@@ -53,9 +56,16 @@ describe('parseLaunchOptions', () => {
       fps: true,
       enemyHp: null,
       playerHp: null,
+      duel: false,
       sheet: null,
       tester: false,
     });
+  });
+
+  it('reads duel in a development build only', () => {
+    expect(parseLaunchOptions('?duel=1', DEV).duel).toBe(true);
+    expect(parseLaunchOptions('?duel=0', DEV).duel).toBe(false);
+    expect(parseLaunchOptions('?duel=1', PROD).duel).toBe(false);
   });
 
   it('understands several spellings of on and off', () => {

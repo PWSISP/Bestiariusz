@@ -1,4 +1,4 @@
-// Every text key the combat and result screens use exists in both languages, and the two language files
+// Every text key the combat, result, route, reward and Workshop screens use exists in both languages, and the two language files
 // have the same keys. Keys are found by reading the sources (text('…'), createButton('…'), key: '…').
 import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
@@ -21,7 +21,9 @@ function files(dir: string): string[] {
 
 const USED = new Set<string>();
 for (const file of [...files('src/view'), ...files('src/game')]) {
-  for (const m of read(file).matchAll(/\b(?:text|createButton)\(\s*'([a-zA-Z0-9_.]+)'/g))
+  for (const m of read(file).matchAll(
+    /\b(?:text|createButton|tr|translate)\(\s*'([a-zA-Z0-9_.]+)'/g,
+  ))
     USED.add(m[1] as string);
 }
 
