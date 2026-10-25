@@ -73,5 +73,7 @@ function loadOrCreate(deps: TelemetryDeps): TelemetryLog {
   } catch {
     // fall through to a fresh log
   }
-  return createLog({ logId: deps.newId(), build: deps.build, startedAt: deps.wallClock() });
+  // An empty label (e.g. `VITE_BUILD=`) would make createLog throw and stop the game at launch.
+  const build = deps.build.trim() === '' ? 'dev' : deps.build;
+  return createLog({ logId: deps.newId(), build, startedAt: deps.wallClock() });
 }

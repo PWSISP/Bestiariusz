@@ -58,6 +58,12 @@ describe('createTelemetry', () => {
     expect(telemetry.filename()).toBe('bestiariusz-sesja-abc1234-777.json');
   });
 
+  it('falls back to the build label dev when the label is empty (it never throws into the game)', () => {
+    const { telemetry } = setup(memoryStore(), '');
+    expect(parseLog(telemetry.text())).toMatchObject({ build: 'dev', logId: 777 });
+    expect(telemetry.filename()).toBe('bestiariusz-sesja-dev-777.json');
+  });
+
   it('records a combat with its seed, summary and duration, and saves the log', () => {
     const store = memoryStore();
     const { telemetry, advance } = setup(store);
