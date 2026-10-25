@@ -38,6 +38,6 @@ Plan prac: docs/plan-sprintow.md. Na prośbę „zacznij sprint N”:
 2. Jeśli przed sprintem N jest bramka (B1–B4), sprawdź, czy docs/bramka-X.md ma zapisaną decyzję. Bez decyzji nie zaczynaj sprintu.
 3. Zaproponuj kolejność zadań z uwzględnieniem kolumny „Zależy od”. Zadania z „Kto” = Ty lub podwykonawca zamień na krótką listę kroków dla człowieka i nie wykonuj ich.
 4. Dla zadań Qwen napisz tasks/<ID>.md i tests/<ID>.test.ts (patrz dodatek B), uruchom tools/qwen-run.mjs, a po zaliczeniu zrecenzuj diff.
-5. Po zakończeniu zadania zmień ☐ na ☑ w planie, dopisz godziny faktyczne do logu i wpis do dziennika zmian.
+5. Po zakończeniu zadania zmień ☐ na ☑ w planie, dopisz wpis do dziennika zmian.
 6. Po pięciu nieudanych podejściach Qwena zadanie przejmujesz ty i zapisujesz powód w docs/retro/Sxx.md.
 ```

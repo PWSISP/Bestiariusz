@@ -600,7 +600,7 @@ git commit -m "docs: paper balance notes and data tuned after them"
 
 **Files:**
 - Create: `docs/retro/S03.md`
-- Modify: `docs/plan-sprintow.md`, `docs/log-godzin.csv`, `docs/ai-provenance.md`
+- Modify: `docs/plan-sprintow.md`, `docs/ai-provenance.md`
 
 - [ ] **Step 1: Demo na koniec sprintu**
 
@@ -608,7 +608,7 @@ Sprawdź i zaznacz: (1) `npm run balance -- --games 300` kończy się w < 60 s, 
 
 - [ ] **Step 2: Retrospektywa (pięć linii)**
 
-`docs/retro/S03.md`: (1) co poszło dobrze; (2) co nie (z liczbą podejść Qwena na każde z czterech zadań i powodem porażek: specyfikacja czy model); (3) godziny: plan 34 h, faktycznie ___; (4) odkrycia z symulacji i z papieru (m.in. długość walk po D22 i D26, luki w testach znalezione przy próbie mutacji); (5) co zmienić w Sprincie 4. Sekcja „Telefon” z S03-09.
+`docs/retro/S03.md`: (1) co poszło dobrze; (2) co nie (z liczbą podejść Qwena na każde z czterech zadań i powodem porażek: specyfikacja czy model); (3) godziny: nie zapisujemy; (4) odkrycia z symulacji i z papieru (m.in. długość walk po D22 i D26, luki w testach znalezione przy próbie mutacji); (5) co zmienić w Sprincie 4. Sekcja „Telefon” z S03-09.
 
 - [ ] **Step 3: Zsynchronizuj plan sprintów**
 
