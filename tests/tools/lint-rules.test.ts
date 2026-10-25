@@ -33,6 +33,34 @@ describe('architecture guards', () => {
       expect(await ruleIds(code, 'src/core/a.ts')).toContain('no-restricted-imports');
     },
   );
+  it('forbids the clock and randomness in src/view', async () => {
+    expect(await ruleIds('export const x = Date.now();', 'src/view/a.ts')).toContain(
+      'no-restricted-properties',
+    );
+    expect(await ruleIds('export const x = new Date();', 'src/view/a.ts')).toContain(
+      'no-restricted-syntax',
+    );
+    expect(await ruleIds('export const x = Math.random();', 'src/view/a.ts')).toContain(
+      'no-restricted-properties',
+    );
+  });
+  it.each([
+    'pixi.js',
+    'i18next',
+    '@capacitor/core',
+    '../ui/dom.ts',
+    '../game/game.ts',
+    '../app/app.ts',
+    '../platform/seed.ts',
+  ])('forbids importing %s from src/view', async (spec) => {
+    const code = `import { x } from '${spec}'; export const y = x;`;
+    expect(await ruleIds(code, 'src/view/a.ts')).toContain('no-restricted-imports');
+  });
+  it('allows src/view to import core and data', async () => {
+    const code =
+      "import type { CombatState } from '../core/combat/model.ts'; export type S = CombatState;";
+    expect(await ruleIds(code, 'src/view/a.ts')).toEqual([]);
+  });
   it('forbids Node built-ins in src but allows them in tests', async () => {
     const code = "import fs from 'node:fs'; export const f = fs;";
     expect(await ruleIds(code, 'src/ui/a.ts')).toContain('no-restricted-imports');

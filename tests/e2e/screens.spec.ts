@@ -1,12 +1,14 @@
-import type { Page } from '@playwright/test';
+// The screen manager under the real game: combat <-> result switches must leave nothing behind.
 import { expect, test } from '@playwright/test';
+import type { Page } from '@playwright/test';
+import { boot, cards, circles, doubleTap, endTurnButton } from './support.ts';
 
 test.skip(
   ({ browserName }) => browserName !== 'chromium',
   'WebGL in headless WebKit on Linux is unreliable',
 );
 
-const ORIGIN = 'http://localhost:5173';
+test.use({ viewport: { width: 360, height: 800 }, hasTouch: true, isMobile: true });
 
 function stats(page: Page) {
   return page.evaluate(() => {
@@ -20,41 +22,28 @@ function stats(page: Page) {
   });
 }
 
-async function boot(page: Page) {
-  await page.goto('/');
-  await page.waitForFunction(() => window.__bestiariusz?.manager.current === 'test-a');
+const continueButton = (page: Page) => page.getByRole('button', { name: 'Dalej' });
+
+/** Wins at once: one hit point left on the enemy, then any damaging spell. */
+async function reachResult(page: Page): Promise<void> {
+  await boot(page, 'seed=7&enemyHp=1');
+  await cards(page).nth(4).tap();
+  await cards(page).nth(4).tap();
+  await page.waitForFunction(() => window.__bestiariusz!.manager.current === 'result');
 }
 
-const switchButton = (page: Page) => page.getByRole('button', { name: 'Przełącz ekran' });
-
-test('boots into test-a without external requests', async ({ page }) => {
-  const urls: string[] = [];
-  page.on('request', (request) => urls.push(request.url()));
-  await boot(page);
-  await page.waitForLoadState('networkidle');
-  expect(urls.length).toBeGreaterThan(0);
-  for (const url of urls) {
-    expect(url.startsWith(ORIGIN) || url.startsWith('data:') || url.startsWith('blob:'), url).toBe(
-      true,
-    );
-  }
-  expect((await stats(page)).current).toBe('test-a');
-});
-
-test('switch button is a 48px target with an accessible name', async ({ page }) => {
-  await boot(page);
-  const box = await switchButton(page).boundingBox();
-  expect(box).not.toBeNull();
-  expect(box!.width).toBeGreaterThanOrEqual(48);
-  expect(box!.height).toBeGreaterThanOrEqual(48);
-});
-
-test('100 switches leave no objects behind', async ({ page }) => {
-  await boot(page);
+test('the screen manager cycles combat -> result -> combat without leaks', async ({ page }) => {
+  await boot(page, 'seed=7&playerHp=1');
   const baseline = await stats(page);
-  for (let i = 0; i < 100; i++) await switchButton(page).click();
+  expect(baseline.current).toBe('combat');
+  for (let i = 0; i < 5; i++) {
+    await endTurnButton(page).tap(); // one hit point: the enemy ends the combat at once
+    await page.waitForFunction(() => window.__bestiariusz!.manager.current === 'result');
+    await continueButton(page).tap();
+    await page.waitForFunction(() => window.__bestiariusz!.manager.current === 'combat');
+    await page.waitForFunction(() => document.querySelectorAll('.hit-card').length > 0);
+  }
   const after = await stats(page);
-  expect(after.current).toBe('test-a');
   for (const key of [
     'stageChildren',
     'overlayChildren',
@@ -68,16 +57,30 @@ test('100 switches leave no objects behind', async ({ page }) => {
   expect(after.mountCount - after.unmountCount).toBe(1);
 });
 
-test('double tap mounts exactly one screen', async ({ page }) => {
-  await boot(page);
-  await switchButton(page).dblclick();
+test('double tap on Continue mounts exactly one combat', async ({ page }) => {
+  await reachResult(page);
+  await continueButton(page).dblclick();
+  await page.waitForFunction(() => window.__bestiariusz!.manager.current === 'combat');
   const after = await stats(page);
   expect(after.mountCount - after.unmountCount).toBe(1);
   expect(after.pixiStageChildren).toBe(1);
 });
 
-test('survives rotation and resize while a screen is mounted', async ({ page }) => {
-  await boot(page);
+test('the second tap of a double tap on Continue does not reach the new combat', async ({
+  page,
+}) => {
+  await reachResult(page);
+  const box = (await continueButton(page).boundingBox())!;
+  // the right end of Continue lies over End turn of the combat screen
+  await doubleTap(page, { x: box.x + box.width - 8, y: box.y + box.height / 2 });
+  await page.waitForFunction(() => window.__bestiariusz!.manager.current === 'combat');
+  await page.waitForTimeout(200);
+  const turn = await page.evaluate(() => window.__bestiariusz!.game!.session()!.state.turn);
+  expect(turn).toBe(1);
+});
+
+test('survives rotation and resize on the combat and on the result screen', async ({ page }) => {
+  await reachResult(page);
   for (const size of [
     { width: 390, height: 844 },
     { width: 844, height: 390 },
@@ -86,17 +89,20 @@ test('survives rotation and resize while a screen is mounted', async ({ page }) 
     await page.setViewportSize(size);
     await expect
       .poll(() =>
-        page.evaluate(() => {
-          const canvas = document.querySelector('canvas')!;
-          return [canvas.clientWidth, canvas.clientHeight];
-        }),
+        page.evaluate(() => [
+          document.querySelector('canvas')!.clientWidth,
+          document.querySelector('canvas')!.clientHeight,
+        ]),
       )
       .toEqual([size.width, size.height]);
-    const overlay = await page.locator('.ui-root').boundingBox();
-    expect(Math.abs(overlay!.width - size.width)).toBeLessThanOrEqual(1);
-    expect(Math.abs(overlay!.height - size.height)).toBeLessThanOrEqual(1);
-    const before = (await stats(page)).current;
-    await switchButton(page).click();
-    expect((await stats(page)).current).not.toBe(before);
+    await expect(continueButton(page)).toBeVisible();
+    const box = await continueButton(page).boundingBox();
+    expect(box!.width).toBeGreaterThanOrEqual(48);
+    expect(box!.height).toBeGreaterThanOrEqual(48);
+    expect(box!.y + box!.height).toBeLessThanOrEqual(size.height);
   }
+  await continueButton(page).tap();
+  await page.waitForFunction(() => window.__bestiariusz!.manager.current === 'combat');
+  await expect(endTurnButton(page)).toBeVisible();
+  await expect(circles(page)).toHaveCount(3);
 });

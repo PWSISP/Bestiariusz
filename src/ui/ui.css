@@ -43,3 +43,76 @@ body,
   padding: 0 16px;
   font-size: 1rem;
 }
+
+.combat-hit {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.combat-hit > * {
+  pointer-events: auto;
+}
+
+.hit {
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: transparent;
+  font-size: 1px;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+.hit:focus-visible {
+  outline: 3px solid #e3b54a;
+  outline-offset: 2px;
+}
+
+.hit:disabled {
+  cursor: default;
+}
+
+.hit-card {
+  touch-action: none;
+  border-radius: 10px;
+}
+
+.hit-circle {
+  border-radius: 50% 50% 8px 8px;
+}
+
+.hit-end {
+  border-radius: 12px;
+}
+
+.hit-backdrop {
+  position: absolute;
+  background: transparent;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.result-continue {
+  min-width: 220px;
+  min-height: 56px;
+  margin-bottom: 32px;
+  border: 2px solid #e3b54a;
+  border-radius: 14px;
+  background: #8a6a1f;
+  color: #f1ecd9;
+  font-size: 1.15rem;
+  font-weight: 700;
+}

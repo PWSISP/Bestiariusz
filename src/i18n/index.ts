@@ -37,6 +37,14 @@ export function t(key: TranslationKey, params?: Record<string, string | number>)
   return initialised().t(key, params);
 }
 
+/**
+ * Translates a key known only at runtime (the keys built by src/view); an unknown key returns itself.
+ * Prefer `t` when the key is a literal: it is checked against pl.json at compile time.
+ */
+export function translate(key: string, params?: Record<string, string | number>): string {
+  return initialised().t(key, params);
+}
+
 function initialised(): i18n {
   if (!instance) throw new Error('i18n is not initialised');
   return instance;

@@ -31,7 +31,7 @@ const cardOf = (data: CombatData, id: string): CardDef => {
 };
 
 /** Stats rules from the balance data (decision D22); undefined = no unspent-budget bonus. */
-function statRules(balance: Balance): StatRules | undefined {
+export function statRules(balance: Balance): StatRules | undefined {
   return balance.leftoverHealth && balance.powerBudget !== undefined
     ? { powerBudget: balance.powerBudget, leftoverHealth: balance.leftoverHealth }
     : undefined;
