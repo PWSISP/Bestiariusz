@@ -1,6 +1,6 @@
-# Bestiariusz — zasady walki (wersja 0.2: rozdziały 1, 5a, 5b, 7, 9 i decyzje Z11–Z14 czekają na zatwierdzenie)
+# Bestiariusz — zasady walki (wersja 0.2: rozdziały 1, 5a, 5b, 7, 9 i decyzje Z11–Z14 zatwierdzone)
 
-**Wersja 0.1 zatwierdzona: 2026-10-24 (zasady: S02-10, bez uwag; wartości bazowe: S02-11). Zmiany wersji 0.2 (Sprint 3) — efekty istot, budżet mocy, zdrowie Leszego — zatwierdzone: ____ (wpisz datę w S03-01b).**
+**Wersja 0.1 zatwierdzona: 2026-10-24 (zasady: S02-10, bez uwag; wartości bazowe: S02-11). Zmiany wersji 0.2 (Sprint 3) — efekty istot, budżet mocy, zdrowie Leszego — zatwierdzone: 2026-10-25 (S03-01b: tabela efektów i interpretacja Gromu bez zmian, zdrowie z niewydanego budżetu 1 za punkt, Leszy 380).**
 
 Ten dokument opisuje walkę tak, jak zaimplementuje ją Sprint 2. To jedyne źródło zasad: kod i testy mają się z nim zgadzać, a nie odwrotnie. Dokument jest też instrukcją do zadania S02-10 (gra na papierze): zagraj według niego trzy walki i zapisz wszystko, co nie działa albo nie bawi. Jeśli zmieniasz regułę, zmień ją tutaj, a ja zmienię test.
 
@@ -113,7 +113,18 @@ Obrzęd ognia lub gromu może zabić wroga; wtedy wygrywasz od razu.
 
 ## 7. Wróg: Leszy
 
-**Zdrowie:** na papierze **60** (skrócona wersja do sprawdzania zasad, walka trwa ok. 4–5 tur). W danych gry **380** (v0.2, do zatwierdzenia w S03-01b: po wprowadzeniu efektów i zdrowia z niewydanego budżetu bot wygrywa 55,5% walk w ok. 17,9 tury). Wartość z v0.1 to 160 (55,3% w ok. 9,7 tury, bez efektów i bez zdrowia z budżetu); z nowymi zasadami dawałaby ok. 90% wygranych. **Odporność:** ziemia. **Słabość:** ogień.
+**Zdrowie:** na papierze **60** (skrócona wersja do sprawdzania zasad, walka trwa ok. 4–5 tur). W danych gry **380** (v0.2, zatwierdzone w S03-01b: po wprowadzeniu efektów i zdrowia z niewydanego budżetu bot wygrywa 57,4% walk w ok. 18,3 tury; 1000 gier, ziarno 20261102). Wartość z v0.1 to 160 (55,3% w ok. 9,7 tury, bez efektów i bez zdrowia z budżetu); z nowymi zasadami daje 98,9% wygranych w ok. 9,3 tury.
+
+| Zdrowie Leszego | Wygrane bota | Średnia liczba tur |
+|---|---|---|
+| 160 | 98,9% | 9,3 |
+| 300 | 76,1% | 16,0 |
+| 340 | 66,7% | 17,4 |
+| 360 | 63,6% | 18,0 |
+| **380** | **57,4%** | **18,3** |
+| 400 | 49,6% | 18,4 |
+| 420 | 41,1% | 18,1 |
+| 460 | 28,5% | 17,6 | **Odporność:** ziemia. **Słabość:** ogień.
 
 Leszy ma cztery działania:
 
@@ -214,7 +225,7 @@ Każdy scenariusz to jeden test w repozytorium (`tests/combat/circles.test.ts`, 
 | Z11 | Efekty są **danymi** (cztery momenty, osiem operacji, cztery zakresy), nie kodem pisanym osobno dla każdej istoty. | Dodanie efektu to wpis w JSON; nowa operacja to jeden `case` i jeden test. |
 | Z12 | Kolejność w istocie: żywioł → forma → przymiot; między istotami Krąg 0→2. | Przewidywalne i łatwe do narysowania na kartce. |
 | Z13 | Niewydany budżet mocy daje +1 zdrowia za punkt (z `balance.json`). | Reguła pochodzi ze specyfikacji zadania 02 benchmarku (budżet mocy), nie z GDD; zapisana jako decyzja D22 w planie Sprintu 3. Efektem ubocznym jest dłuższa walka (patrz Z14). |
-| Z14 | Zdrowie Leszego 380 (z 160). | Efekty i zdrowie z budżetu podnoszą siłę gracza; przy 160 bot wygrywa ok. 90%. Alternatywa do rozważenia po S03-10: zostawić niższe zdrowie i podnieść obrażenia Leszego (krótsze walki, ale trzeba przejść kalibrację od nowa). |
+| Z14 | Zdrowie Leszego 380 (z 160). | Efekty i zdrowie z budżetu podnoszą siłę gracza; przy 160 bot wygrywa ok. 99%. Alternatywa do rozważenia po S03-10: zostawić niższe zdrowie i podnieść obrażenia Leszego (krótsze walki, ale trzeba przejść kalibrację od nowa). |
 
 ## 12. Czego ten dokument jeszcze nie rozstrzyga
 

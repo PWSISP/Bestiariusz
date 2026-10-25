@@ -1,6 +1,6 @@
-# Bestiariusz — efekty symboli (wersja 0.1, propozycja do zatwierdzenia w S03-01b)
+# Bestiariusz — efekty symboli (wersja 1.0)
 
-**Status.** Ten dokument jest **propozycją Claude'a**, a nie zapisem decyzji z GDD: `docs/gdd-mvp.md` zamraża tylko listę symboli i ich koszty mocy, a mówi wprost, że „efekty symboli dochodzą w S03-01”. Opis „Grom przeskakuje na drugi cel” z `docs/plan-sprintow.md` (S03-06) nie ma w repozytorium rozwinięcia, więc wyżej ustawiona jest interpretacja opisana w rozdziale 4. Zatwierdzasz lub zmieniasz ją w zadaniu S03-01b; po zatwierdzeniu dokument dostaje wersję 1.0.
+**Status: zatwierdzone 25 X 2026** (S03-01b, decyzja właściciela: tabela efektów bez zmian, interpretacja Gromu z rozdziału 4 przyjęta, D25). Dokument powstał jako propozycja Claude'a: `docs/gdd-mvp.md` zamraża tylko listę symboli i ich koszty mocy, a mówi wprost, że „efekty symboli dochodzą w S03-01”. Opis „Grom przeskakuje na drugi cel” z `docs/plan-sprintow.md` (S03-06) nie ma w repozytorium rozwinięcia, więc obowiązuje interpretacja opisana w rozdziale 4.
 
 Zasady przebiegu tury, w których efekty uczestniczą, są w `docs/zasady-walki.md`, rozdział 5a. Tu jest wszystko inne: słownik efektów, tabela efektów MVP i instrukcja dodawania nowych.
 
