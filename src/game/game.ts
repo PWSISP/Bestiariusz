@@ -6,11 +6,13 @@ import type { CombatData } from '../core/combat/model.ts';
 import type { CombatSummary } from '../core/combat/summary.ts';
 import { translate } from '../i18n/index.ts';
 import { newSeed } from '../platform/seed.ts';
+import { exportTelemetry } from '../platform/telemetry-store.ts';
 import { createCombatSession } from './combat-session.ts';
 import type { CombatSession } from './combat-session.ts';
 import { createCombatScreen } from './screens/combat-screen.ts';
 import type { CombatProbe } from './screens/combat-screen.ts';
 import { createResultScreen } from './screens/result-screen.ts';
+import type { Telemetry } from './telemetry.ts';
 
 /** What tests and measurements can see of a running game (exposed on `window.__bestiariusz.game` in development). */
 export interface GameHandle {
@@ -23,6 +25,8 @@ export interface GameHandle {
   runs(): number;
   /** The running combat screen, or null on other screens. */
   combat(): CombatProbe | null;
+  /** The telemetry of the tester build, or null in every other build. */
+  telemetry(): Telemetry | null;
 }
 
 export interface GameDeps {
@@ -30,10 +34,12 @@ export interface GameDeps {
   readonly data: CombatData;
   readonly options: LaunchOptions;
   readonly seed?: () => number;
+  /** Present in the tester build only: records every combat and offers the export on the result screen. */
+  readonly telemetry?: Telemetry;
 }
 
 export function startGame(deps: GameDeps): GameHandle {
-  const { manager, data, options } = deps;
+  const { manager, data, options, telemetry } = deps;
   const freshSeed = deps.seed ?? newSeed;
   let session: CombatSession | null = null;
   let summary: CombatSummary | null = null;
@@ -49,13 +55,24 @@ export function startGame(deps: GameDeps): GameHandle {
       probe,
       onFinished(done) {
         summary = done;
+        telemetry?.combatFinished(done);
         manager.show('result');
       },
     });
   });
   manager.register('result', () => {
     if (!summary) throw new Error('No result to show');
-    return createResultScreen({ summary, translate, onContinue: startCombat });
+    return createResultScreen({
+      summary,
+      translate,
+      onContinue: startCombat,
+      exporter: telemetry
+        ? {
+            text: () => telemetry.text(),
+            run: () => exportTelemetry(telemetry.text(), telemetry.filename()),
+          }
+        : undefined,
+    });
   });
 
   function startCombat(): void {
@@ -67,6 +84,7 @@ export function startGame(deps: GameDeps): GameHandle {
       playerHp: options.playerHp,
     });
     summary = null;
+    telemetry?.combatStarted(seed);
     manager.show('combat');
   }
 
@@ -77,5 +95,6 @@ export function startGame(deps: GameDeps): GameHandle {
     lastSummary: () => summary,
     runs: () => runs,
     combat: () => probe.current,
+    telemetry: () => telemetry ?? null,
   };
 }

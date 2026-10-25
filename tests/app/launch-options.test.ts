@@ -13,6 +13,7 @@ describe('parseLaunchOptions', () => {
       enemyHp: null,
       playerHp: null,
       sheet: null,
+      tester: false,
     });
     expect(parseLaunchOptions('?', PROD)).toEqual({
       seed: null,
@@ -21,11 +22,20 @@ describe('parseLaunchOptions', () => {
       enemyHp: null,
       playerHp: null,
       sheet: null,
+      tester: false,
     });
   });
 
   it('reads all options in a development build, with or without the question mark', () => {
-    const expected = { seed: 42, anim: false, fps: true, enemyHp: 5, playerHp: 30, sheet: 'icons' };
+    const expected = {
+      seed: 42,
+      anim: false,
+      fps: true,
+      enemyHp: 5,
+      playerHp: 30,
+      sheet: 'icons',
+      tester: false,
+    };
     expect(
       parseLaunchOptions('?seed=42&anim=0&fps=1&enemyHp=5&playerHp=30&sheet=icons', DEV),
     ).toEqual(expected);
@@ -44,6 +54,7 @@ describe('parseLaunchOptions', () => {
       enemyHp: null,
       playerHp: null,
       sheet: null,
+      tester: false,
     });
   });
 
@@ -84,6 +95,17 @@ describe('parseLaunchOptions', () => {
     expect(
       parseLaunchOptions(`?${name}=${value}`, DEV)[name as 'seed' | 'enemyHp' | 'playerHp'],
     ).toBe(expected);
+  });
+
+  it('switches the tester mode on by the build, and by the address in development builds only', () => {
+    expect(parseLaunchOptions('', { ...PROD, testerBuild: true }).tester).toBe(true);
+    expect(parseLaunchOptions('?tester=0', { ...PROD, testerBuild: true }).tester).toBe(true);
+    expect(parseLaunchOptions('?tester=1', DEV).tester).toBe(true);
+    expect(parseLaunchOptions('?tester=YES', DEV).tester).toBe(true);
+    expect(parseLaunchOptions('?tester=0', DEV).tester).toBe(false);
+    expect(parseLaunchOptions('?tester=maybe', DEV).tester).toBe(false);
+    expect(parseLaunchOptions('?tester=1', PROD).tester).toBe(false);
+    expect(parseLaunchOptions('?tester=1', { ...PROD, testerBuild: false }).tester).toBe(false);
   });
 
   it('knows only two sheets', () => {
