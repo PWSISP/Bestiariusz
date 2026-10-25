@@ -1,7 +1,7 @@
 [
   {
     "id": "leszy",
-    "maxHp": 160,
+    "maxHp": 380,
     "resist": ["ziemia"],
     "weak": ["ogien"],
     "actions": [

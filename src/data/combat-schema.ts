@@ -110,8 +110,22 @@ const rawSchema = z
     cards: z.array(cardSchema).min(1),
     enemies: z.array(enemySchema).min(1),
     balance: z
-      .object({ playerMaxHp: positive, ritual: z.record(id, z.array(effectSchema)) })
-      .strict(),
+      .object({
+        playerMaxHp: positive,
+        ritual: z.record(id, z.array(effectSchema)),
+        powerBudget: positive.optional(),
+        leftoverHealth: nonNegative.optional(),
+        workshop: z.object({ emberCost: nonNegative, inkPerPower: positive }).strict().optional(),
+      })
+      .strict()
+      .refine((b) => (b.leftoverHealth ?? 0) === 0 || b.powerBudget !== undefined, {
+        message: '"leftoverHealth" needs "powerBudget"',
+        path: ['leftoverHealth'],
+      })
+      .refine((b) => b.workshop === undefined || b.powerBudget !== undefined, {
+        message: '"workshop" needs "powerBudget"',
+        path: ['workshop'],
+      }),
     decks: z.record(id, z.array(id).min(1)),
   })
   .strict();
@@ -227,7 +241,7 @@ export function parseCombatData(raw: unknown, source = 'combat-data'): CombatDat
     symbols,
     cards,
     enemies,
-    balance: { playerMaxHp: value.balance.playerMaxHp, ritual },
+    balance: { ...value.balance, ritual },
     decks: value.decks,
   };
 }

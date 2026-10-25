@@ -1,5 +1,11 @@
 {
   "playerMaxHp": 40,
+  "powerBudget": 10,
+  "leftoverHealth": 1,
+  "workshop": {
+    "emberCost": 2,
+    "inkPerPower": 4
+  },
   "ritual": {
     "ogien": [
       {

@@ -48,7 +48,7 @@ describe('resources', () => {
     for (const lang of ['pl', 'en'] as const) {
       await initI18n(lang);
       for (const key of Object.keys(pl) as (keyof typeof pl)[]) {
-        const text = t(key, { count: 1 });
+        const text = t(key, { count: 1, adjective: 'A', form: 'F', element: 'E' });
         expect(text.trim().length).toBeGreaterThan(0);
         expect(text).not.toBe(key);
       }

@@ -9,6 +9,7 @@
 - `npm run build`, `npm run dev`
 - `npm run format` — przed commitem
 - `npm run sim -- [--games 1000] [--seed 20261102] [--deck szeptucha] [--enemy leszy] [--enemy-hp N] [--player-hp N] [--out plik.csv] [--data katalog]` — bot rozgrywa walki, CSV w `sim-results/`
+- `npm run balance -- [--games 200] [--seed 20261130] [--deck szeptucha] [--enemy leszy] [--copies 1] [--out plik.csv] [--data katalog]` — bot rozgrywa walki dla każdej z 150 istot (talia + badana istota), CSV z odsetkiem wygranych w `sim-results/`, flaga poza 35–65%
 
 ## Konwencje
 
@@ -37,6 +38,6 @@ Plan prac: docs/plan-sprintow.md. Na prośbę „zacznij sprint N”:
 2. Jeśli przed sprintem N jest bramka (B1–B4), sprawdź, czy docs/bramka-X.md ma zapisaną decyzję. Bez decyzji nie zaczynaj sprintu.
 3. Zaproponuj kolejność zadań z uwzględnieniem kolumny „Zależy od”. Zadania z „Kto” = Ty lub podwykonawca zamień na krótką listę kroków dla człowieka i nie wykonuj ich.
 4. Dla zadań Qwen napisz tasks/<ID>.md i tests/<ID>.test.ts (patrz dodatek B), uruchom tools/qwen-run.mjs, a po zaliczeniu zrecenzuj diff.
-5. Po zakończeniu zadania zmień ☐ na ☑ w planie, dopisz godziny faktyczne do logu i wpis do dziennika zmian.
+5. Po zakończeniu zadania zmień ☐ na ☑ w planie, dopisz wpis do dziennika zmian.
 6. Po pięciu nieudanych podejściach Qwena zadanie przejmujesz ty i zapisujesz powód w docs/retro/Sxx.md.
 ```

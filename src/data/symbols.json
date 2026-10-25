@@ -4,31 +4,73 @@
       "id": "ogien",
       "cost": 3,
       "attackBonus": 1,
-      "healthBonus": 0
+      "healthBonus": 0,
+      "effects": [
+        {
+          "trigger": "attack",
+          "op": "strike",
+          "amount": 1,
+          "scope": "sameElementOthers",
+          "pierce": true
+        }
+      ]
     },
     {
       "id": "woda",
       "cost": 2,
       "attackBonus": 0,
-      "healthBonus": 0
+      "healthBonus": 0,
+      "effects": [
+        {
+          "trigger": "summon",
+          "op": "mend",
+          "amount": 1,
+          "scope": "self"
+        }
+      ]
     },
     {
       "id": "ziemia",
       "cost": 2,
       "attackBonus": 0,
-      "healthBonus": 1
+      "healthBonus": 1,
+      "effects": [
+        {
+          "trigger": "summon",
+          "op": "guard",
+          "amount": 3,
+          "scope": "self"
+        }
+      ]
     },
     {
       "id": "wiatr",
       "cost": 2,
       "attackBonus": 0,
-      "healthBonus": 0
+      "healthBonus": 0,
+      "effects": [
+        {
+          "trigger": "summon",
+          "op": "kindle",
+          "amount": 1,
+          "scope": "self"
+        }
+      ]
     },
     {
       "id": "grom",
       "cost": 3,
       "attackBonus": 1,
-      "healthBonus": 0
+      "healthBonus": 0,
+      "effects": [
+        {
+          "trigger": "attack",
+          "op": "strike",
+          "amount": 2,
+          "scope": "sameElementOthers",
+          "pierce": true
+        }
+      ]
     }
   ],
   "forms": [
@@ -37,42 +79,91 @@
       "cost": 4,
       "baseAttack": 3,
       "baseHealth": 4,
-      "gender": "m"
+      "gender": "m",
+      "effects": [
+        {
+          "trigger": "damaged",
+          "op": "growAttack",
+          "amount": 1,
+          "scope": "self"
+        }
+      ]
     },
     {
       "id": "kruk",
       "cost": 3,
       "baseAttack": 2,
       "baseHealth": 3,
-      "gender": "m"
+      "gender": "m",
+      "effects": [
+        {
+          "trigger": "attack",
+          "op": "strike",
+          "amount": 1,
+          "scope": "self",
+          "pierce": true
+        }
+      ]
     },
     {
       "id": "sowa",
       "cost": 3,
       "baseAttack": 1,
       "baseHealth": 4,
-      "gender": "f"
+      "gender": "f",
+      "effects": [
+        {
+          "trigger": "summon",
+          "op": "kindle",
+          "amount": 1,
+          "scope": "self"
+        }
+      ]
     },
     {
       "id": "waz",
       "cost": 4,
       "baseAttack": 3,
       "baseHealth": 3,
-      "gender": "m"
+      "gender": "m",
+      "effects": [
+        {
+          "trigger": "attack",
+          "op": "growAttack",
+          "amount": 1,
+          "scope": "self"
+        }
+      ]
     },
     {
       "id": "niedzwiedz",
       "cost": 4,
       "baseAttack": 4,
       "baseHealth": 7,
-      "gender": "m"
+      "gender": "m",
+      "effects": [
+        {
+          "trigger": "damaged",
+          "op": "strike",
+          "amount": 2,
+          "scope": "self"
+        }
+      ]
     },
     {
       "id": "jelen",
       "cost": 4,
       "baseAttack": 2,
       "baseHealth": 6,
-      "gender": "m"
+      "gender": "m",
+      "effects": [
+        {
+          "trigger": "turnEnd",
+          "op": "regen",
+          "amount": 1,
+          "scope": "self"
+        }
+      ]
     }
   ],
   "traits": [

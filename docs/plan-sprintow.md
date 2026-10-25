@@ -27,7 +27,7 @@ Plan prac: docs/plan-sprintow.md. Na prośbę „zacznij sprint N”:
 2. Jeśli przed sprintem N jest bramka (B1–B4), sprawdź, czy docs/bramka-X.md ma zapisaną decyzję. Bez decyzji nie zaczynaj sprintu.
 3. Zaproponuj kolejność zadań z uwzględnieniem kolumny „Zależy od”. Zadania z „Kto” = Ty lub podwykonawca zamień na krótką listę kroków dla człowieka i nie wykonuj ich.
 4. Dla zadań Qwen napisz tasks/<ID>.md i tests/<ID>.test.ts (patrz dodatek B), uruchom tools/qwen-run.mjs, a po zaliczeniu zrecenzuj diff.
-5. Po zakończeniu zadania zmień ☐ na ☑ w planie, dopisz godziny faktyczne do logu i wpis do dziennika zmian.
+5. Po zakończeniu zadania zmień ☐ na ☑ w planie, dopisz wpis do dziennika zmian.
 6. Po pięciu nieudanych podejściach Qwena zadanie przejmujesz ty i zapisujesz powód w docs/retro/Sxx.md.
 ```
 
@@ -86,7 +86,7 @@ Plan celuje w 30–36 godzin na sprint przy 35 dostępnych. Co piąty sprint jes
 - Interfejs działa w pionie, poziomie i na tablecie (zrzuty w CI); pola dotyku mają co najmniej 48 dp; każdy element interaktywny ma nazwę dla czytnika ekranu; informacja nigdy nie jest przekazana samym kolorem.
 - Budżety: rozmiar paczki do 150 MB (cel 120 MB), 60 kl./s na telefonie testowym, pamięć do 500 MB.
 - Diff zrecenzowany przez Claude'a; żadnych nowych zależności bez wpisu w `docs/decyzje.md`.
-- Zadanie odhaczone w tym pliku, godziny faktyczne w logu.
+- Zadanie odhaczone w tym pliku.
 
 ### Zadanie spoza kodu
 
@@ -98,7 +98,7 @@ Plan celuje w 30–36 godzin na sprint przy 35 dostępnych. Co piąty sprint jes
 
 - Wszystkie zadania M zamknięte albo świadomie przeniesione, z powodem w retrospektywie.
 - Build sprintu działa na telefonie testowym (APK) i w przeglądarce, a ty zagrałeś go od początku do końca.
-- `docs/retro/Sxx.md` i log godzin uzupełnione; plan zaktualizowany, jeśli coś się przesunęło.
+- `docs/retro/Sxx.md` uzupełniona; plan zaktualizowany, jeśli coś się przesunęło.
 
 ### Wydanie do sklepów
 
@@ -159,7 +159,7 @@ Księgowy nie ma osobnej pozycji w biznesplanie. Dwie konsultacje (S20 i S24, ra
 
 | ID | Pr. | Zadanie | Kto | Kryterium akceptacji | Zależy od | h |
 |---|---|---|---|---|---|---|
-| ☐ S01-00 | M | Planowanie sprintu, demo na koniec i retrospektywa | Ty | Claude rozbił zadania na specyfikacje; build sprintu zagrany przez ciebie na telefonie; `docs/retro/S01.md` (5 linii) i log godzin uzupełnione | — | 2 |
+| ☐ S01-00 | M | Planowanie sprintu, demo na koniec i retrospektywa | Ty | Claude rozbił zadania na specyfikacje; build sprintu zagrany przez ciebie na telefonie; `docs/retro/S01.md` (5 linii) uzupełniona | — | 2 |
 | ☐ S01-01 | M | Repozytorium i narzędzia: Git (prywatne), Vite, TypeScript strict, ESLint, Prettier, Vitest, struktura katalogów z dodatku A | Claude | Polecenia `npm run dev`, `test`, `lint`, `typecheck` i `build` działają od zera po `npm ci`; strict bez wyjątków | — | 3 |
 | ☐ S01-02 | M | Potok Qwena w repozytorium: skrypt `tools/qwen-run.mjs` (port z benchmarku), `CLAUDE.md` dla Qwena, szablon specyfikacji zadania, lista chronionych plików | Claude | Zadanie próbne wykonane przez Qwena na twoim laptopie: testy zielone, raport w `results/` | — | 4 |
 | ☐ S01-03 | M | Schemat danych symboli (Żywioł, Forma, Przymiot) z kosztami mocy i walidacją wczytywania | Claude | Błędny plik danych kończy się czytelnym błędem z nazwą pola; test na 3 przykładowych symbolach | — | 2 |
@@ -171,7 +171,7 @@ Księgowy nie ma osobnej pozycji w biznesplanie. Dwie konsultacje (S20 i S24, ra
 | ☐ S01-09 | M | Licencje modeli i spis wkładu AI: `docs/ai-provenance.md` (FLUX.2 klein 4B – Apache 2.0, ACE-Step 1.5 – MIT), zasada „co zrobił człowiek, co AI” | Ty | Plik istnieje, zasada opisana w README; modele FLUX.2 klein 9B i dev wykluczone z projektu | — | 1,5 |
 | ☐ S01-10 | M | Konta bez opłat: prywatne repozytorium, projekt Supabase w regionie UE, roboczy serwer Discord, skrzynka e-mail projektu | Ty | Dane dostępowe w menedżerze haseł; żadnych kluczy w repozytorium | — | 2 |
 | ☐ S01-11 | M | Zamrożenie zakresu MVP z Claude: lista 5 żywiołów × 6 form × 5 przymiotów z kosztami mocy (`docs/gdd-mvp.md`) | Ty | 150 kombinacji policzonych, lista zatwierdzona przez ciebie | — | 4 |
-| ☐ S01-12 | S | Rytm pracy: stały kalendarz 15–20 h tygodniowo i arkusz logu godzin (plan i fakt) | Ty | Kalendarz na 4 tygodnie z góry; arkusz z kolumnami „godziny planowane / faktyczne” | — | 1 |
+| ☐ S01-12 | S | Rytm pracy: stały kalendarz 15–20 h tygodniowo | Ty | Kalendarz na 4 tygodnie z góry | — | 1 |
 
 ### S02 · 16–29 XI 2026 · Rdzeń I: walka bez grafiki
 
@@ -183,7 +183,7 @@ Księgowy nie ma osobnej pozycji w biznesplanie. Dwie konsultacje (S20 i S24, ra
 
 | ID | Pr. | Zadanie | Kto | Kryterium akceptacji | Zależy od | h |
 |---|---|---|---|---|---|---|
-| ☐ S02-00 | M | Planowanie sprintu, demo na koniec i retrospektywa | Ty | Claude rozbił zadania na specyfikacje; build sprintu zagrany przez ciebie na telefonie; `docs/retro/S02.md` (5 linii) i log godzin uzupełnione | — | 2 |
+| ☐ S02-00 | M | Planowanie sprintu, demo na koniec i retrospektywa | Ty | Claude rozbił zadania na specyfikacje; build sprintu zagrany przez ciebie na telefonie; `docs/retro/S02.md` (5 linii) uzupełniona | — | 2 |
 | ☑ S02-01 | M | Model stanu walki: niemutowalny stan, jeden reducer akcji, zdarzenia | Claude | Wszystkie zmiany stanu przechodzą przez reducer; testy z jawnymi wartościami (D20) | S01-03 | 4 |
 | ☑ S02-02 | M | Obrażenia z żywiołami: blok, odporności i słabości, przebicie (rozwiązanie sprawdzone w benchmarku 05) | Qwen | Testy z benchmarku zielone; fuzzing względem rozwiązania wzorcowego: 0 rozbieżności | S02-01 | 2,5 |
 | ☑ S02-03 | M | Talia: dobieranie, tasowanie z ziarnem, odrzucone, koniec tury (benchmark 06) | Qwen | Testy zielone; ta sama talia dla tego samego ziarna; ręka nie przekracza 5 (`HAND_LIMIT`) | S01-04 | 2,5 |
@@ -206,15 +206,15 @@ Księgowy nie ma osobnej pozycji w biznesplanie. Dwie konsultacje (S20 i S24, ra
 
 | ID | Pr. | Zadanie | Kto | Kryterium akceptacji | Zależy od | h |
 |---|---|---|---|---|---|---|
-| ☐ S03-00 | M | Planowanie sprintu, demo na koniec i retrospektywa | Ty | Claude rozbił zadania na specyfikacje; build sprintu zagrany przez ciebie na telefonie; `docs/retro/S03.md` (5 linii) i log godzin uzupełnione | — | 2 |
-| ☐ S03-01 | M | Dane MVP: 5 żywiołów, 6 form, 5 przymiotów z kosztami i efektami (JSON) wg `docs/gdd-mvp.md` | Claude | Wczytuje się bez błędów; nocny test sprawdza budżet mocy 10 dla każdej z 150 kombinacji; zastępuje przejściowy `src/data/symbols.json` (D16) | S01-03, S01-11 | 3 |
-| ☐ S03-02 | M | Ocena istoty i lista dostępnych istot (benchmark 02) | Qwen | Testy zielone; lista zgodna ze spisem z danych MVP | S03-01 | 2,5 |
-| ☐ S03-03 | M | Kod istoty: 7 znaków, kodowanie, dekodowanie i suma kontrolna (benchmark 08) | Qwen | Round-trip na 20 000 losowych istot; literówka w jednym znaku wykryta; znaki mylące (0/O, 1/I) obsłużone | S03-01 | 2,5 |
-| ☐ S03-04 | M | Legenda z szablonów zdań PL i EN z rodzajem gramatycznym formy (benchmark 04) | Qwen | Dla 150 istot legenda bez pustych miejsc i błędów zgody rodzaju | S03-01 | 3 |
-| ☐ S03-05 | M | System efektów: haki zdarzeń (przyzwanie, atak, obrażenia, koniec tury) i kolejność rozstrzygania | Claude | Efekty dodawane jako dane i mała funkcja; test kolejności na 10 scenariuszach | S02-01 | 5 |
-| ☐ S03-06 | M | Synergie pięciu żywiołów: Ogień, Woda, Ziemia, Wiatr, Grom | Qwen | Każda synergia ma test wg opisu w GDD (np. Grom przeskakuje na drugi cel) | S03-05 | 4 |
-| ☐ S03-07 | M | Warsztat – logika: wybór trzech symboli, podgląd statystyk, koszt Atramentu, dodanie istoty do talii | Claude | Niedozwolone kombinacje odrzucane z komunikatem (klucz i18n); stan niemutowalny | S03-02 | 3 |
-| ☐ S03-08 | M | Nocny test balansu: boty grają tysiące walk, raport win-rate na symbol | Claude | CSV z win-rate dla 150 istot; wyróżnia istoty poza przedziałem 35–65% | S03-06, S02-09 | 4 |
+| ☐ S03-00 | M | Planowanie sprintu, demo na koniec i retrospektywa | Ty | Claude rozbił zadania na specyfikacje; build sprintu zagrany przez ciebie na telefonie; `docs/retro/S03.md` (5 linii) uzupełniona | — | 2 |
+| ☑ S03-01 | M | Dane MVP: 5 żywiołów, 6 form, 5 przymiotów z kosztami i efektami (JSON) wg `docs/gdd-mvp.md` | Claude | Wczytuje się bez błędów; budżet mocy 10 dla każdej z 150 kombinacji sprawdza zwykły test jednostkowy `tests/data/mvp-data.test.ts` (D32); efekty symboli opisuje `docs/efekty-symboli.md` (D23); zastępuje przejściowy `src/data/symbols.json` (D16) | S01-03, S01-11 | 3 |
+| ☑ S03-02 | M | Ocena istoty i lista dostępnych istot (benchmark 02) | Qwen | Testy zielone; lista zgodna ze spisem z danych MVP | S03-01 | 2,5 |
+| ☑ S03-03 | M | Kod istoty: 7 znaków, kodowanie, dekodowanie i suma kontrolna (benchmark 08) | Qwen | Round-trip na 20 000 losowych istot; literówka w jednym znaku wykryta; znaki mylące (0/O, 1/I) obsłużone | S03-01 | 2,5 |
+| ☑ S03-04 | M | Legenda z szablonów zdań PL i EN z rodzajem gramatycznym formy (benchmark 04) | Qwen | Dla 150 istot legenda bez pustych miejsc i błędów zgody rodzaju | S03-01 | 3 |
+| ☑ S03-05 | M | System efektów: haki zdarzeń (przyzwanie, atak, obrażenia, koniec tury) i kolejność rozstrzygania | Claude | Efekty dodawane jako dane i mała funkcja; scenariusze 1–10 w `tests/combat/effects.test.ts` i E1–E10 w `docs/zasady-walki.md` | S02-01 | 5 |
+| ☑ S03-06 | M | Synergie pięciu żywiołów: Ogień, Woda, Ziemia, Wiatr, Grom | Qwen | Każda synergia ma test wg `docs/efekty-symboli.md`, `tests/data/symbol-synergies.test.ts` (np. Grom przeskakuje na drugi cel; D24, D25) | S03-01 | 4 |
+| ☑ S03-07 | M | Warsztat – logika: wybór trzech symboli, podgląd statystyk, koszt Atramentu, zwrot karty i reszty Atramentu (talia w stanie przebiegu, S06; D30) | Claude | Niedozwolone kombinacje odrzucane z komunikatem (klucz i18n); stan niemutowalny | S03-02 | 3 |
+| ☑ S03-08 | M | Test balansu: boty grają tysiące walk (`npm run balance`), raport win-rate na istotę | Claude | CSV z win-rate dla 150 istot w `sim-results/`; wyróżnia istoty poza przedziałem 35–65% (D27) | S03-06, S02-09 | 4 |
 | ☐ S03-09 | M | Używany telefon z Androidem z ok. 2021 r. (klasa Galaxy A52): zakup, pierwszy build, pomiar klatek | Ty | APK z S01 działa na telefonie; wynik FPS zapisany jako punkt odniesienia | — | 3 |
 | ☐ S03-10 | S | Test na papierze: 10 najciekawszych i 10 najnudniejszych kombinacji, notatki do balansu | Ty | `docs/balans-notatki.md` z 20 pozycjami | S03-01 | 2 |
 
@@ -230,7 +230,7 @@ Księgowy nie ma osobnej pozycji w biznesplanie. Dwie konsultacje (S20 i S24, ra
 
 | ID | Pr. | Zadanie | Kto | Kryterium akceptacji | Zależy od | h |
 |---|---|---|---|---|---|---|
-| ☐ S04-00 | M | Planowanie sprintu, demo na koniec i retrospektywa | Ty | Claude rozbił zadania na specyfikacje; build sprintu zagrany przez ciebie na telefonie; `docs/retro/S04.md` (5 linii) i log godzin uzupełnione | — | 2 |
+| ☐ S04-00 | M | Planowanie sprintu, demo na koniec i retrospektywa | Ty | Claude rozbił zadania na specyfikacje; build sprintu zagrany przez ciebie na telefonie; `docs/retro/S04.md` (5 linii) uzupełniona | — | 2 |
 | ☐ S04-01 | M | Układ walki w pionie: Kręgi u góry, ręka pod kciukiem, zdrowie, Żar, koniec tury, zamiar wroga | Claude | Ekran 360×800 dp; wszystkie sterowania w zasięgu kciuka; pola dotyku ≥ 48 dp | S02-01 | 4 |
 | ☐ S04-02 | M | Karty w ręce: wachlarz, wybór dotknięciem, przeciąganie na Krąg, anulowanie | Qwen | Test E2E (Playwright, dotyk): zagranie karty z ręki do Kręgu zmienia stan zgodnie z logiką | S04-01 | 3 |
 | ☐ S04-03 | M | Warstwowy renderer istoty (tło żywiołu, sylwetka formy, nakładka przymiotu) z grafikami zastępczymi | Qwen | 150 istot rysuje się z 3 warstw; atlas zastępczy poniżej 2 MB | S03-01 | 3 |
@@ -251,7 +251,7 @@ Księgowy nie ma osobnej pozycji w biznesplanie. Dwie konsultacje (S20 i S24, ra
 
 | ID | Pr. | Zadanie | Kto | Kryterium akceptacji | Zależy od | h |
 |---|---|---|---|---|---|---|
-| ☐ S05-00 | M | Planowanie sprintu, demo na koniec i retrospektywa | Ty | Claude rozbił zadania na specyfikacje; build sprintu zagrany przez ciebie na telefonie; `docs/retro/S05.md` (5 linii) i log godzin uzupełnione | — | 1 |
+| ☐ S05-00 | M | Planowanie sprintu, demo na koniec i retrospektywa | Ty | Claude rozbił zadania na specyfikacje; build sprintu zagrany przez ciebie na telefonie; `docs/retro/S05.md` (5 linii) uzupełniona | — | 1 |
 | ☐ S05-01 | M | Zaległości z S01–S04 (`docs/zaleglosci.md`) | Ty | Lista pusta albo przeniesiona z uzasadnieniem | — | 6 |
 | ☐ S05-02 | M | Rekrutacja 10 testerów do bramki 1 (w tym min. 3 osoby bez doświadczenia z deckbuilderami) | Ty | 10 nazwisk z potwierdzonym terminem | — | 2 |
 | ☐ S05-03 | M | Dystrybucja prototypu: wersja web pod stałym adresem (iPhone przez przeglądarkę) i APK do pobrania; instrukcja dla testerów | Claude | Oba warianty uruchomione przez osobę niezwiązaną z projektem | — | 3 |
@@ -268,7 +268,7 @@ Księgowy nie ma osobnej pozycji w biznesplanie. Dwie konsultacje (S20 i S24, ra
 
 | ID | Pr. | Zadanie | Kto | Kryterium akceptacji | Zależy od | h |
 |---|---|---|---|---|---|---|
-| ☐ S06-00 | M | Planowanie sprintu, demo na koniec i retrospektywa | Ty | Claude rozbił zadania na specyfikacje; build sprintu zagrany przez ciebie na telefonie; `docs/retro/S06.md` (5 linii) i log godzin uzupełnione | — | 2 |
+| ☐ S06-00 | M | Planowanie sprintu, demo na koniec i retrospektywa | Ty | Claude rozbił zadania na specyfikacje; build sprintu zagrany przez ciebie na telefonie; `docs/retro/S06.md` (5 linii) uzupełniona | — | 2 |
 | ☐ S06-01 | M | Prototyp pionowy: krótka wyprawa (3 walki + Leszy), wybór nagrody po walce | Claude | Pełna pętla 8–10 minut bez zawieszeń na telefonie testowym | S04-07 | 4 |
 | ☐ S06-02 | M | Minimalny Warsztat: wybór 3 symboli z 12 odblokowanych, podgląd, dodanie do talii | Qwen | Test E2E: utworzenie istoty i użycie jej w następnej walce | S03-07 | 3 |
 | ☐ S06-03 | M | Nagrody: wybór 1 z 3 kart po walce, losowanie z ziarna | Qwen | Ta sama wyprawa dla tego samego ziarna | — | 2,5 |
@@ -295,7 +295,7 @@ Księgowy nie ma osobnej pozycji w biznesplanie. Dwie konsultacje (S20 i S24, ra
 
 | ID | Pr. | Zadanie | Kto | Kryterium akceptacji | Zależy od | h |
 |---|---|---|---|---|---|---|
-| ☐ S07-00 | M | Planowanie sprintu, demo na koniec i retrospektywa | Ty | Claude rozbił zadania na specyfikacje; build sprintu zagrany przez ciebie na telefonie; `docs/retro/S07.md` (5 linii) i log godzin uzupełnione | — | 2 |
+| ☐ S07-00 | M | Planowanie sprintu, demo na koniec i retrospektywa | Ty | Claude rozbił zadania na specyfikacje; build sprintu zagrany przez ciebie na telefonie; `docs/retro/S07.md` (5 linii) uzupełniona | — | 2 |
 | ☐ S07-01 | M | Wybór grafika i umowa: zakres 25 grafik bazowych, terminy S7–S12, przeniesienie praw na piśmie z polami eksploatacji, zgoda na trenowanie modelu na jego pracach | Ty | Podpisana umowa; szablon sprawdzony przez prawnika (ok. 300 zł z puli 1 500 zł) | — | 4 |
 | ☐ S07-02 | M | Brief techniczny dla grafika: formaty, rozmiary warstw, paleta, nazewnictwo, szablon w Krita | Claude | Grafik potwierdza zrozumienie; jedna próbna grafika zaakceptowana | S07-01 | 2 |
 | ☐ S07-03 | M | Potok zasobów: atlasy, kompresja tekstur, manifest, budżet rozmiaru (alarm w CI powyżej 120 MB) | Claude | CI wypisuje rozmiar paczki; przekroczenie budżetu blokuje | — | 4 |
@@ -304,7 +304,7 @@ Księgowy nie ma osobnej pozycji w biznesplanie. Dwie konsultacje (S20 i S24, ra
 | ☐ S07-06 | M | Profil gracza: Atrament, odblokowane symbole (12 z 16 w MVP na start), rangi spisywacza; ekonomia z GDD w pliku danych | Claude | Odblokowanie symbolu kosztuje 100–300 Atramentu; testy przepływów | — | 4 |
 | ☐ S07-07 | M | Pierwsza partia: 5 teł żywiołów i 6 sylwetek form | Grafik | Pliki źródłowe w `art/source/`; spis wkładu w `docs/ai-provenance.md` | S07-01 | 3 |
 | ☐ S07-08 | S | Poprawki balansu po bramce 1: 10 zmian w `data/balance.json` według notatek z testów | Ty | Symulacja potwierdza zmiany; wpis w dzienniku zmian | — | 3 |
-| ☐ S07-09 | M | Raport statusu: `docs/status.md` generowany z logu godzin i listy zadań | Claude | Raport pokazuje plan i fakt dla ukończonych sprintów | — | 2 |
+| ☐ S07-09 | M | Raport statusu: `docs/status.md` generowany z listy zadań | Claude | Raport pokazuje ukończone i otwarte zadania sprintów | — | 2 |
 
 ### S08 · 8–21 II 2027 · Mapa, bossowie i Tropy
 
@@ -316,7 +316,7 @@ Księgowy nie ma osobnej pozycji w biznesplanie. Dwie konsultacje (S20 i S24, ra
 
 | ID | Pr. | Zadanie | Kto | Kryterium akceptacji | Zależy od | h |
 |---|---|---|---|---|---|---|
-| ☐ S08-00 | M | Planowanie sprintu, demo na koniec i retrospektywa | Ty | Claude rozbił zadania na specyfikacje; build sprintu zagrany przez ciebie na telefonie; `docs/retro/S08.md` (5 linii) i log godzin uzupełnione | — | 2 |
+| ☐ S08-00 | M | Planowanie sprintu, demo na koniec i retrospektywa | Ty | Claude rozbił zadania na specyfikacje; build sprintu zagrany przez ciebie na telefonie; `docs/retro/S08.md` (5 linii) uzupełniona | — | 2 |
 | ☐ S08-01 | M | Konsultacja zasad bossów i elit: Leszy, Utopiec, Południca, Strzyga, Licho – wierzenie, źródło, zasada walki; ustalenie, że krótkie scenariusze filmów „Prawdziwe legendy” sprawdza w ramach tej samej puli | Folklorysta | 5 kart w `docs/folklor/` z wierzeniem, źródłem bibliograficznym i zatwierdzoną zasadą | — | 3 |
 | ☐ S08-02 | M | Generator mapy wyprawy z ziarna: 6–8 węzłów, rozgałęzienia bez przecinających się krawędzi, typy węzłów (algorytm z benchmarku 09 – Qwen go nie zaliczył) | Claude | Testy właściwości na 10 000 ziaren: spójność, brak przecięć, każdy węzeł osiągalny, boss na końcu; ta sama mapa w Node, Chromium i WebKit | S01-04 | 5 |
 | ☐ S08-03 | M | Ekran mapy: rysowanie węzłów i ścieżek, wybór następnego węzła, ikony typów, przewijanie | Qwen | Playwright: przejście całej mapy dotknięciami; zapis po każdym węźle | S08-02 | 4 |
@@ -337,7 +337,7 @@ Księgowy nie ma osobnej pozycji w biznesplanie. Dwie konsultacje (S20 i S24, ra
 
 | ID | Pr. | Zadanie | Kto | Kryterium akceptacji | Zależy od | h |
 |---|---|---|---|---|---|---|
-| ☐ S09-00 | M | Planowanie sprintu, demo na koniec i retrospektywa | Ty | Claude rozbił zadania na specyfikacje; build sprintu zagrany przez ciebie na telefonie; `docs/retro/S09.md` (5 linii) i log godzin uzupełnione | — | 2 |
+| ☐ S09-00 | M | Planowanie sprintu, demo na koniec i retrospektywa | Ty | Claude rozbił zadania na specyfikacje; build sprintu zagrany przez ciebie na telefonie; `docs/retro/S09.md` (5 linii) uzupełniona | — | 2 |
 | ☐ S09-01 | M | Muzyk: wybór, umowa na piśmie (przeniesienie praw, pola eksploatacji), brief (lira korbowa lub fidel; motyw przewodni i 3 partie) | Ty | Podpisana umowa i harmonogram S9–S12 | — | 3 |
 | ☐ S09-02 | M | Szkice motywów krain w ACE-Step 1.5 (3 krainy × 2 warianty) jako materiał poglądowy dla muzyka | Claude | 6 plików po 30–60 s w `audio/draft/`; wpis w spisie wkładu | — | 3 |
 | ☐ S09-03 | M | Silnik audio: muzyka warstwowa reagująca na walkę, miksowanie (muzyka, efekty), wyciszenie w tle, tryb cichy iOS | Qwen | Test ręczny na obu systemach: telefon dzwoni → muzyka wstrzymana i wraca | — | 4 |
@@ -358,7 +358,7 @@ Księgowy nie ma osobnej pozycji w biznesplanie. Dwie konsultacje (S20 i S24, ra
 
 | ID | Pr. | Zadanie | Kto | Kryterium akceptacji | Zależy od | h |
 |---|---|---|---|---|---|---|
-| ☐ S10-00 | M | Planowanie sprintu, demo na koniec i retrospektywa | Ty | Claude rozbił zadania na specyfikacje; build sprintu zagrany przez ciebie na telefonie; `docs/retro/S10.md` (5 linii) i log godzin uzupełnione | — | 1 |
+| ☐ S10-00 | M | Planowanie sprintu, demo na koniec i retrospektywa | Ty | Claude rozbił zadania na specyfikacje; build sprintu zagrany przez ciebie na telefonie; `docs/retro/S10.md` (5 linii) uzupełniona | — | 1 |
 | ☐ S10-01 | M | Sprawdzenie nazwy „Bestiariusz”: UPRP, EUIPO, App Store, Google Play, itch.io, domeny | Ty | `docs/nazwa.md`; decyzja: zostaje albo zmiana | — | 3 |
 | ☐ S10-02 | M | Domena i strona gry (opis, zrzuty, zapis na listę mailową bez śledzenia) | Ty | Strona po HTTPS; zapis na listę z potwierdzeniem; szkic polityki prywatności strony | S10-01 | 5 |
 | ☐ S10-03 | S | Efekty dźwiękowe: wybór i generowanie 20 podstawowych, miks i normalizacja głośności | Claude | Paczka poniżej 8 MB; licencje w `docs/` | — | 3 |
@@ -375,7 +375,7 @@ Księgowy nie ma osobnej pozycji w biznesplanie. Dwie konsultacje (S20 i S24, ra
 
 | ID | Pr. | Zadanie | Kto | Kryterium akceptacji | Zależy od | h |
 |---|---|---|---|---|---|---|
-| ☐ S11-00 | M | Planowanie sprintu, demo na koniec i retrospektywa | Ty | Claude rozbił zadania na specyfikacje; build sprintu zagrany przez ciebie na telefonie; `docs/retro/S11.md` (5 linii) i log godzin uzupełnione | — | 2 |
+| ☐ S11-00 | M | Planowanie sprintu, demo na koniec i retrospektywa | Ty | Claude rozbił zadania na specyfikacje; build sprintu zagrany przez ciebie na telefonie; `docs/retro/S11.md` (5 linii) uzupełniona | — | 2 |
 | ☐ S11-01 | M | Przegląd nazwy i zasad wobec marki Wiedźmin (lista zakazanych nazw, grafik, słów kluczowych), szkic regulaminu oraz polityki prywatności strony i demo | Prawnik | Pisemne uwagi prawnika; poprawki wprowadzone (500 zł z puli) | S10-01 | 3 |
 | ☐ S11-02 | M | Księga Bestii – ekran: siatka 150 istot, nieodkryte jako cienie, filtr żywiołu, strona istoty z legendą | Qwen | Playwright: otwarcie strony istoty; na tablecie rozkładówka | S03-04 | 5 |
 | ☐ S11-03 | M | Udostępnianie karty: obrazek 1080 × 1350 z ilustracją, legendą, kodem i QR; systemowe menu Udostępnij | Qwen | Obrazek generowany lokalnie w poniżej 1 s; kod także tekstem obok QR | S03-03 | 4 |
@@ -397,7 +397,7 @@ Księgowy nie ma osobnej pozycji w biznesplanie. Dwie konsultacje (S20 i S24, ra
 
 | ID | Pr. | Zadanie | Kto | Kryterium akceptacji | Zależy od | h |
 |---|---|---|---|---|---|---|
-| ☐ S12-00 | M | Planowanie sprintu, demo na koniec i retrospektywa | Ty | Claude rozbił zadania na specyfikacje; build sprintu zagrany przez ciebie na telefonie; `docs/retro/S12.md` (5 linii) i log godzin uzupełnione | — | 2 |
+| ☐ S12-00 | M | Planowanie sprintu, demo na koniec i retrospektywa | Ty | Claude rozbił zadania na specyfikacje; build sprintu zagrany przez ciebie na telefonie; `docs/retro/S12.md` (5 linii) uzupełniona | — | 2 |
 | ☐ S12-01 | M | Tryb demo (flaga): Bór i Leszy, Warsztat, Księga, kody istot; bez zakupów i rankingu; przyciski zapisu na listę i Discord | Claude | Pełne demo 8–10 minut; flaga nie wpływa na wersję pełną | S11-06 | 4 |
 | ☐ S12-02 | M | Build web na itch.io i stronę gry: ładowanie poniżej 8 s na 4G, rozmiar poniżej 40 MB, zapis w IndexedDB | Claude | Działa w Chrome, Safari iOS i Firefoxie; zrzuty w CI | S12-01 | 4 |
 | ☐ S12-03 | M | Pomiar kryterium bramki 2: 60 kl./s na telefonie 2021 (3 sesje po 10 min), RAM poniżej 500 MB, start poniżej 3 s | Ty | `docs/bramka-2-pomiar.md` z liczbami | S12-02 | 3 |
@@ -425,7 +425,7 @@ Księgowy nie ma osobnej pozycji w biznesplanie. Dwie konsultacje (S20 i S24, ra
 
 | ID | Pr. | Zadanie | Kto | Kryterium akceptacji | Zależy od | h |
 |---|---|---|---|---|---|---|
-| ☐ S13-00 | M | Planowanie sprintu, demo na koniec i retrospektywa | Ty | Claude rozbił zadania na specyfikacje; build sprintu zagrany przez ciebie na telefonie; `docs/retro/S13.md` (5 linii) i log godzin uzupełnione | — | 2 |
+| ☐ S13-00 | M | Planowanie sprintu, demo na koniec i retrospektywa | Ty | Claude rozbił zadania na specyfikacje; build sprintu zagrany przez ciebie na telefonie; `docs/retro/S13.md` (5 linii) uzupełniona | — | 2 |
 | ☐ S13-01 | M | Konta w sklepach: Apple Developer (99 USD rocznie), Google Play Console (25 USD jednorazowo), weryfikacja tożsamości; wniosek do programu Apple dla małych firm | Ty | Oba konta aktywne, dane w menedżerze haseł; wniosek złożony | — | 3 |
 | ☐ S13-02 | M | iOS: projekt w Codemagic (macOS), podpisywanie, build do TestFlight, manifest prywatności | Claude | Build iOS w TestFlight uruchamia się na iPhonie testera | S13-01 | 5 |
 | ☐ S13-03 | M | Android: kanał testów wewnętrznych, podpisywanie w Play App Signing, AAB, kontrola rozmiaru | Claude | AAB poniżej 150 MB; instalacja z testów wewnętrznych | S13-01 | 4 |
@@ -446,7 +446,7 @@ Księgowy nie ma osobnej pozycji w biznesplanie. Dwie konsultacje (S20 i S24, ra
 
 | ID | Pr. | Zadanie | Kto | Kryterium akceptacji | Zależy od | h |
 |---|---|---|---|---|---|---|
-| ☐ S14-00 | M | Planowanie sprintu, demo na koniec i retrospektywa | Ty | Claude rozbił zadania na specyfikacje; build sprintu zagrany przez ciebie na telefonie; `docs/retro/S14.md` (5 linii) i log godzin uzupełnione | — | 2 |
+| ☐ S14-00 | M | Planowanie sprintu, demo na koniec i retrospektywa | Ty | Claude rozbił zadania na specyfikacje; build sprintu zagrany przez ciebie na telefonie; `docs/retro/S14.md` (5 linii) uzupełniona | — | 2 |
 | ☐ S14-01 | M | Elita Licho: zasada walki i dane | Qwen | Testy zasady; bot przechodzi walkę | — | 3 |
 | ☐ S14-02 | M | Wydarzenia w kapliczkach: wybory moralne z konsekwencjami w dalszej części wyprawy (oszczędzony potwór wraca jako sojusznik lub zagrożenie) | Claude | 12 wydarzeń w danych; testy rozgałęzień i konsekwencji | — | 5 |
 | ☐ S14-03 | M | Teksty: 12 wydarzeń, opisy bossów i krain (PL) | Claude | Teksty w plikach tłumaczeń; wersja do przeglądu folklorysty w S25 | S14-02 | 4 |
@@ -469,7 +469,7 @@ Księgowy nie ma osobnej pozycji w biznesplanie. Dwie konsultacje (S20 i S24, ra
 
 | ID | Pr. | Zadanie | Kto | Kryterium akceptacji | Zależy od | h |
 |---|---|---|---|---|---|---|
-| ☐ S15-00 | M | Planowanie sprintu, demo na koniec i retrospektywa | Ty | Claude rozbił zadania na specyfikacje; build sprintu zagrany przez ciebie na telefonie; `docs/retro/S15.md` (5 linii) i log godzin uzupełnione | — | 1 |
+| ☐ S15-00 | M | Planowanie sprintu, demo na koniec i retrospektywa | Ty | Claude rozbił zadania na specyfikacje; build sprintu zagrany przez ciebie na telefonie; `docs/retro/S15.md` (5 linii) uzupełniona | — | 1 |
 | ☐ S15-01 | M | Pomiar celu bramki 2: liczba osób w społeczności po 6 tygodniach od demo (cel 300), analiza opinii | Ty | `docs/bramka-2.md` z liczbami i decyzją | — | 3 |
 | ☐ S15-02 | M | Zaległości z S13–S14 (`docs/zaleglosci.md`) | Ty | Lista pusta albo przeniesiona z uzasadnieniem | — | 6 |
 | ☐ S15-03 | S | Poprawki demo i plan czterech filmów, jeśli społeczność poniżej progu | Claude | Plan filmów w `marketing/`; poprawki z opinii zamknięte | S15-01 | 4 |
@@ -486,7 +486,7 @@ Księgowy nie ma osobnej pozycji w biznesplanie. Dwie konsultacje (S20 i S24, ra
 
 | ID | Pr. | Zadanie | Kto | Kryterium akceptacji | Zależy od | h |
 |---|---|---|---|---|---|---|
-| ☐ S16-00 | M | Planowanie sprintu, demo na koniec i retrospektywa | Ty | Claude rozbił zadania na specyfikacje; build sprintu zagrany przez ciebie na telefonie; `docs/retro/S16.md` (5 linii) i log godzin uzupełnione | — | 2 |
+| ☐ S16-00 | M | Planowanie sprintu, demo na koniec i retrospektywa | Ty | Claude rozbił zadania na specyfikacje; build sprintu zagrany przez ciebie na telefonie; `docs/retro/S16.md` (5 linii) uzupełniona | — | 2 |
 | ☐ S16-01 | M | Kraina Pola i boss Południca: zagadki co trzecią turę rozwiązywane kartą, kara za złą odpowiedź | Claude | 20 zagadek w danych (PL); testy; bot rozgrywa walkę | — | 6 |
 | ☐ S16-02 | M | Pola: 6 przeciwników, tło, mapa, muzyka robocza | Qwen | Boty przechodzą krainę z win-rate 40–60% | — | 4 |
 | ☐ S16-03 | M | Wyzwanie Dnia – klient: ziarno z daty (UTC), ta sama talia startowa, zapis wyniku lokalnie, powtórka ruchów | Claude | Dwa urządzenia z różnymi systemami dają identyczną wyprawę; test na 365 datach | S01-04 | 5 |
@@ -507,7 +507,7 @@ Księgowy nie ma osobnej pozycji w biznesplanie. Dwie konsultacje (S20 i S24, ra
 
 | ID | Pr. | Zadanie | Kto | Kryterium akceptacji | Zależy od | h |
 |---|---|---|---|---|---|---|
-| ☐ S17-00 | M | Planowanie sprintu, demo na koniec i retrospektywa | Ty | Claude rozbił zadania na specyfikacje; build sprintu zagrany przez ciebie na telefonie; `docs/retro/S17.md` (5 linii) i log godzin uzupełnione | — | 2 |
+| ☐ S17-00 | M | Planowanie sprintu, demo na koniec i retrospektywa | Ty | Claude rozbił zadania na specyfikacje; build sprintu zagrany przez ciebie na telefonie; `docs/retro/S17.md` (5 linii) uzupełniona | — | 2 |
 | ☐ S17-01 | M | Zakupy: RevenueCat (`@revenuecat/purchases-capacitor`), produkt „Pełna gra”, uprawnienia z pamięcią podręczną offline | Claude | Zakup w sandboxie iOS i Android odblokowuje krainy; po restarcie bez sieci nadal odblokowane | S13-02, S13-03 | 6 |
 | ☐ S17-02 | M | Ekran sklepu: opis produktu, cena lokalna z RevenueCat, „Przywróć zakupy”, stany błędów (anulowano, brak sieci, oczekujące) | Qwen | Każdy stan ma czytelny komunikat; Playwright z atrapą sklepu | S17-01 | 4 |
 | ☐ S17-03 | M | Paywall po pierwszej krainie: zapowiedź kolejnych krain bez presji, wejście ze sklepu i z mapy | Claude | Pierwsza kraina i Wyzwanie Dnia bez zakupu; brak okien w trakcie wyprawy | S17-01 | 3 |
@@ -528,7 +528,7 @@ Księgowy nie ma osobnej pozycji w biznesplanie. Dwie konsultacje (S20 i S24, ra
 
 | ID | Pr. | Zadanie | Kto | Kryterium akceptacji | Zależy od | h |
 |---|---|---|---|---|---|---|
-| ☐ S18-00 | M | Planowanie sprintu, demo na koniec i retrospektywa | Ty | Claude rozbił zadania na specyfikacje; build sprintu zagrany przez ciebie na telefonie; `docs/retro/S18.md` (5 linii) i log godzin uzupełnione | — | 2 |
+| ☐ S18-00 | M | Planowanie sprintu, demo na koniec i retrospektywa | Ty | Claude rozbił zadania na specyfikacje; build sprintu zagrany przez ciebie na telefonie; `docs/retro/S18.md` (5 linii) uzupełniona | — | 2 |
 | ☐ S18-01 | M | Serwer rankingu: tabele, polityki dostępu (RLS), funkcje; anonimowy identyfikator gracza bez e-maila | Claude | Żaden punkt końcowy nie przyjmuje wyniku bez ważnego zapisu ruchów; testy RLS | S01-10 | 5 |
 | ☐ S18-02 | M | Weryfikacja wyniku przez odtworzenie zapisu ruchów po stronie serwera (ta sama logika gry) | Claude | Podrobiony wynik odrzucony; 100 przebiegów botów zgodnych | S18-01 | 6 |
 | ☐ S18-03 | M | Ekran Wyzwania Dnia: ziarno, odliczanie, najlepsze wyniki, twoje miejsce, wynik jako rząd ikon żywiołów do wklejenia | Qwen | Format wyniku stały; Playwright | S18-02 | 4 |
@@ -549,7 +549,7 @@ Księgowy nie ma osobnej pozycji w biznesplanie. Dwie konsultacje (S20 i S24, ra
 
 | ID | Pr. | Zadanie | Kto | Kryterium akceptacji | Zależy od | h |
 |---|---|---|---|---|---|---|
-| ☐ S19-00 | M | Planowanie sprintu, demo na koniec i retrospektywa | Ty | Claude rozbił zadania na specyfikacje; build sprintu zagrany przez ciebie na telefonie; `docs/retro/S19.md` (5 linii) i log godzin uzupełnione | — | 2 |
+| ☐ S19-00 | M | Planowanie sprintu, demo na koniec i retrospektywa | Ty | Claude rozbił zadania na specyfikacje; build sprintu zagrany przez ciebie na telefonie; `docs/retro/S19.md` (5 linii) uzupełniona | — | 2 |
 | ☐ S19-01 | M | Polityka prywatności, regulamin gry (ranking, nadużycia), przegląd formularzy i umów z podwykonawcami | Prawnik | Dokumenty PL/EN pod stałym adresem; pisemne uwagi (700 zł z puli) | — | 3 |
 | ☐ S19-02 | M | Zgody w ekranie powitalnym: wybór języka, polityka, regulamin, osobne przełączniki analityki i raportów awarii (domyślnie wyłączone) | Qwen | Gra działa w pełni bez zgód; ustawienia można zmienić później | — | 4 |
 | ☐ S19-03 | M | Analityka własna (zdarzenia anonimowe do Supabase UE) i raportowanie awarii (Sentry UE, bez danych osobowych) – tylko za zgodą | Claude | Bez zgody zero zapytań sieciowych; ze zgodą zdarzenia z listy w `docs/telemetria.md` | S19-02 | 5 |
@@ -570,7 +570,7 @@ Księgowy nie ma osobnej pozycji w biznesplanie. Dwie konsultacje (S20 i S24, ra
 
 | ID | Pr. | Zadanie | Kto | Kryterium akceptacji | Zależy od | h |
 |---|---|---|---|---|---|---|
-| ☐ S20-00 | M | Planowanie sprintu, demo na koniec i retrospektywa | Ty | Claude rozbił zadania na specyfikacje; build sprintu zagrany przez ciebie na telefonie; `docs/retro/S20.md` (5 linii) i log godzin uzupełnione | — | 1 |
+| ☐ S20-00 | M | Planowanie sprintu, demo na koniec i retrospektywa | Ty | Claude rozbił zadania na specyfikacje; build sprintu zagrany przez ciebie na telefonie; `docs/retro/S20.md` (5 linii) uzupełniona | — | 1 |
 | ☐ S20-01 | M | Bug bash: 5 pełnych wypraw na 3 urządzeniach (Android 2021, nowy Android, iPhone), zgłoszenia w repozytorium | Ty | Lista błędów z priorytetami | — | 6 |
 | ☐ S20-02 | M | Poprawki blokerów i błędów krytycznych z bug bashu | Claude | 0 otwartych blokerów; sesje bez awarii ≥ 99,5% w teście zamkniętym | S20-01 | 5 |
 | ☐ S20-03 | M | Audyt dostępności: TalkBack i VoiceOver przez menu, ustawienia, mapę i walkę; skala tekstu 200%; kontrast | Ty | Lista usterek; krytyczne naprawione w S20 lub S23 | — | 4 |
@@ -596,7 +596,7 @@ Księgowy nie ma osobnej pozycji w biznesplanie. Dwie konsultacje (S20 i S24, ra
 
 | ID | Pr. | Zadanie | Kto | Kryterium akceptacji | Zależy od | h |
 |---|---|---|---|---|---|---|
-| ☐ S21-00 | M | Planowanie sprintu, demo na koniec i retrospektywa | Ty | Claude rozbił zadania na specyfikacje; build sprintu zagrany przez ciebie na telefonie; `docs/retro/S21.md` (5 linii) i log godzin uzupełnione | — | 2 |
+| ☐ S21-00 | M | Planowanie sprintu, demo na koniec i retrospektywa | Ty | Claude rozbił zadania na specyfikacje; build sprintu zagrany przez ciebie na telefonie; `docs/retro/S21.md` (5 linii) uzupełniona | — | 2 |
 | ☐ S21-01 | M | Wydanie w Polsce i Kanadzie (Google Play, App Store), wersja 0.9.0 | Ty | Gra widoczna w sklepach obu krajów; zakup działa na produkcji (test własnym kontem) | S20-07 | 3 |
 | ☐ S21-02 | M | Pulpit soft launchu: widoki SQL w Supabase (D1, D7, D30, sesja, konwersja, udostępnienia, awarie) w jednym arkuszu | Claude | Dane od 1. dnia; definicje w `docs/metryki.md` | — | 5 |
 | ☐ S21-03 | M | Promocja soft launchu: kody dla twórców, wpisy na forach, zaproszenia z Discorda | Ty | Wydano nie więcej niż 300 zł; co najmniej 5 twórców dostało kod | S21-01 | 5 |
@@ -616,7 +616,7 @@ Księgowy nie ma osobnej pozycji w biznesplanie. Dwie konsultacje (S20 i S24, ra
 
 | ID | Pr. | Zadanie | Kto | Kryterium akceptacji | Zależy od | h |
 |---|---|---|---|---|---|---|
-| ☐ S22-00 | M | Planowanie sprintu, demo na koniec i retrospektywa | Ty | Claude rozbił zadania na specyfikacje; build sprintu zagrany przez ciebie na telefonie; `docs/retro/S22.md` (5 linii) i log godzin uzupełnione | — | 2 |
+| ☐ S22-00 | M | Planowanie sprintu, demo na koniec i retrospektywa | Ty | Claude rozbił zadania na specyfikacje; build sprintu zagrany przez ciebie na telefonie; `docs/retro/S22.md` (5 linii) uzupełniona | — | 2 |
 | ☐ S22-01 | M | Analiza D1 i D7 po 2 tygodniach; 10 największych problemów w lejku (samouczek, pierwsza wyprawa, sklep) | Ty | `docs/soft-launch-1.md` | S21-02 | 4 |
 | ☐ S22-02 | M | Poprawki lejka: samouczek, pierwsza wyprawa, czytelność zamiarów | Claude | Zmiany wdrożone; porównanie wskaźników przed i po | S22-01 | 6 |
 | ☐ S22-03 | M | Strojenie balansu i ekonomii na zmierzonych danych (zmiany tylko w plikach danych) | Claude | Zmiany w `data/*.json` z komentarzem wskaźnika | S22-01 | 5 |
@@ -635,7 +635,7 @@ Księgowy nie ma osobnej pozycji w biznesplanie. Dwie konsultacje (S20 i S24, ra
 
 | ID | Pr. | Zadanie | Kto | Kryterium akceptacji | Zależy od | h |
 |---|---|---|---|---|---|---|
-| ☐ S23-00 | M | Planowanie sprintu, demo na koniec i retrospektywa | Ty | Claude rozbił zadania na specyfikacje; build sprintu zagrany przez ciebie na telefonie; `docs/retro/S23.md` (5 linii) i log godzin uzupełnione | — | 2 |
+| ☐ S23-00 | M | Planowanie sprintu, demo na koniec i retrospektywa | Ty | Claude rozbił zadania na specyfikacje; build sprintu zagrany przez ciebie na telefonie; `docs/retro/S23.md` (5 linii) uzupełniona | — | 2 |
 | ☐ S23-01 | M | Test trzech formatów karty udostępnianej i zdarzenie „share” (bez treści) | Claude | Porównanie odsetka udostępnień po 10 dniach | — | 4 |
 | ☐ S23-02 | M | Poprawki dostępności z audytu S20 (priorytet 1 i 2) | Qwen | Usterki krytyczne i wysokie zamknięte; ponowny test czytnikiem | — | 5 |
 | ☐ S23-03 | M | Wydajność: profilowanie na podstawie danych o urządzeniach; tryb oszczędny domyślnie na słabych telefonach | Claude | Wykrywanie klasy urządzenia; 30 kl./s na urządzeniach poniżej progu | — | 5 |
@@ -655,7 +655,7 @@ Księgowy nie ma osobnej pozycji w biznesplanie. Dwie konsultacje (S20 i S24, ra
 
 | ID | Pr. | Zadanie | Kto | Kryterium akceptacji | Zależy od | h |
 |---|---|---|---|---|---|---|
-| ☐ S24-00 | M | Planowanie sprintu, demo na koniec i retrospektywa | Ty | Claude rozbił zadania na specyfikacje; build sprintu zagrany przez ciebie na telefonie; `docs/retro/S24.md` (5 linii) i log godzin uzupełnione | — | 2 |
+| ☐ S24-00 | M | Planowanie sprintu, demo na koniec i retrospektywa | Ty | Claude rozbił zadania na specyfikacje; build sprintu zagrany przez ciebie na telefonie; `docs/retro/S24.md` (5 linii) uzupełniona | — | 2 |
 | ☐ S24-01 | M | Dane z 8 tygodni soft launchu vs cele (D1 ≥ 40%, D7 ≥ 15%, konwersja ≥ 5%, sesje bez awarii ≥ 99,5%, ocena ≥ 4,5) | Ty | `docs/bramka-4.md` z tabelą „cel i wynik” | — | 5 |
 | ☐ S24-02 | M | Decyzja bramki 4: premiera, strojenie 2–4 sprinty albo rozmowa z wydawcą (konwersja poniżej 2%) | Ty | Decyzja zapisana wraz ze skutkami dla S25+ | S24-01 | 2 |
 | ☐ S24-03 | M | Prognoza premiery na zmierzonych liczbach (zamiana założeń z biznesplanu) | Claude | Zaktualizowany arkusz; próg zwrotu przeliczony | S24-01 | 3 |
@@ -684,7 +684,7 @@ Po premierze (IV 2028) kolejna decyzja: 850 kupujących (zwrot gotówki) → dod
 
 | ID | Pr. | Zadanie | Kto | Kryterium akceptacji | Zależy od | h |
 |---|---|---|---|---|---|---|
-| ☐ S25-00 | M | Planowanie sprintu, demo na koniec i retrospektywa | Ty | Claude rozbił zadania na specyfikacje; build sprintu zagrany przez ciebie na telefonie; `docs/retro/S25.md` (5 linii) i log godzin uzupełnione | — | 1 |
+| ☐ S25-00 | M | Planowanie sprintu, demo na koniec i retrospektywa | Ty | Claude rozbił zadania na specyfikacje; build sprintu zagrany przez ciebie na telefonie; `docs/retro/S25.md` (5 linii) uzupełniona | — | 1 |
 | ☐ S25-01 | M | Recenzja tekstów wierzeń z MVP (bossowie, krainy, 12 wydarzeń, 20 zagadek, opisy w Księdze) oraz zasad nowych bossów i elit (Żmij, Weles, Bies, Baba Jaga); lista źródeł do tekstów premiery | Folklorysta | Pisemne uwagi i bibliografia; poprawki MVP wprowadzone (500 zł, reszta puli 1 000 zł) | — | 3 |
 | ☐ S25-02 | M | Poprawki grafik po soft launchu i szkice ikon nowych symboli jako wzór dla LoRA | Grafik | Pliki źródłowe; spis wkładu uzupełniony (1 000 zł, reszta puli 4 500 zł) | — | 3 |
 | ☐ S25-03 | M | Zaległości i przegląd harmonogramu; zamrożenie zakresu premiery z linią cięcia | Ty | `docs/zakres-premiery.md` zatwierdzony | S24-06 | 6 |
@@ -701,7 +701,7 @@ Po premierze (IV 2028) kolejna decyzja: 850 kupujących (zwrot gotówki) → dod
 
 | ID | Pr. | Zadanie | Kto | Kryterium akceptacji | Zależy od | h |
 |---|---|---|---|---|---|---|
-| ☐ S26-00 | M | Planowanie sprintu, demo na koniec i retrospektywa | Ty | Claude rozbił zadania na specyfikacje; build sprintu zagrany przez ciebie na telefonie; `docs/retro/S26.md` (5 linii) i log godzin uzupełnione | — | 2 |
+| ☐ S26-00 | M | Planowanie sprintu, demo na koniec i retrospektywa | Ty | Claude rozbił zadania na specyfikacje; build sprintu zagrany przez ciebie na telefonie; `docs/retro/S26.md` (5 linii) uzupełniona | — | 2 |
 | ☐ S26-01 | M | Żywioły Mróz i Słońce: reguły synergii w danych, haki w kodzie, testy | Claude | Synergie testowane; win-rate 35–65% w nocnych symulacjach | — | 5 |
 | ☐ S26-02 | M | Formy Dzik, Sum, Koń: dane, efekty, legendy PL i EN | Qwen | Licznik istot: 7 żywiołów × 9 form × 5 przymiotów = 315; legendy bez pustych pól | S26-01 | 4 |
 | ☐ S26-03 | M | Kraina Góry i boss Żmij (zasada od folklorysty z S25) | Claude | Testy zasady; bot rozgrywa walkę | S25-01 | 6 |
@@ -721,7 +721,7 @@ Po premierze (IV 2028) kolejna decyzja: 850 kupujących (zwrot gotówki) → dod
 
 | ID | Pr. | Zadanie | Kto | Kryterium akceptacji | Zależy od | h |
 |---|---|---|---|---|---|---|
-| ☐ S27-00 | M | Planowanie sprintu, demo na koniec i retrospektywa | Ty | Claude rozbił zadania na specyfikacje; build sprintu zagrany przez ciebie na telefonie; `docs/retro/S27.md` (5 linii) i log godzin uzupełnione | — | 2 |
+| ☐ S27-00 | M | Planowanie sprintu, demo na koniec i retrospektywa | Ty | Claude rozbił zadania na specyfikacje; build sprintu zagrany przez ciebie na telefonie; `docs/retro/S27.md` (5 linii) uzupełniona | — | 2 |
 | ☐ S27-01 | M | Żywioł Nawia i 5 nowych przymiotów (Zazdrość, Wierność, Szaleństwo, Spokój, Duma): reguły, dane, testy | Claude | 8 żywiołów × 9 form × 10 przymiotów = 720; win-rate 35–65% w symulacjach | — | 6 |
 | ☐ S27-02 | M | Formy Kot, Pająk, Ropucha: dane, efekty, legendy PL i EN | Qwen | Licznik istot = 960; legendy bez pustych pól | S27-01 | 4 |
 | ☐ S27-03 | M | Kraina Nawia i boss Weles (finał), zasada walki | Claude | Testy zasady; bot rozgrywa finał | S25-01 | 6 |
@@ -741,7 +741,7 @@ Po premierze (IV 2028) kolejna decyzja: 850 kupujących (zwrot gotówki) → dod
 
 | ID | Pr. | Zadanie | Kto | Kryterium akceptacji | Zależy od | h |
 |---|---|---|---|---|---|---|
-| ☐ S28-00 | M | Planowanie sprintu, demo na koniec i retrospektywa | Ty | Claude rozbił zadania na specyfikacje; build sprintu zagrany przez ciebie na telefonie; `docs/retro/S28.md` (5 linii) i log godzin uzupełnione | — | 2 |
+| ☐ S28-00 | M | Planowanie sprintu, demo na koniec i retrospektywa | Ty | Claude rozbił zadania na specyfikacje; build sprintu zagrany przez ciebie na telefonie; `docs/retro/S28.md` (5 linii) uzupełniona | — | 2 |
 | ☐ S28-01 | M | Ścieżka Guślarz: przywoływanie duchów poległych istot (Dziady), talia startowa | Claude | Mechanika + 20 kart + test botów | — | 6 |
 | ☐ S28-02 | S | Ścieżka Dziad wędrowny: pieśni wzmacniane kolejnością kart | Claude | Mechanika + 20 kart; test sekwencji | — | 6 |
 | ☐ S28-03 | M | Klątwy 4–10: parametry w danych, ekran wyboru, nagrody | Qwen | 10 poziomów; Atrament skaluje się zgodnie z tabelą w danych | S14-06 | 4 |
@@ -760,7 +760,7 @@ Po premierze (IV 2028) kolejna decyzja: 850 kupujących (zwrot gotówki) → dod
 
 | ID | Pr. | Zadanie | Kto | Kryterium akceptacji | Zależy od | h |
 |---|---|---|---|---|---|---|
-| ☐ S29-00 | M | Planowanie sprintu, demo na koniec i retrospektywa | Ty | Claude rozbił zadania na specyfikacje; build sprintu zagrany przez ciebie na telefonie; `docs/retro/S29.md` (5 linii) i log godzin uzupełnione | — | 2 |
+| ☐ S29-00 | M | Planowanie sprintu, demo na koniec i retrospektywa | Ty | Claude rozbił zadania na specyfikacje; build sprintu zagrany przez ciebie na telefonie; `docs/retro/S29.md` (5 linii) uzupełniona | — | 2 |
 | ☐ S29-01 | M | Nocne symulacje balansu 960 istot i korekty kosztów mocy w danych | Claude | ≥ 95% istot w przedziale win-rate 35–65%; reszta uzasadniona w `docs/balans.md` | — | 6 |
 | ☐ S29-02 | M | Teksty premiery: opisy bossów, krain i 30 symboli ze źródłami (lista folklorysty z S25), wersja EN | Claude | Teksty w plikach tłumaczeń; opisy źródeł w Księdze | S25-01 | 5 |
 | ☐ S29-03 | C | Kręgi (wersja podstawowa): grupa do 30 osób, kod zaproszenia, wspólna Kronika odkryć, cel tygodniowy | Claude | Dwóch testerów dołącza kodem; Kronika synchronizuje się | — | 8 |
@@ -780,7 +780,7 @@ Po premierze (IV 2028) kolejna decyzja: 850 kupujących (zwrot gotówki) → dod
 
 | ID | Pr. | Zadanie | Kto | Kryterium akceptacji | Zależy od | h |
 |---|---|---|---|---|---|---|
-| ☐ S30-00 | M | Planowanie sprintu, demo na koniec i retrospektywa | Ty | Claude rozbił zadania na specyfikacje; build sprintu zagrany przez ciebie na telefonie; `docs/retro/S30.md` (5 linii) i log godzin uzupełnione | — | 1 |
+| ☐ S30-00 | M | Planowanie sprintu, demo na koniec i retrospektywa | Ty | Claude rozbił zadania na specyfikacje; build sprintu zagrany przez ciebie na telefonie; `docs/retro/S30.md` (5 linii) uzupełniona | — | 1 |
 | ☐ S30-01 | M | Zaległości i przegląd ryzyk premiery; decyzja o linii cięcia | Ty | `docs/ryzyka-premiery.md` z decyzjami | — | 5 |
 | ☐ S30-02 | M | Test premierowy: pełne przejście każdą ścieżką na trzech urządzeniach | Ty | Lista błędów z priorytetami | — | 6 |
 | ☐ S30-03 | S | Korekta EN nowych tekstów przez ochotników z Discorda | Ty | Poprawki wprowadzone | — | 2 |
@@ -795,7 +795,7 @@ Po premierze (IV 2028) kolejna decyzja: 850 kupujących (zwrot gotówki) → dod
 
 | ID | Pr. | Zadanie | Kto | Kryterium akceptacji | Zależy od | h |
 |---|---|---|---|---|---|---|
-| ☐ S31-00 | M | Planowanie sprintu, demo na koniec i retrospektywa | Ty | Claude rozbił zadania na specyfikacje; build sprintu zagrany przez ciebie na telefonie; `docs/retro/S31.md` (5 linii) i log godzin uzupełnione | — | 2 |
+| ☐ S31-00 | M | Planowanie sprintu, demo na koniec i retrospektywa | Ty | Claude rozbił zadania na specyfikacje; build sprintu zagrany przez ciebie na telefonie; `docs/retro/S31.md` (5 linii) uzupełniona | — | 2 |
 | ☐ S31-01 | M | Zamrożenie zawartości, wersja 1.0.0-rc1, lista znanych błędów | Claude | Gałąź release; lista błędów w repozytorium | — | 3 |
 | ☐ S31-02 | M | Pełne QA wg listy `docs/qa-premiery.md`: zakupy, przywracanie, rankingi, zapisy, orientacje, tablet, dostępność | Ty | Lista przejęta w 100%, blokery = 0 | S31-01 | 10 |
 | ☐ S31-03 | M | Poprawki blokerów wersji kandydującej | Claude | Brak otwartych blokerów | S31-02 | 6 |
@@ -814,13 +814,13 @@ Po premierze (IV 2028) kolejna decyzja: 850 kupujących (zwrot gotówki) → dod
 
 | ID | Pr. | Zadanie | Kto | Kryterium akceptacji | Zależy od | h |
 |---|---|---|---|---|---|---|
-| ☐ S32-00 | M | Planowanie sprintu, demo na koniec i retrospektywa | Ty | Claude rozbił zadania na specyfikacje; build sprintu zagrany przez ciebie na telefonie; `docs/retro/S32.md` (5 linii) i log godzin uzupełnione | — | 2 |
+| ☐ S32-00 | M | Planowanie sprintu, demo na koniec i retrospektywa | Ty | Claude rozbił zadania na specyfikacje; build sprintu zagrany przez ciebie na telefonie; `docs/retro/S32.md` (5 linii) uzupełniona | — | 2 |
 | ☐ S32-01 | M | Poprawki po recenzjach sklepów | Claude | Ponowne zgłoszenia złożone w ciągu 24 godzin od odrzucenia | — | 5 |
 | ☐ S32-02 | M | Listy kontrolne premiery: strona gry, Discord, lista mailowa, filmy, wsparcie, szablony odpowiedzi, kopie kluczy podpisu | Ty | Każda pozycja potwierdzona | — | 5 |
 | ☐ S32-03 | M | Test końcowy wersji z produkcji (wydanie wewnętrzne): zakup, ranking, kod istoty | Ty | Brak błędów blokujących | — | 5 |
 | ☐ S32-04 | M | Ustalenie dnia premiery w oknie 24 I – ok. 2 III 2028 (stan recenzji, zapowiedzi CD Projekt Red) | Ty | Data zapisana, komunikat gotowy | — | 2 |
 | ☐ S32-05 | S | Plan pierwszych 4 tygodni po premierze: dyżury, hotfixy, odpowiedzi na opinie | Ty | `docs/po-premierze.md` | — | 3 |
-| ☐ S32-06 | M | Retrospektywa projektu: godziny plan i fakt, koszty vs budżet, decyzje | Ty | `docs/retro-projekt.md` | — | 3 |
+| ☐ S32-06 | M | Retrospektywa projektu: koszty vs budżet, decyzje | Ty | `docs/retro-projekt.md` | — | 3 |
 | ☐ S32-07 | S | Wideo i posty odliczające do premiery | Ty | Minimum 3 materiały | — | 4 |
 
 ## 6. Tabela kontrolna: element aplikacji → sprint
@@ -915,7 +915,7 @@ Gotowe, gdy: node --test, tsc --noEmit i lint przechodzą bez błędów.
 | E. Do premiery | S25–S32 | 234 | 33 |
 | **Razem** | S1–S32 | **984,5** | |
 
-Dostępne: 32 sprinty × ok. 35 h, czyli ok. 1 100 h. Zapas planu: ok. 116 h na zadania, które urosną. Pierwszy tydzień pracy zmierz arkuszem godzin (`S01-12`); po bramce 1 skoryguj stawkę przeliczenia „plan → fakt” w całym planie.
+Dostępne: 32 sprinty × ok. 35 h, czyli ok. 1 100 h. Zapas planu: ok. 116 h na zadania, które urosną.
 
 ## Dodatek D. Odchylenia od biznesplanu (do zatwierdzenia)
 
@@ -937,3 +937,6 @@ Przy rozpisywaniu zadań musiałem doprecyzować kilka miejsc, w których biznes
 | 24 X 2026 | Sprint 2: ukończone S02-01 … S02-09 (kod walki, moduły Qwena, test różnicowy, reducer, bot i `npm run sim`). Synchronizacja planu z decyzjami D11–D21 przy zamknięciu sprintu (S02-00). |
 | 24 X 2026 | Synchronizacja po Sprincie 2 (decyzje D11–D21 z `docs/superpowers/plans/2026-10-24-sprint-2-walka.md`): S02-01 jawne wartości zamiast snapshotów; kryterium „ręka ≤ 5” z S02-04 do S02-03; S02-06 akcje `direct`; S02-07 scenariusze K1–K10 i R1–R7 oraz Obrzęd raz na walkę; S02-11 ścieżka `src/data/balance.json`; S03-01 zastępuje przejściowe `symbols.json`. |
 | 24 X 2026 | Sprint 2: S02-10 zamknięte bez uwag (decyzja właściciela; kryterium „minimum 10 uwag” świadomie pominięte, zapis w `docs/papier-S02.md`), zasady walki v0.1 zatwierdzone. S02-11: wartości bazowe zatwierdzone bez zmian (gracz 40 zdrowia, Leszy 160; bot 55,3% wygranych). |
+| 25 X 2026 | Sprint 3: ukończone S03-01 … S03-08 (dane MVP z efektami, cztery moduły Qwena za pierwszym podejściem, test różnicowy, system efektów, Warsztat, `npm run balance`). S03-01b: Leszy 380 zdrowia, tabela efektów i odczytanie Gromu zatwierdzone, reguła D22 zostaje. Synchronizacja opisów zadań z decyzjami D22–D32 przy zamknięciu sprintu (S03-00). |
+| 25 X 2026 | Synchronizacja po Sprincie 3 (decyzje D22–D32 z `docs/superpowers/plans/2026-10-24-sprint-3-dane-i-warsztat.md`): S03-01 nocny test budżetu to zwykły test jednostkowy (D32), efekty symboli w `docs/efekty-symboli.md` (D23); S03-05 scenariusze 1–10 w `tests/combat/effects.test.ts` i E1–E10 w zasadach walki; S03-06 test wg `docs/efekty-symboli.md`, zależność S03-01 zamiast S03-05 (D24, D25); S03-07 zwrot karty i reszty Atramentu, talia w stanie przebiegu w S06 (D30); S03-08 zadanie bez słowa „nocny”, polecenie `npm run balance` i przedział 35–65% (D27). Zdrowie Leszego 160 → 380 (Z14, S03-01b); reguła D22 (niewydany budżet mocy daje zdrowie) i dane efektów zastępują opis z GDD. |
+| 25 X 2026 | Rezygnacja z zapisywania godzin faktycznych: usunięty `docs/log-godzin.csv` i wszystkie kroki „uzupełnij log godzin” (S01-12, S07-09, S32-06, zadania -00, definicja ukończenia). Kolumna `h` zostaje jako szacunek planu. |
